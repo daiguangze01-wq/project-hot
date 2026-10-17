@@ -706,6 +706,23 @@
       "review_required": false,
       "review_ref": null,
       "notes": "U0 scene+build 已生成；待 Human 目视/手感验收；Fusion 2 未接"
+    },
+    {
+      "id": "TASK-081",
+      "title": "模块化基础角色 + 装备槽原型（3D 纸娃娃）",
+      "status": "planned",
+      "owner": "lead",
+      "reviewer": "reviewer-a",
+      "write_scope": ["client-unity/", "docs/art/", "art/generation/"],
+      "depends_on": ["TASK-080"],
+      "req": ["REQ-VIS-002", "REQ-ART-001", "REQ-ART-002"],
+      "acceptance": "1 个共享基础身体/骨架；hair/top/weapon 至少 3 槽可切换；共享 10 动作；1 槽 UGC 纹理测试；换装不破坏动画",
+      "risk": "high",
+      "handoff_required": false,
+      "handoff": null,
+      "review_required": false,
+      "review_ref": null,
+      "notes": "ADR-013；先做 base_body + 3 件装备，不生成整只角色"
     }
   ]
 }

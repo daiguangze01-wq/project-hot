@@ -1,0 +1,62 @@
+{
+  "version": "0.1.0",
+  "updated": "2026-10-18",
+  "policy": "Generate modular pieces, not full characters. One shared base body + shared animations; each slot is a separate asset aligned to the same proportions/canvas. AI output is concept/layer/material only; 3D meshes still need modeling/rigging/cleanup.",
+  "style": {
+    "camera": "2.5D isometric, fixed 3/4 top-down orthographic camera, pitch 50, yaw 45",
+    "render": "low-poly silhouette with crisp pixel-art texture, 1px dark outline, no anti-aliasing",
+    "palette": "32-color palette: navy #0B1020, ground #1B263B, cyan #63D6FF, gold #F2C14E, danger red #FF6B6B, skin #F2C6A0, steel #DCE6F2",
+    "negative": "full character, multiple characters, animation frames, sprite sheet, photorealistic, 3D render, smooth gradient, anti-aliasing, blur, extra limbs, text, logo, watermark, existing franchise character, trademark"
+  },
+  "slots": {
+    "base_body": {
+      "prompt": "neutral base body mannequin for a 2.5D action game, slim heroic 1.8m proportions, featureless face, neutral A-pose, no clothes except plain undergarment, front 3/4 / side / back turnaround, orthographic, transparent background, same palette, clean silhouette",
+      "use": "reference for shared body/skeleton and all equipment; not a playable final skin"
+    },
+    "hair": {
+      "prompt": "hair piece only, short cyan-black hair, separate asset, front/side/back views, transparent background, aligned to same head proportions as base body, no face, no body, clean 1px outline",
+      "use": "concept / 2D hair layer; 3D needs mesh + bone/skinning"
+    },
+    "top": {
+      "prompt": "top garment only, worn navy short coat with leather straps, no body inside, front/side/back views, transparent background, same palette, clean silhouette, matching base body proportions",
+      "use": "concept / 2D top layer; 3D needs skinned mesh + hidden body regions"
+    },
+    "bottom": {
+      "prompt": "bottom garment only, dark trousers with leather belt, no body inside, front/side/back views, transparent background, same palette, clean silhouette",
+      "use": "concept / 2D bottom layer"
+    },
+    "shoes": {
+      "prompt": "pair of boots only, dark leather with steel toe, front/side/back views, transparent background, same palette, clean silhouette",
+      "use": "concept / 2D shoes layer"
+    },
+    "cape": {
+      "prompt": "short cape only, navy cloth with cyan trim, back and side views, transparent background, clean silhouette, separate from body",
+      "use": "concept / 2D cape layer; 3D needs bone/skinning"
+    },
+    "weapon_main": {
+      "prompt": "single sword only, slim dueling blade, steel with cyan accent, three-quarter/side views, transparent background, clean 1px outline, no hand",
+      "use": "concept / 3D prop; attach to hand bone"
+    },
+    "weapon_offhand": {
+      "prompt": "small offhand guard or dagger only, separate asset, transparent background, clean silhouette, no hand",
+      "use": "concept / 3D prop"
+    }
+  },
+  "ugc_texture_template": {
+    "size": "256x256 or 128x128, power of two",
+    "prompt": "flat UV texture template for a low-poly coat, color-coded UV islands, no lighting, no text, no character, neutral base color",
+    "warning": "AI cannot know our UV layout; use this only as a colour/pattern mood reference. Real template must be exported from the actual mesh UVs."
+  },
+  "2d_layer_rules": {
+    "frame_size": "96x96",
+    "directions": "4 first (S/E/N/W), then 8",
+    "alignment": "same canvas, feet pivot (48,8), same body proportions and animation frame count as base",
+    "layers": "base_body, hair, top, bottom, shoes, cape, weapon; no full character combined"
+  },
+  "3d_rules": {
+    "skeleton": "one shared humanoid skeleton; all equipment skinned to it or attached to sockets",
+    "slots": "hair, face, head_accessory, top, bottom, shoes, gloves, cape, weapon_main, weapon_offhand",
+    "uv": "fixed UV template per item; UGC only replaces texture, never geometry",
+    "ai_note": "AI 3D meshes must be retopologized/rigged/cleaned; do not ship raw AI mesh"
+  }
+}

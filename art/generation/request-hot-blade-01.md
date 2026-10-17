@@ -1,4 +1,8 @@
-# Generation Request — hot_blade_01
+# Generation Request — hot_blade_01（已 superseded）
+
+> **已由 [request-modular-avatar-01.md](request-modular-avatar-01.md) 取代。**
+> 本请求生成的是“整只角色 + 整套动作”，与 ADR-013 的“统一基础模型 + 模块化装备”冲突；
+> 仅保留作为“风格/比例参考”的历史样例，不再用于生产。
 
 > 目标：1 个原创剑客的像素风角色样张 + 动作模块；先做 **4 向**，通过后再扩 8 向。
 > 所有 prompt 的全局风格/负面词来自 [docs/art/style-bible.md](../../docs/art/style-bible.md) 与 [docs/art/prompt-bank.json](../../docs/art/prompt-bank.json)。

@@ -12,7 +12,9 @@
 | [asset-spec.md](asset-spec.md) | 帧数、方向、尺寸、命名、导出、Unity 导入 |
 | [LICENSES.md](LICENSES.md) | 第三方资产/AI 生成许可记录 |
 | [generation/README.md](../../art/generation/README.md) | AI 生成请求/收件流程、需要 Human 的介入 |
-| [generation/request-hot-blade-01.md](../../art/generation/request-hot-blade-01.md) | 第一个角色/10 动作的具体生成请求 |
+| [generation/request-modular-avatar-01.md](../../art/generation/request-modular-avatar-01.md) | **当前有效**：统一基础身体 + 可拆头发/衣服/武器请求 |
+| [modular-avatar-prompts.json](modular-avatar-prompts.json) | 模块化装备/基础身体/UV 模板提示词 |
+| [../09-角色与模块化装备系统](../09-角色与模块化装备系统.md) | 纸娃娃/装备槽/共享动画/UGC 架构 |
 | [_research/ai-pixel-art-tools.md](../_research/ai-pixel-art-tools.md) | 工具/免费资源调研与建议 |
 
 ## 两条资产路线

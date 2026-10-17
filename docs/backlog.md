@@ -65,6 +65,7 @@ last_reviewed: 2026-10-17
 | TASK-070 | Web 可玩 MVP | Lead | TASK-020/021 | `mvp/` | 可双开试玩；15/15 测试；截图 | done |
 | TASK-071 | MVP 独立评审 | mvp-reviewer | TASK-070 | `mvp/review/` | 0B/0M；4 minor | done |
 | TASK-080 | Unity 6.3 客户端 U0 | Lead | TASK-070 | `client-unity/` | Unity 工程/相机/输入/训练场 | in_progress（场景+构建成功；待目视） |
+| TASK-081 | 模块化基础角色 + 装备槽原型 | Lead | TASK-080 | `client-unity/`、`docs/art/`、`art/generation/` | 基础身体 + hair/top/weapon 3 槽 + 共享动作 + 1 槽 UGC | planned（ADR-013） |
 
 ## 3. 任务 Brief 索引
 

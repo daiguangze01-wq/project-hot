@@ -105,6 +105,7 @@ client-unity/
 |---|---|---|---|
 | U0 工程/输入/相机 | 1–2 周 | Unity 工程、URP 正交相机、键盘 Input、1 张训练场；KayKit Knight CC0 占位 + 10 动作状态 | size8/pitch50/yaw45；1.8m≈78px；6/10m 可见；全键盘无鼠标；**camera-relative 屏向移动**（[调研](_research/camera-relative-movement.md)）；美术管线见 [art/README](art/README.md) |
 | U1 本地战斗 | 2–4 周 | `Hot.Sim` 移植、4 核心、木桩、HUD | 与 Web MVP 规则一致；连段/防御/必杀/重生 |
+| U1.5 纸娃娃 | 与 U1 并行 | 共享基础身体/骨架 + hair/top/weapon 槽 + 1 槽 UGC 纹理 | 换装不破坏 10 动作；[docs/09](09-角色与模块化装备系统.md) |
 | U2 Fusion 2 联网 | 4–8 周 | 2 人房、服务器权威、预测/校正、200ms 回放 | 100ms/2% 丢包；150ms 格挡矩阵；C1/C2 负对照 |
 | U3 Steam 构建 | 8–12 周 | Windows IL2CPP、Steamworks、Playtest | Steam Playtest 可安装/启动/退出；无 P0 |
 | U4 垂直切片 | 12–16 周 | 1 城镇/1 野外/2 副本/2 PvP/EA 内容 | 2k CCU 压测；D1/D7 初测 |

@@ -35,6 +35,7 @@ last_reviewed: 2026-10-18
 | [ADR-010](decisions/ADR-010-3d-lowpoly-pixel.md) | 3D 低多边形+像素贴图，不做 voxel/2D billboard | accepted | 美术/管线/预算 | 风格测试/成本 |
 | [ADR-011](decisions/ADR-011-f2p-cosmetics.md) | F2P + 外观/战令/创始人包，不卖属性 | accepted | 商业/经济/口碑 | 收入/规模/Human 改向 |
 | [ADR-012](decisions/ADR-012-pc-steam-first.md) | PC/Steam 优先，全球先发、国服后置 | accepted | 平台/区域/发行 | 国服/主机/合规变化 |
+| [ADR-013](decisions/ADR-013-modular-avatar-and-ugc-textures.md) | 统一基础模型 + 模块化装备 + 固定 UV 可替换纹理 | accepted | 角色/装备/UGC/美术管线 | 2D 纸娃娃改向/成本 |
 
 ---
 
@@ -46,6 +47,7 @@ flowchart TB
   A --> C[ADR-003 X/Y 平面战斗]
   C --> D[ADR-004 全键盘]
   A --> J[ADR-010 3D low-poly + pixel]
+  J --> N[ADR-013 模块化纸娃娃/纹理]
   D --> H[ADR-008 30Hz/预测]
   E[ADR-005 装备=招式] --> F[ADR-006 大厅+副本]
   F --> I[ADR-009 后端]

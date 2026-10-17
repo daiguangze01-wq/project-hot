@@ -20,6 +20,7 @@
 | [docs/06-AI原生开发与多Agent协作规范](docs/06-AI原生开发与多Agent协作规范.md) | 角色、生命周期、交接、评审、门禁、AI 风险、指标 |
 | [docs/07-需求与决策追踪矩阵](docs/07-需求与决策追踪矩阵.md) | REQ ↔ 设计 ↔ 任务 ↔ 测试 ↔ 验收 |
 | [docs/08-Unity客户端与Steam发布路线](docs/08-Unity客户端与Steam发布路线.md) | 正式 Unity 6.3 + Fusion 2 + Steam 路线；Web MVP 仅原型 |
+| [docs/09-角色与模块化装备系统](docs/09-角色与模块化装备系统.md) | 纸娃娃/基础模型/装备槽/共享动画/UGC 纹理架构 |
 | [client-unity/README.md](client-unity/README.md) | Unity 6.3 工程/U0 构建说明（可直接打开） |
 | [docs/_research/camera-relative-movement.md](docs/_research/camera-relative-movement.md) | 2.5D 固定相机移动方向调研与修复记录 |
 | [docs/art/README.md](docs/art/README.md) | 美术资源管线、风格圣经、AI 提示词库、动作规格 |
