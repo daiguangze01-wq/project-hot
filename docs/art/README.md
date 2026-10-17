@@ -11,6 +11,8 @@
 | [prompt-bank.json](prompt-bank.json) | 机器可读的提示词（角色/9 组动作/贴图/负面） |
 | [asset-spec.md](asset-spec.md) | 帧数、方向、尺寸、命名、导出、Unity 导入 |
 | [LICENSES.md](LICENSES.md) | 第三方资产/AI 生成许可记录 |
+| [generation/README.md](../../art/generation/README.md) | AI 生成请求/收件流程、需要 Human 的介入 |
+| [generation/request-hot-blade-01.md](../../art/generation/request-hot-blade-01.md) | 第一个角色/10 动作的具体生成请求 |
 | [_research/ai-pixel-art-tools.md](../_research/ai-pixel-art-tools.md) | 工具/免费资源调研与建议 |
 
 ## 两条资产路线

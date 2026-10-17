@@ -22,3 +22,9 @@ client-unity/ProjectHot/*.csproj
 client-unity/ProjectHot/*.sln
 client-unity/*.png
 client-unity/*.log
+
+# AI generated raw assets (keep inbox READMEs; commit only curated assets explicitly)
+art/generated/inbox/*
+!art/generated/inbox/README.md
+art/generated/_experiments/*
+!art/generated/_experiments/README.md
