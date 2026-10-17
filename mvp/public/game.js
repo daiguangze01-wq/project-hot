@@ -480,19 +480,55 @@
     ctx.closePath();
     ctx.fill();
 
-    // weapon
-    ctx.strokeStyle = '#e9f2ff';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(b.x + dx * 8, baseY - 24 + dy * 4);
-    ctx.lineTo(b.x + dx * 30, baseY - 32 + dy * 10);
-    ctx.stroke();
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(b.x + dx * 8, baseY - 24 + dy * 4);
-    ctx.lineTo(b.x + dx * 28, baseY - 31 + dy * 9);
-    ctx.stroke();
+    // weapon (shape follows the equipped core)
+    const core = p.core || 'blade';
+    if (core === 'fist') {
+      ctx.fillStyle = light;
+      ctx.beginPath();
+      ctx.arc(b.x + dx * 16, baseY - 24 + dy * 7, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#e9f2ff';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    } else if (core === 'spear') {
+      ctx.strokeStyle = '#b98b5a';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(b.x + dx * 6, baseY - 22 + dy * 3);
+      ctx.lineTo(b.x + dx * 46, baseY - 34 + dy * 15);
+      ctx.stroke();
+      ctx.fillStyle = '#e9f2ff';
+      ctx.beginPath();
+      ctx.moveTo(b.x + dx * 46, baseY - 34 + dy * 15);
+      ctx.lineTo(b.x + dx * 52, baseY - 37 + dy * 17);
+      ctx.lineTo(b.x + dx * 45, baseY - 38 + dy * 14);
+      ctx.closePath();
+      ctx.fill();
+    } else if (core === 'staff') {
+      ctx.strokeStyle = '#8b6a45';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(b.x + dx * 5, baseY - 18 + dy * 2);
+      ctx.lineTo(b.x + dx * 34, baseY - 44 + dy * 12);
+      ctx.stroke();
+      ctx.fillStyle = '#b18cff';
+      ctx.beginPath();
+      ctx.arc(b.x + dx * 35, baseY - 46 + dy * 12, 4, 0, Math.PI * 2);
+      ctx.fill();
+    } else {
+      ctx.strokeStyle = '#e9f2ff';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(b.x + dx * 8, baseY - 24 + dy * 4);
+      ctx.lineTo(b.x + dx * 30, baseY - 32 + dy * 10);
+      ctx.stroke();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(b.x + dx * 8, baseY - 24 + dy * 4);
+      ctx.lineTo(b.x + dx * 28, baseY - 31 + dy * 9);
+      ctx.stroke();
+    }
 
     // guard shield
     if (p.guarding) {

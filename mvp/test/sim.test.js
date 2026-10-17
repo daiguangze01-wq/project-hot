@@ -2,7 +2,7 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { Sim, MOVES, ARENA_HALF, PLAYER_RADIUS } = require('../sim');
+const { Sim, MOVES, CORES, ARENA_HALF, PLAYER_RADIUS } = require('../sim');
 
 function step(sim, seconds) {
   const n = Math.ceil(seconds * 30);
@@ -120,13 +120,20 @@ test('V jump lifts the player and lands', () => {
 });
 
 test('cores change the moveset and reject prototype keys', () => {
+  assert.equal(Object.keys(CORES).length, 4, '4 cores in the data file');
+  assert.ok(CORES.spear && CORES.staff);
   const sim = new Sim();
+  const spear = sim.addPlayer('Spear', 'spear');
+  const staff = sim.addPlayer('Staff', 'staff');
+  assert.equal(sim.getMove(spear, 'skill2').ranged, true);
+  assert.equal(sim.getMove(staff, 'skill2').aoe, true);
+  assert.equal(sim.getMove(staff, 'skill2').ranged, false);
   const blade = sim.addPlayer('Blade', 'blade');
   const fist = sim.addPlayer('Fist', 'fist');
   assert.equal(blade.core, 'blade');
   assert.equal(fist.core, 'fist');
   assert.notEqual(sim.getMove(blade, 'skill1').damage, sim.getMove(fist, 'skill1').damage);
-  assert.equal(sim.getState().players[0].coreName, '剑豪');
+  assert.equal(sim.getState().players.find((p) => p.core === 'blade').coreName, '剑豪');
 
   const ghost = sim.addPlayer('Ghost', '__proto__');
   assert.equal(ghost.core, 'blade', 'prototype key falls back to blade');

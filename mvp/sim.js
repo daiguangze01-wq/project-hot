@@ -45,32 +45,9 @@ const MOVES = {
   }
 };
 
-const CORES = {
-  blade: {
-    name: '剑豪',
-    mods: {
-      light: { damage: 30 },
-      heavy: { damage: 80 },
-      skill1: { damage: 70, range: 2.8, mp: 20, cooldown: 4 },
-      skill2: { damage: 60, range: 7.0, width: 1.4, mp: 30, cooldown: 6, ranged: true },
-      skill3: { damage: 85, range: 3.0, mp: 25, cooldown: 7, arc: 160 },
-      skill4: { damage: 120, range: 3.4, mp: 35, cooldown: 9, arc: 360, aoe: true },
-      ultimate: { damage: 220, range: 4.8 }
-    }
-  },
-  fist: {
-    name: '拳师',
-    mods: {
-      light: { damage: 26, range: 2.0 },
-      heavy: { damage: 85, range: 2.5, startup: 0.24, recovery: 0.28 },
-      skill1: { damage: 60, range: 2.3, mp: 15, cooldown: 3, dash: 1.6 },
-      skill2: { damage: 75, range: 3.0, arc: 180, mp: 25, cooldown: 5, ranged: false, width: 0 },
-      skill3: { damage: 95, range: 2.6, mp: 20, cooldown: 6, arc: 200 },
-      skill4: { damage: 100, range: 3.8, mp: 30, cooldown: 8, arc: 360, aoe: true },
-      ultimate: { damage: 240, range: 4.2 }
-    }
-  }
-};
+// Data-driven battle cores: docs/00 calls for equipment-driven movesets.
+// MVP loads 4 core tables from cores.json; armor/runes remain out of scope.
+const CORES = require('./cores.json');
 
 const PLAYER_COLORS = ['#63d6ff', '#ffb84d', '#a78bfa', '#61e28f'];
 const SPAWNS = [

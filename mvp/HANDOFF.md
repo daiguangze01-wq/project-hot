@@ -5,7 +5,8 @@ TASK: TASK-070
 STATUS: done (REV-071 follow-up: 0 blocker / 0 major / 4 minor)
 
 CHANGED:
-  mvp/sim.js                      # authoritative 30Hz sim, 2 cores, jump, guard/perfect, respawn
+  mvp/sim.js                      # authoritative 30Hz sim, 4 cores, jump, guard/perfect, respawn
+  mvp/cores.json                  # data-driven core tables (blade/fist/spear/staff)
   mvp/server.js                   # HTTP + SSE, session token, shape validation, fixed-step tick
   mvp/public/index.html           # HUD/canvas shell
   mvp/public/style.css            # pixel-ish HUD
@@ -22,7 +23,7 @@ DECISIONS:
   - MVP transport is HTTP POST /input + SSE /events (zero deps), not Fusion; production stays Fusion 2.
   - Each SSE session gets a random token; /input is bound to that token/player (B-2 fix).
   - Combat is authoritative in mvp/sim.js: clients send held+actions only.
-  - Two battle cores (剑豪/拳师) demonstrate minimal equipment=moveset; armor/runes/cosmetics out of MVP.
+  - Four data-driven battle cores (剑豪/拳师/枪兵/术士) demonstrate minimal equipment=moveset; armor/runes/cosmetics out of MVP.
   - V jump implemented; C+X/Space guard; Z+X+C ultimate; 70ms client combo buffer.
   - 30Hz fixed-step accumulator from process.hrtime (M-1 fix); measured 30.33Hz over 3s.
   - Default bind 127.0.0.1; no auth/rate-limit/anti-cheat -> not for exposure.
@@ -38,7 +39,7 @@ EVIDENCE:
 RISKS:
   - Not M0 engine validation; Web Canvas is visual/transport approximation.
   - No prediction/rollback; 33ms input + 30Hz snapshots; remote latency not representative.
-  - Equipment=moveset only 2 cores; no armor/runes/cosmetics/data-driven assets.
+  - Equipment=moveset only 4 data-driven cores; no armor/runes/cosmetics/1.0 assets.
   - No account/rooms/matchmaking/persistence/anti-cheat/rate limit; localhost only.
   - Single active-frame hit, no hitstun/knockup/Z hitboxes; prototype-level combat.
   - Reviewer follow-up must confirm fixes; if new blocker appears, reopen TASK-070.
