@@ -130,7 +130,8 @@ client-unity/
 | Unity Editor | **已安装 6.3 LTS 6000.3.26f1**，`D:\Unity\Hub\Editor\6000.3.26f1\Editor\Unity.exe` | 已通过 Hub CLI 安装；`Unity.exe -version` 验证 6000.3.26f1 |
 | Windows Build Support (IL2CPP) | **已安装**（`windowsstandalonesupport\Variations\win64_player_*_il2cpp`） | 已随 Editor 模块安装 |
 | Unity 账号/Personal License | **已登录/已激活 Personal** | Licensing Client resolved Unity Personal（无限期） |
-| 工程/U0 | **已创建** `client-unity/ProjectHot`；Arena 场景 + Windows 构建成功 | 见 `client-unity/HANDOFF.md` |
+| 工程/U0 | **已完成**：Arena/相机/键盘/占位动画 + Windows 构建；人工手感通过 | 见 `client-unity/HANDOFF.md` |
+| U0.5 纸娃娃框架 | **原型中**：4 槽 + 本地 UGC 纹理测试通过；缺真实 base_body/hair/top | `client-unity/HANDOFF-AVATAR.md` |
 | .NET SDK / Visual Studio | 未安装 | U0 Mono 构建不需要；IL2CPP/IDE 构建前再装 VS Community |
 | Fusion 2 | 未安装 | Photon 账号已有；需要创建 App/导入 SDK |
 | Steamworks | 未配置 | 合作伙伴账号/AppID |
@@ -138,8 +139,8 @@ client-unity/
 
 ## 8. 下一步
 
-1. Human 打开 `client-unity/ProjectHot`，Arena 场景 Play；或直接运行 `Builds/U0/ProjectHot.exe`，目视验收相机/输入/木桩。
-2. U1：把 `mvp/sim.js` 规则移植到 `Assets/Hot/Sim`（纯 C#），接 4 核心/连招/防御/必杀。
-3. U2：创建 Photon Fusion App，导入 Fusion 2 SDK；2 人服务器权威房。
-4. U3：IL2CPP + Steamworks/Playtest；届时安装 Visual Studio C++ 工作负载。
-5. Steamworks 账号/AppID 由 Human 准备。
+1. **TASK-081**：基础身体 + 真实 hair/top 装备槽 + UGC 纹理；替换 KayKit 烘焙身体。见 [docs/09](09-角色与模块化装备系统.md)。
+2. 用 [request-modular-avatar-01](../art/generation/request-modular-avatar-01.md) 生成 base_body + 单件装备（不要整只角色/整套动作）。
+3. U1：把 `mvp/sim.js` 规则移植到 `Assets/Hot/Sim`（纯 C#），接 4 核心/连招/防御/必杀。
+4. U2：创建 Photon Fusion App，导入 Fusion 2 SDK；2 人服务器权威房。
+5. U3：IL2CPP + Steamworks/Playtest；届时安装 Visual Studio C++ 工作负载；Steamworks 账号/AppID 由 Human 准备。

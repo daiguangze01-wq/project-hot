@@ -2,7 +2,7 @@
 
 ```text
 TASK: TASK-080
-STATUS: partial
+STATUS: done
 
 CHANGED:
   client-unity/ProjectHot/Assets/Hot/Client/OrthoCameraRig.cs
@@ -51,7 +51,9 @@ EVIDENCE:
   - `Hot.Editor.U0Checks`: PASS D=screen-right/W=screen-up/S=opposite/D-W perpendicular; exit 0.
   - KayKit build: 10 Animator states, 76 clips imported; U0 build exit 0.
   - Visual capture `client-unity/screenshots/u0-knight.png`: Knight visible, dummy/HUD render; captured via `-capture`/ScreenCapture.
-  - Still needs Human Play/feel QA for animation timing and readability.
+  - Human playtest: "大部分功能都没问题"; camera-relative movement and double-tap run accepted; animation timing/readability still needs iterative polish.
+  - `client-unity/screenshots/u0-avatar-slots.png`: modular slot HUD + UGC test overlay.
+  - `Hot.Editor.AvatarChecks`: PASS UGC 128x128 + 4 slots + head/weapon/offhand switching.
 
 RISKS:
   - U0 is a local movement/attack dummy prototype, not the authoritative simulator or Fusion netcode.
@@ -61,7 +63,7 @@ RISKS:
   - Builds/Library generated, ignored by git.
 
 NEXT:
-  1. Human opens client-unity/ProjectHot in Unity 6.3.26f1, opens Assets/Scenes/Arena.unity, Play; or runs the rebuilt Builds/U0/ProjectHot.exe; confirm D=screen-right/W=screen-up and camera/input/dummy.
+  1. TASK-081: modular avatar base body/equipment slots + UGC texture (see client-unity/HANDOFF-AVATAR.md).
   2. U1: port mvp/sim.js rules to Assets/Hot/Sim (pure C#), 4 cores, HUD.
   3. U2: import Fusion 2, 2-player authoritative room.
   4. U3: IL2CPP + Steamworks/Playtest.

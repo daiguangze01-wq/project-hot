@@ -693,7 +693,7 @@
     {
       "id": "TASK-080",
       "title": "Unity 6.3 客户端 U0（相机/输入/训练场）",
-      "status": "in_progress",
+      "status": "done",
       "owner": "lead",
       "reviewer": "reviewer-a",
       "write_scope": ["client-unity/"],
@@ -710,7 +710,7 @@
     {
       "id": "TASK-081",
       "title": "模块化基础角色 + 装备槽原型（3D 纸娃娃）",
-      "status": "planned",
+      "status": "in_progress",
       "owner": "lead",
       "reviewer": "reviewer-a",
       "write_scope": ["client-unity/", "docs/art/", "art/generation/"],
@@ -718,11 +718,11 @@
       "req": ["REQ-VIS-002", "REQ-ART-001", "REQ-ART-002"],
       "acceptance": "1 个共享基础身体/骨架；hair/top/weapon 至少 3 槽可切换；共享 10 动作；1 槽 UGC 纹理测试；换装不破坏动画",
       "risk": "high",
-      "handoff_required": false,
-      "handoff": null,
+      "handoff_required": true,
+      "handoff": "client-unity/HANDOFF-AVATAR.md",
       "review_required": false,
       "review_ref": null,
-      "notes": "ADR-013；先做 base_body + 3 件装备，不生成整只角色"
+      "notes": "ADR-013；U0 已接 4 槽 + 本地 UGC 测试；缺真实 base_body/hair/top"
     }
   ]
 }

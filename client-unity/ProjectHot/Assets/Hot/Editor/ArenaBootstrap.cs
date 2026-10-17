@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -119,6 +120,51 @@ namespace Hot.Editor
                 var driver = knight.AddComponent<CharacterAnimationDriver>();
                 driver.animator = animator;
                 driver.motor = motor;
+
+                // U0 modular-avatar scaffold. KayKit's parts stand in for future
+                // hair/top/bottom items; slots are already data-driven.
+                GameObject FindPart(string n)
+                {
+                    foreach (var t in knight.GetComponentsInChildren<Transform>(true))
+                        if (t.name == n) return t.gameObject;
+                    return null;
+                }
+
+                var equipment = knight.AddComponent<AvatarEquipmentController>();
+                equipment.slots = new List<AvatarEquipmentController.Slot>
+                {
+                    new AvatarEquipmentController.Slot
+                    {
+                        slot = AvatarSlot.HeadAccessory,
+                        options = new List<GameObject> { FindPart("Knight_Helmet") }
+                    },
+                    new AvatarEquipmentController.Slot
+                    {
+                        slot = AvatarSlot.Cape,
+                        options = new List<GameObject> { FindPart("Knight_Cape") }
+                    },
+                    new AvatarEquipmentController.Slot
+                    {
+                        slot = AvatarSlot.WeaponMain,
+                        options = new List<GameObject> { FindPart("1H_Sword"), FindPart("2H_Sword") }
+                    },
+                    new AvatarEquipmentController.Slot
+                    {
+                        slot = AvatarSlot.WeaponOffhand,
+                        options = new List<GameObject>
+                        {
+                            FindPart("Round_Shield"), FindPart("Badge_Shield"), FindPart("Spike_Shield")
+                        }
+                    }
+                };
+                var knightBody = FindPart("Knight_Body");
+                equipment.ugcTarget = knightBody != null ? knightBody.GetComponent<Renderer>() : null;
+                var debug = knight.AddComponent<AvatarDebugInput>();
+                debug.equipment = equipment;
+
+                // The FBX has an extra offhand sword that is not one of our slots.
+                var strayOffhand = FindPart("1H_Sword_Offhand");
+                if (strayOffhand != null) strayOffhand.SetActive(false);
             }
 
             // Training dummy.

@@ -8,23 +8,20 @@ namespace Hot.Editor
         public static void Run()
         {
             const string path = "Assets/Hot/Art/KayKit/Knight.fbx";
-            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
-            var assets = AssetDatabase.LoadAllAssetsAtPath(path);
-            int clipCount = 0;
-            foreach (var a in assets)
-            {
-                if (a is AnimationClip clip) clipCount++;
-            }
             var go = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-            if (go != null)
+            if (go == null) { Debug.LogError("missing"); EditorApplication.Exit(1); return; }
+
+            foreach (var smr in go.GetComponentsInChildren<SkinnedMeshRenderer>())
             {
-                var renderers = go.GetComponentsInChildren<Renderer>();
-                var bounds = new Bounds(go.transform.position, Vector3.zero);
-                foreach (var r in renderers) bounds.Encapsulate(r.bounds);
-                Debug.Log("KAYKIT_MODEL prefab=" + go.name + " renderers=" + renderers.Length + " bounds=" + bounds.size.ToString("F2"));
-                foreach (var r in renderers) Debug.Log("KAYKIT_RENDERER " + r.name + " mats=" + r.sharedMaterials.Length);
+                Debug.Log("KAYKIT_SMR " + smr.name + " root=" + smr.rootBone?.name);
+                foreach (var bone in smr.bones)
+                {
+                    if (bone != null && (bone.name.Contains("Head") || bone.name.Contains("Spine") ||
+                        bone.name.Contains("Neck") || bone.name.Contains("Hips") ||
+                        bone.name.Contains("Shoulder") || bone.name.Contains("Hand")))
+                        Debug.Log("KAYKIT_BONE " + bone.name);
+                }
             }
-            Debug.Log("KAYKIT_CLIPS=" + clipCount);
             EditorApplication.Exit(0);
         }
     }
