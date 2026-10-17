@@ -27,7 +27,7 @@
 | [scripts/check-agent-work.ps1](scripts/check-agent-work.ps1) | 任务/写域/handoff/评审强制检查 |
 | [validation/REPORT.md](validation/REPORT.md) | M0-lite 技术验证汇总：相机/联网/键盘，conditional go |
 | [validation/review/REVIEW.md](validation/review/REVIEW.md) | 技术验证独立复核（6B/5M/9m） |
-| [docs/decisions/DR-002](docs/decisions/DR-002-validation-baseline-fixes.md) | 验证后基线修正 D1–D6（pending Human） |
+| [docs/decisions/DR-002](docs/decisions/DR-002-validation-baseline-fixes.md) | 验证后基线修正 D1–D6（approved 2026-10-18） |
 | [docs/_qa/qa-report.md](docs/_qa/qa-report.md) | 全键盘/文档 QA 报告 |
 | [docs/_review/](docs/_review/) | 独立评审报告 |
 | [docs/runs/](docs/runs/) | Agent 运行记录与复盘 |
@@ -73,14 +73,14 @@
 - [x] Human 确认 AI-native 执行/成本模型（1 Human + AI agents + 外包；token 不设上限）
 - [x] 多 Agent 保障落地：`docs/tasks.json`、handoff 索引、skill、强制检查器（当前 37 任务检查通过）
 - [x] 技术验证 M0-lite：相机 pass（模型级）、联网 conditional、键盘 conditional；**不是 validation passed**
-- [ ] open blockers：REVIEW B1–B6 / DR-002 D1–D6、M0 引擎/键盘实测、赛季产能、REV-001 M-1/M-3、DR-001 items 1–13
+- [x] DR-002 D1–D6 已批准；docs/00 v0.3.0、ADR-002/004/008 已复访
+- [ ] open blockers：B6 真实键盘 QA（TASK-066）、M0 引擎实测、赛季产能、REV-001 M-1/M-3、DR-001 items 1–13
 - [ ] run log 复盘完成（open blocker 关闭后）
 
 ---
 
 ## 下一步
 
-1. Human 批准/修改 DR-002 D1–D6；批准后更新 `docs/00/02/03/04/07`，复访 ADR-002/004/008。
-2. M0 引擎验证：URP 相机/78px/6·10·14m；Fusion 2 格挡矩阵（C1/C2 负对照）；3 款键盘人工 QA。
-3. M0 原型：战斗、联网、美术风格测试、后端骨架。
-4. 关闭 REVIEW B1–B6、DR-001 items 1–13、赛季产能后，再把 `docs/00`–`docs/07` 从 `draft` 更新为 `reviewed`。
+1. M0 引擎验证：URP 相机/78px/6·10m；Fusion 2 格挡矩阵（C1/C2 负对照）；3 款键盘人工 QA（TASK-066）。
+2. M0 原型：战斗、联网、美术风格测试、后端骨架。
+3. 关闭 B6、DR-001 items 1–13、赛季产能后，再把 `docs/00`–`docs/07` 从 `draft` 更新为 `reviewed`。

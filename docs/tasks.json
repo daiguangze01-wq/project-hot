@@ -625,7 +625,7 @@
     {
       "id": "TASK-065",
       "title": "DR-002 验证后基线修正决策",
-      "status": "blocked",
+      "status": "done",
       "owner": "lead",
       "reviewer": "human-architect",
       "write_scope": ["docs/decisions/DR-002-validation-baseline-fixes.md"],
@@ -637,7 +637,24 @@
       "handoff": null,
       "review_required": false,
       "review_ref": null,
-      "notes": "pending Human；批准前 docs 基线不冻结"
+      "notes": "D1–D6 approved 2026-10-18；已同步 docs/00/02/03/04/07 + ADR-002/004/008"
+    },
+    {
+      "id": "TASK-066",
+      "title": "3 款键盘人工 QA（B6）",
+      "status": "planned",
+      "owner": "qa",
+      "reviewer": "lead",
+      "write_scope": ["validation/input/hardware-qa/"],
+      "depends_on": ["TASK-062"],
+      "req": ["REQ-CTL-001", "REQ-CTL-003", "REQ-QA-001"],
+      "acceptance": "NKRO/6KRO/薄膜 3 款键盘 ×100 次组合成功率 ≥99%；manual_test.html 报告；OS/IME 检查",
+      "risk": "high",
+      "handoff_required": true,
+      "handoff": "validation/input/hardware-qa/HANDOFF.md",
+      "review_required": false,
+      "review_ref": null,
+      "notes": "B6；需要人类/QA 物理键盘，AI 不能替代"
     }
   ]
 }

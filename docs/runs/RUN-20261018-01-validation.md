@@ -40,7 +40,7 @@
 ## 5. 未关闭
 
 - B1 1.5m vs 1.8m；B2 yaw 未定义；B3 14m/zoom；B4 C+X vs 必杀；B5 容差/人群定义；B6 真实键盘 QA。
-- 决策请求：`docs/decisions/DR-002-validation-baseline-fixes.md`（D1–D6，pending Human）。
+- 决策请求：`docs/decisions/DR-002-validation-baseline-fixes.md`（D1–D6，**approved 2026-10-18**；docs/00 v0.3.0、ADR-002/004/008 已复访）。
 - **M0 前置**：URP 相机对账、Fusion 格挡矩阵、3 款键盘 QA；未完成前不冻结 1.0 基线。
 
 ## 6. 产物

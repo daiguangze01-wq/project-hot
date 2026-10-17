@@ -1,6 +1,6 @@
 # DR-002 — 技术验证后的基线修正请求
 
-- 状态：pending Human
+- 状态：**approved 2026-10-18（D1–D6 全部按推荐值）**
 - 日期：2026-10-18
 - 提出人：Lead / Orchestrator
 - 关联：`validation/REPORT.md`、`validation/review/REVIEW.md`、TASK-060/061/062/063
@@ -44,11 +44,11 @@
 
 ## 5. Human 决定
 
-- D1：待填
-- D2：待填
-- D3：待填
-- D4：待填
-- D5：待填
-- D6：待填
-- 日期：待填
-- 备注：批准后更新 docs/00/02/03/04/07、ADR-002/004/008 复访记录，并关闭 REVIEW B1–B5；B6 由 QA 执行后关闭。
+- D1：**approved** —— 1.8m 有效剪影；70–90px 仅默认 size8/pitch50/1.0×。
+- D2：**approved** —— yaw=45°、pitch=50°。
+- D3：**approved** —— 14m 用边缘指示器/小地图；剪影验收只覆盖 6/10m；20/30m 用公式（p50 约 17/26）。
+- D4：**approved** —— Z 按住时 C+X 防御让位、Z+X+C 必杀优先；C+X 统一 ±50ms（3f）。
+- D5：**approved** —— 在线 150ms、本地 100ms、防御 cap 200ms、容差 0.5 tick、输入缓冲 2 帧；100ms 在线不上线。
+- D6：**approved** —— 人类 QA 用 `validation/input/manual_test.html` 跑 3 款键盘 ×100 次；B6 由 QA 执行后关闭。
+- 日期：2026-10-18
+- 备注：批准值按推荐值；已同步 `docs/00/02/03/04/07` 与 ADR-002/004/008 复访；REVIEW B1–B5 关闭，B6 仍 open（真实键盘 QA 未执行）。

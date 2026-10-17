@@ -28,7 +28,9 @@
 | B5 | “1 tick 容差 / 误判≤5%”无定义 | σ=25 时 FP 0.5–5.7%；σ=50 时 8.5%；0.5 tick 4.4–4.9% | DR-002 D5：定义容差/人群/单双边 |
 | B6 | 无真实键盘数据 | 3 款键盘×100 次 ≥99% 未执行；manual_test.html 仅页面逻辑 | 人工 QA；AI 不能替代 |
 
-> 详细问题、claim audit、M0 矩阵：`validation/review/REVIEW.md`；决策请求：`docs/decisions/DR-002-validation-baseline-fixes.md`。
+> 详细问题、claim audit、M0 矩阵：`validation/review/REVIEW.md`；决策请求：`docs/decisions/DR-002-validation-baseline-fixes.md`（**approved 2026-10-18**）。
+>
+> **关闭状态（2026-10-18）**：B1–B5 已按 DR-002 推荐值写入 `docs/00` v0.3.0 / `docs/02` / `docs/03` / `docs/04` / `docs/07`，ADR-002/004/008 已复访；**B6 仍 open（TASK-066，3 款键盘人工 QA）**。模型级结论仍不是游戏验证通过。
 
 ---
 
@@ -129,7 +131,7 @@
 见 [DR-002](../docs/decisions/DR-002-validation-baseline-fixes.md)：
 
 - D1 相机高度 1.8m；D2 yaw=45°；D3 14m 边缘指示/相机 lead + 20/30 公式；D4 Z 按住时必杀优先、C+X ±50ms；D5 150ms/cap200/0.5 tick/人群定义；D6 3 款键盘人工 QA。
-- **批准前不要修改 docs/00 基线，也不要把 TASK-060/061/062 写成“验证通过”。**
+- **DR-002 已批准并同步 docs；B6 真实键盘 QA 仍 open，不能把 TASK-060/061/062 写成“游戏验证通过”。**
 
 ---
 
@@ -146,8 +148,8 @@
 
 ## 8. 建议下一步
 
-1. **Human 批准/修改 DR-002 D1–D6**（相机/输入/联网基线）。
-2. 批准后更新 `docs/00/02/03/04/07`，复访 ADR-002/004/008，关闭 REVIEW B1–B5。
+1. **DR-002 D1–D6 已批准（2026-10-18）**；docs/00 v0.3.0、ADR-002/004/008 已复访，REVIEW B1–B5 已按批准值关闭。
+2. 执行 M0 引擎/QA 验证；B6 真实键盘 QA 仍 open。
 3. 进入 M0 引擎验证（URP + Fusion）；B6 由 QA/人类跑 3 款键盘。
 4. **在 M0 通过前，不把本报告写成 “validation passed”，不冻结 1.0 范围/预算。**
 

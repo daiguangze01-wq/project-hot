@@ -25,8 +25,17 @@
 
 - 客户端 60fps；输入缓冲；客户端预测 + 服务器校正。
 - 命中盒回放 ≤200ms；同区 RTT 目标 <80ms。
-- 30Hz 基线；排位 1v1/3v3 可评估 60Hz。
+- 30Hz 基线；排位 1v1/3v3 **推荐 60Hz**（成本/M0 A/B 后再定是否默认）。
 - 保留 FishNet/自研迁移触发条件；不首版自研。
+
+**2026-10-18 复访（DR-002 批准）**：
+
+- 完美格挡：本地/离线 100ms；在线 **150ms**；**100ms 在线不上线**（模型误判 5.7% >5%）。
+- 防御交互回放 cap **200ms**；容差 **0.5 tick**（30Hz≤16.7ms/60Hz≤8.3ms）；输入缓冲 2 帧。
+- 判定必须用 `ClientTimeMs` + defender-favoring；禁止按到达时间判（RTT100 仅 27.3%/6.1%）。
+- 60Hz 收益明确（量化 p95 25.8→12.9ms、误判更低），但服务器成本未评估。
+- M0 先跑 C1/C2 负对照，再跑 A/B/C 决策格；与 `validation/netcode/results.csv` 对账。
+- 依据：`validation/netcode/REPORT.md`、`validation/review/REVIEW.md` B5/M2/M5、`docs/decisions/DR-002-validation-baseline-fixes.md`。
 
 ## 4. 后果
 

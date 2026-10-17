@@ -27,6 +27,15 @@
 - 不旋转、不跟随鼠标、不做相机碰撞。
 - 若风格测试证明纵深不足，可在 ADR 中改为低 FOV 透视；当前默认正交。
 
+**2026-10-18 复访（DR-002 批准）**：
+
+- 默认 **pitch=50°、yaw=45°**，orthographic size 默认 **8**（范围 7–9）；45–55° 仅风格测试范围。
+- 角色高度口径：**有效剪影 1.8m（含帽/武器）**；70–90px 只对默认 size8/pitch50/1.0× 成立（78.1px）。
+- **14m 正前方在居中相机下不可见**：默认 14m 只做屏幕边缘指示/小地图，剪影验收只覆盖 6/10m。
+- 若必须 14m 入屏：camera anchor ≥0.765（全身+24px）/≥0.670（脚点），后方只剩约 4.91/6.89m；属本 ADR 再次复访。
+- 20/30m zoom 用 `S≥d·sin(pitch)` / `S≥(d·sin p+1.8cos p)·1080/1032`；p50 约 17/26，不写死 15/23。
+- 依据：`validation/camera/REPORT.md`、`validation/review/REVIEW.md` B1–B3、`docs/decisions/DR-002-validation-baseline-fixes.md`。
+
 ## 4. 后果
 
 ### 正面

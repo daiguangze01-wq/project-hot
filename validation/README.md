@@ -1,6 +1,6 @@
 # 技术验证（M0-lite）
 
-> **结果（2026-10-18）**：三路验证完成，结论 **conditional go to M0**，不是 validation passed。汇总见 [`REPORT.md`](REPORT.md)；独立复核见 [`review/REVIEW.md`](review/REVIEW.md)；基线修正请求见 [`DR-002`](../docs/decisions/DR-002-validation-baseline-fixes.md)。
+> **结果（2026-10-18）**：三路验证完成，结论 **conditional go to M0**，不是 validation passed。汇总见 [`REPORT.md`](REPORT.md)；独立复核见 [`review/REVIEW.md`](review/REVIEW.md)；基线修正 [`DR-002`](../docs/decisions/DR-002-validation-baseline-fixes.md) 已获 Human 批准（D1–D6）。B6 真实键盘 QA 仍 open。
 
 > 目的：在 **不引入 Unity/Fusion** 的前提下，用可复现的模型/渲染先验证 2.5D 相机可读性、完美格挡时序、键盘组合可行性。
 > 这不是最终游戏原型，而是“决策级证据”：通过 → 进入引擎集成；不通过 → 调整基线后再集成。

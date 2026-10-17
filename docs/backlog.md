@@ -60,7 +60,8 @@ last_reviewed: 2026-10-17
 | TASK-062 | 键盘 rollover/组合验证 | input-validator | TASK-021 | `validation/input/` | conditional；M3 fixed；硬件 QA 待 | done |
 | TASK-063 | 技术验证独立复核 | validation-reviewer | TASK-060–062 | `validation/review/` | 6B/5M/9m | done |
 | TASK-064 | 技术验证汇总 | Lead | TASK-060–063 | `validation/REPORT.md` | conditional go to M0 | done |
-| TASK-065 | DR-002 验证后基线修正 | Lead + Human | TASK-060–063 | `docs/decisions/DR-002-validation-baseline-fixes.md` | D1–D6 决策 | pending Human |
+| TASK-065 | DR-002 验证后基线修正 | Lead + Human | TASK-060–063 | `docs/decisions/DR-002-validation-baseline-fixes.md` | D1–D6 approved | done |
+| TASK-066 | 3 款键盘人工 QA（B6） | QA + Human | TASK-062 | `validation/input/hardware-qa/` | 3 款×100 次 ≥99% | planned |
 
 ## 3. 任务 Brief 索引
 
