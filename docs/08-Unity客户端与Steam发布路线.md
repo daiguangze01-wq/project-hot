@@ -125,15 +125,19 @@ client-unity/
 
 | 项 | 状态 | 需要 |
 |---|---|---|
-| Unity 6.3 LTS | **未安装** | Unity Hub + Editor + Windows Build Support |
-| .NET SDK | 未安装 | 可选；用于纯 C# `Hot.Sim` 单测 |
+| Unity Hub | **已安装 3.22.3**（MSIX，per-user） | 已启动；等待 Unity 账号登录 |
+| Unity Editor | **已安装 6.3 LTS 6000.3.26f1**，`D:\Unity\Hub\Editor\6000.3.26f1\Editor\Unity.exe` | 已通过 Hub CLI 安装；`Unity.exe -version` 验证 6000.3.26f1 |
+| Windows Build Support (IL2CPP) | **已安装**（`windowsstandalonesupport\Variations\win64_player_*_il2cpp`） | 已随 Editor 模块安装 |
+| Unity 账号/Personal License | **待 Human 登录** | https://id.unity.com/en/account/new → Hub 登录 → Licenses → Personal |
+| .NET SDK / Visual Studio | 未安装 | 可选；C# IDE/IL2CPP 构建时再装 VS Community |
 | Fusion 2 | 未安装 | Photon 账号 + Fusion 2 SDK |
 | Steamworks | 未配置 | 合作伙伴账号/AppID |
 | 3 款键盘 | 未测 | B6 QA 包 |
 
 ## 8. 下一步
 
-1. Human 安装 Unity 6.3 LTS（Windows Build Support）+ 创建 URP 工程。
-2. 申请/导入 Fusion 2；创建 2 人测试房。
-3. Lead 按 U0–U2 移植 `Hot.Sim`/输入/相机/联网；每个阶段独立测试。
-4. Steamworks 账号/AppID 由 Human 准备，U3 接入。
+1. Human 用 Unity Hub 登录 Unity 账号并领取 **Personal License**（Editor 已安装）。
+2. 创建 URP 工程 `ProjectHot`（Unity 6.3 LTS），把 `client-unity/Assets/Hot/Data/cores.json` 复制进去。
+3. 申请/导入 Fusion 2；创建 2 人测试房。
+4. Lead 按 U0–U2 移植 `Hot.Sim`/输入/相机/联网；每个阶段独立测试。
+5. Steamworks 账号/AppID 由 Human 准备，U3 接入。

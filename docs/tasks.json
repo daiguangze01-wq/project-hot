@@ -705,7 +705,7 @@
       "handoff": null,
       "review_required": false,
       "review_ref": null,
-      "notes": "blocked：本机未安装 Unity/.NET；staging + docs/08 已就绪，安装后开工"
+      "notes": "Unity 6.3.26f1 + Hub + Windows IL2CPP 已装；等待 Unity 账号/Personal License 与 Fusion 2"
     }
   ]
 }

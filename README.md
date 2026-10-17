@@ -83,7 +83,7 @@
 - [x] DR-002 D1–D6 已批准；docs/00 v0.3.0、ADR-002/004/008 已复访
 - [x] Web 可玩 MVP：`mvp/`（双开多人、全键盘、服务器权威；15/15 测试）
 - [x] MVP 独立评审：[REV-071](mvp/review/REVIEW.md) + [follow-up](mvp/review/REVIEW-FOLLOWUP.md)：0B/0M/4 minor
-- [ ] Unity 正式客户端（TASK-080，**blocked：本机未安装 Unity 6.3 LTS/Fusion 2**；staging/docs 已就绪）
+- [ ] Unity 正式客户端（TASK-080：**Hub 3.22.3 + Unity 6.3.26f1 + Windows IL2CPP 已装**；等 Unity 账号 License/Fusion 2）
 - [ ] open blockers：B6 真实键盘 QA（TASK-066，kit ready 等人工）、M0 引擎实测、赛季产能、REV-001 M-1/M-3、DR-001 items 1–13
 - [ ] run log 复盘完成（open blocker 关闭后）
 
