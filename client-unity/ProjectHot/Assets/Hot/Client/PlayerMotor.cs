@@ -17,6 +17,10 @@ namespace Hot.Client
         public float lightDamage = 30f;
         public float heavyDamage = 80f;
 
+        [Header("Camera-relative input")]
+        [Tooltip("Fixed 2.5D camera. WASD maps to screen right/up, not world X/Z.")]
+        public Transform cameraTransform;
+
         private float verticalVelocity;
         private float height;
         private bool guarding;
@@ -26,12 +30,13 @@ namespace Hot.Client
             var kb = Keyboard.current;
             if (kb == null) return;
 
-            Vector3 dir = Vector3.zero;
-            if (kb.aKey.isPressed || kb.leftArrowKey.isPressed) dir.x -= 1f;
-            if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) dir.x += 1f;
-            if (kb.sKey.isPressed || kb.downArrowKey.isPressed) dir.z -= 1f;
-            if (kb.wKey.isPressed || kb.upArrowKey.isPressed) dir.z += 1f;
+            Vector2 input = Vector2.zero;
+            if (kb.aKey.isPressed || kb.leftArrowKey.isPressed) input.x -= 1f;
+            if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) input.x += 1f;
+            if (kb.sKey.isPressed || kb.downArrowKey.isPressed) input.y -= 1f;
+            if (kb.wKey.isPressed || kb.upArrowKey.isPressed) input.y += 1f;
 
+            Vector3 dir = CameraRelativeDirection(input, cameraTransform);
             if (dir.sqrMagnitude > 0.001f)
             {
                 dir.Normalize();
@@ -59,6 +64,27 @@ namespace Hot.Client
 
             if (kb.cKey.wasPressedThisFrame) Attack(lightDamage);
             if (kb.xKey.wasPressedThisFrame) Attack(heavyDamage);
+        }
+
+        /// <summary>
+        /// Converts screen-space input (x=right, y=up) into a ground direction using
+        /// the camera's projected right/forward axes. For a yaw-45 isometric camera
+        /// this makes D move screen-right and W move screen-up, not world +X/+Z.
+        /// </summary>
+        public static Vector3 CameraRelativeDirection(Vector2 input, Transform cameraTransform)
+        {
+            if (cameraTransform == null)
+                return new Vector3(input.x, 0f, input.y);
+
+            Vector3 right = Vector3.ProjectOnPlane(cameraTransform.right, Vector3.up);
+            Vector3 forward = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up);
+            if (right.sqrMagnitude < 1e-4f) right = Vector3.right;
+            if (forward.sqrMagnitude < 1e-4f) forward = Vector3.forward;
+            right.Normalize();
+            forward.Normalize();
+
+            Vector3 dir = right * input.x + forward * input.y;
+            return dir.sqrMagnitude > 1f ? dir.normalized : dir;
         }
 
         private void Attack(float damage)

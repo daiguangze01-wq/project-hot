@@ -6,11 +6,12 @@ STATUS: partial
 
 CHANGED:
   client-unity/ProjectHot/Assets/Hot/Client/OrthoCameraRig.cs
-  client-unity/ProjectHot/Assets/Hot/Client/PlayerMotor.cs
+  client-unity/ProjectHot/Assets/Hot/Client/PlayerMotor.cs   # camera-relative input
   client-unity/ProjectHot/Assets/Hot/Client/TargetDummy.cs
   client-unity/ProjectHot/Assets/Hot/Client/HotHud.cs
   client-unity/ProjectHot/Assets/Hot/Editor/ArenaBootstrap.cs
   client-unity/ProjectHot/Assets/Hot/Editor/BuildU0.cs
+  client-unity/ProjectHot/Assets/Hot/Editor/U0Checks.cs
   client-unity/ProjectHot/Assets/Hot/Data/cores.json
   client-unity/ProjectHot/Assets/Scenes/Arena.unity
   client-unity/ProjectHot/Packages/manifest.json
@@ -22,6 +23,7 @@ DECISIONS:
   - Unity 6.3 LTS 6000.3.26f1 + URP 17.0.1; project created from official 3D cross-platform URP template.
   - Input System 1.12.0 from the 6.3.12 template fails on 6.3.26 (BuildTarget.ReservedCFE removed); upgraded to 1.20.1.
   - U0 uses a fixed ortho camera rig (pitch50/yaw45/size8), local-only PlayerMotor, training dummy, IMGUI HUD.
+  - Movement is camera-relative (screen right/up), not world X/Z. Research: docs/_research/camera-relative-movement.md.
   - BuildU0 uses Mono Windows x64 for U0; IL2CPP remains for U3 Steam build.
   - Fusion 2 / server authority NOT in U0; local prototype only.
 
@@ -30,6 +32,7 @@ EVIDENCE:
   - `ArenaBootstrap.CreateArena`: exit 0; Assets/Scenes/Arena.unity (158 KB).
   - `BuildU0.Build`: exit 0; Builds/U0/ProjectHot.exe; build report size 100,416,748 bytes.
   - Player log: D3D12, NVIDIA RTX 5080, Input System initialized; no script exceptions in build log.
+  - `Hot.Editor.U0Checks`: PASS D=screen-right/W=screen-up/S=opposite/D-W perpendicular; exit 0.
   - Not visually verified: automation session could not bring the player window/desktop capture to foreground; needs Human Play/visual QA.
 
 RISKS:
@@ -40,7 +43,7 @@ RISKS:
   - Builds/Library generated, ignored by git.
 
 NEXT:
-  1. Human opens client-unity/ProjectHot in Unity 6.3.26f1, opens Assets/Scenes/Arena.unity, Play; or runs Builds/U0/ProjectHot.exe; confirm camera/input/dummy.
+  1. Human opens client-unity/ProjectHot in Unity 6.3.26f1, opens Assets/Scenes/Arena.unity, Play; or runs the rebuilt Builds/U0/ProjectHot.exe; confirm D=screen-right/W=screen-up and camera/input/dummy.
   2. U1: port mvp/sim.js rules to Assets/Hot/Sim (pure C#), 4 cores, HUD.
   3. U2: import Fusion 2, 2-player authoritative room.
   4. U3: IL2CPP + Steamworks/Playtest.

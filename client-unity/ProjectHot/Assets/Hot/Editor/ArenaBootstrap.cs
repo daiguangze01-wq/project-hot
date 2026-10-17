@@ -122,6 +122,7 @@ namespace Hot.Editor
             camGo.AddComponent<AudioListener>();
             var rig = camGo.AddComponent<OrthoCameraRig>();
             rig.target = player.transform;
+            motor.cameraTransform = camGo.transform;
             camGo.transform.position = new Vector3(0f, 20f, -20f);
 
             // Light.
