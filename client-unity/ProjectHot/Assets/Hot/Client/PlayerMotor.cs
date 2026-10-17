@@ -19,6 +19,7 @@ namespace Hot.Client
         public float heavyDamage = 80f;
         public float lightAttackLock = 0.45f;
         public float heavyAttackLock = 0.7f;
+        public float doubleTapWindow = 0.28f;
 
         [Header("Camera-relative input")]
         [Tooltip("Fixed 2.5D camera. WASD maps to screen right/up, not world X/Z.")]
@@ -33,20 +34,54 @@ namespace Hot.Client
         private bool attackStartedRunning;
         private int attackKind;
         private float attackUntil;
+        private bool runLatched;
+        private int lastTapDirection = -1;
+        private float lastTapTime = -10f;
 
         private void Update()
         {
             var kb = Keyboard.current;
             if (kb == null) return;
 
+            bool leftHeld = kb.aKey.isPressed || kb.leftArrowKey.isPressed;
+            bool rightHeld = kb.dKey.isPressed || kb.rightArrowKey.isPressed;
+            bool downHeld = kb.sKey.isPressed || kb.downArrowKey.isPressed;
+            bool upHeld = kb.wKey.isPressed || kb.upArrowKey.isPressed;
+
             Vector2 input = Vector2.zero;
-            if (kb.aKey.isPressed || kb.leftArrowKey.isPressed) input.x -= 1f;
-            if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) input.x += 1f;
-            if (kb.sKey.isPressed || kb.downArrowKey.isPressed) input.y -= 1f;
-            if (kb.wKey.isPressed || kb.upArrowKey.isPressed) input.y += 1f;
+            if (leftHeld) input.x -= 1f;
+            if (rightHeld) input.x += 1f;
+            if (downHeld) input.y -= 1f;
+            if (upHeld) input.y += 1f;
+
+            // Run latch: double-tap one direction, then keep running while any
+            // direction key remains held (including switching to another direction).
+            if (!(leftHeld || rightHeld || upHeld || downHeld))
+            {
+                runLatched = false;
+            }
+            else
+            {
+                int pressedDirection = -1;
+                if (kb.aKey.wasPressedThisFrame || kb.leftArrowKey.wasPressedThisFrame) pressedDirection = 0;
+                else if (kb.dKey.wasPressedThisFrame || kb.rightArrowKey.wasPressedThisFrame) pressedDirection = 1;
+                else if (kb.sKey.wasPressedThisFrame || kb.downArrowKey.wasPressedThisFrame) pressedDirection = 2;
+                else if (kb.wKey.wasPressedThisFrame || kb.upArrowKey.wasPressedThisFrame) pressedDirection = 3;
+
+                if (pressedDirection >= 0)
+                {
+                    if (pressedDirection == lastTapDirection &&
+                        Time.unscaledTime - lastTapTime <= doubleTapWindow)
+                    {
+                        runLatched = true;
+                    }
+                    lastTapDirection = pressedDirection;
+                    lastTapTime = Time.unscaledTime;
+                }
+            }
 
             moving = input.sqrMagnitude > 0.001f;
-            running = moving && (kb.leftShiftKey.isPressed || kb.rightShiftKey.isPressed);
+            running = moving && (runLatched || kb.leftShiftKey.isPressed || kb.rightShiftKey.isPressed);
 
             Vector3 dir = CameraRelativeDirection(input, cameraTransform);
             if (moving)

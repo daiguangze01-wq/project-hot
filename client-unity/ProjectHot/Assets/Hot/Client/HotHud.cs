@@ -29,7 +29,7 @@ namespace Hot.Client
             if (dummy != null)
                 GUILayout.Label("Dummy HP: " + dummy.hp.ToString("0") + " / " + dummy.maxHp.ToString("0"), style);
             GUILayout.Space(6);
-            GUILayout.Label("WASD/方向（屏幕方向） · Shift 跑 · V jump · C light · X heavy · Space/C+X guard", style);
+            GUILayout.Label("WASD/方向（屏幕方向） · 双击方向/Shift 跑 · V jump · C light · X heavy · Space/C+X guard", style);
             GUILayout.Label("Mouse not used. U0 local only; Fusion comes in U2.", style);
             GUILayout.EndArea();
         }
