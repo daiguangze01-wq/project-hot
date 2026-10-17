@@ -689,6 +689,23 @@
       "review_required": false,
       "review_ref": null,
       "notes": "reviewer 只写 mvp/review/"
+    },
+    {
+      "id": "TASK-080",
+      "title": "Unity 6.3 客户端 U0（相机/输入/训练场）",
+      "status": "blocked",
+      "owner": "lead",
+      "reviewer": "reviewer-a",
+      "write_scope": ["client-unity/"],
+      "depends_on": ["TASK-070"],
+      "req": ["REQ-VIS-001", "REQ-CTL-001", "REQ-CBT-001"],
+      "acceptance": "Unity 6.3 URP 工程；size8/pitch50/yaw45；1.8m≈78px；6/10m 可见；全键盘；训练场+木桩",
+      "risk": "high",
+      "handoff_required": false,
+      "handoff": null,
+      "review_required": false,
+      "review_ref": null,
+      "notes": "blocked：本机未安装 Unity/.NET；staging + docs/08 已就绪，安装后开工"
     }
   ]
 }

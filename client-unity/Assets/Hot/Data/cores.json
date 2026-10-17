@@ -1,0 +1,58 @@
+{
+  "blade": {
+    "name": "剑豪",
+    "weapon": "sword",
+    "description": "均衡近战，突进斩 + 直线冲击",
+    "mods": {
+      "light": { "damage": 30 },
+      "heavy": { "damage": 80 },
+      "skill1": { "damage": 70, "range": 2.8, "mp": 20, "cooldown": 4 },
+      "skill2": { "damage": 60, "range": 7.0, "width": 1.4, "mp": 30, "cooldown": 6, "ranged": true },
+      "skill3": { "damage": 85, "range": 3.0, "mp": 25, "cooldown": 7, "arc": 160 },
+      "skill4": { "damage": 120, "range": 3.4, "mp": 35, "cooldown": 9, "arc": 360, "aoe": true },
+      "ultimate": { "damage": 220, "range": 4.8 }
+    }
+  },
+  "fist": {
+    "name": "拳师",
+    "weapon": "fist",
+    "description": "短距压制，低 MP、短 CD、贴脸爆发",
+    "mods": {
+      "light": { "damage": 26, "range": 2.0 },
+      "heavy": { "damage": 85, "range": 2.5, "startup": 0.24, "recovery": 0.28 },
+      "skill1": { "damage": 60, "range": 2.3, "mp": 15, "cooldown": 3, "dash": 1.6 },
+      "skill2": { "damage": 75, "range": 3.0, "arc": 180, "mp": 25, "cooldown": 5, "ranged": false, "width": 0 },
+      "skill3": { "damage": 95, "range": 2.6, "mp": 20, "cooldown": 6, "arc": 200 },
+      "skill4": { "damage": 100, "range": 3.8, "mp": 30, "cooldown": 8, "arc": 360, "aoe": true },
+      "ultimate": { "damage": 240, "range": 4.2 }
+    }
+  },
+  "spear": {
+    "name": "枪兵",
+    "weapon": "spear",
+    "description": "长距突刺，直线控制，慢但远",
+    "mods": {
+      "light": { "damage": 28, "range": 2.8, "startup": 0.14, "recovery": 0.18 },
+      "heavy": { "damage": 75, "range": 3.2, "startup": 0.30, "active": 0.07, "recovery": 0.34, "knockback": 2.6 },
+      "skill1": { "damage": 65, "range": 3.6, "mp": 20, "cooldown": 4, "dash": 1.2 },
+      "skill2": { "damage": 70, "range": 8.0, "width": 0.9, "mp": 30, "cooldown": 6, "ranged": true },
+      "skill3": { "damage": 80, "range": 3.2, "mp": 25, "cooldown": 7, "arc": 200 },
+      "skill4": { "damage": 110, "range": 4.0, "mp": 35, "cooldown": 9, "arc": 360, "aoe": true },
+      "ultimate": { "damage": 210, "range": 5.2 }
+    }
+  },
+  "staff": {
+    "name": "术士",
+    "weapon": "staff",
+    "description": "远程消耗，AoE 与直线法术，脆但安全",
+    "mods": {
+      "light": { "damage": 24, "range": 2.2, "startup": 0.12, "recovery": 0.15 },
+      "heavy": { "damage": 65, "range": 2.8, "startup": 0.28, "recovery": 0.30 },
+      "skill1": { "damage": 55, "range": 8.0, "width": 1.2, "mp": 20, "cooldown": 4, "ranged": true },
+      "skill2": { "damage": 80, "range": 3.0, "arc": 360, "aoe": true, "mp": 30, "cooldown": 6, "ranged": false },
+      "skill3": { "damage": 75, "range": 7.0, "width": 1.4, "mp": 25, "cooldown": 7, "ranged": true },
+      "skill4": { "damage": 100, "range": 4.2, "mp": 35, "cooldown": 9, "arc": 360, "aoe": true },
+      "ultimate": { "damage": 230, "range": 5.0, "arc": 360, "aoe": true }
+    }
+  }
+}

@@ -19,6 +19,8 @@
 | [docs/05-关键决策记录（ADR）](docs/05-关键决策记录（ADR）.md) | 12 条架构决策索引 |
 | [docs/06-AI原生开发与多Agent协作规范](docs/06-AI原生开发与多Agent协作规范.md) | 角色、生命周期、交接、评审、门禁、AI 风险、指标 |
 | [docs/07-需求与决策追踪矩阵](docs/07-需求与决策追踪矩阵.md) | REQ ↔ 设计 ↔ 任务 ↔ 测试 ↔ 验收 |
+| [docs/08-Unity客户端与Steam发布路线](docs/08-Unity客户端与Steam发布路线.md) | 正式 Unity 6.3 + Fusion 2 + Steam 路线；Web MVP 仅原型 |
+| [client-unity/README.md](client-unity/README.md) | Unity 工程 staging（当前未装 Unity，不可直接打开） |
 | [docs/metrics.md](docs/metrics.md) | AI 原生研发指标：handoff/返工/幻觉/成本 |
 | [docs/backlog.md](docs/backlog.md) | 人读任务看板 |
 | [docs/tasks.json](docs/tasks.json) | 机器可读任务/owner/写域/依赖/handoff/评审 |
@@ -81,6 +83,7 @@
 - [x] DR-002 D1–D6 已批准；docs/00 v0.3.0、ADR-002/004/008 已复访
 - [x] Web 可玩 MVP：`mvp/`（双开多人、全键盘、服务器权威；15/15 测试）
 - [x] MVP 独立评审：[REV-071](mvp/review/REVIEW.md) + [follow-up](mvp/review/REVIEW-FOLLOWUP.md)：0B/0M/4 minor
+- [ ] Unity 正式客户端（TASK-080，**blocked：本机未安装 Unity 6.3 LTS/Fusion 2**；staging/docs 已就绪）
 - [ ] open blockers：B6 真实键盘 QA（TASK-066，kit ready 等人工）、M0 引擎实测、赛季产能、REV-001 M-1/M-3、DR-001 items 1–13
 - [ ] run log 复盘完成（open blocker 关闭后）
 
@@ -88,6 +91,6 @@
 
 ## 下一步
 
-1. 试玩 MVP：`cd mvp; node server.js`，打开两个标签；重点验证读招/防御/必杀手感。
-2. 记录试玩反馈；进 M0 引擎（URP 相机、Fusion 2 格挡矩阵、3 款键盘）。
+1. 试玩 Web MVP：`cd mvp; node server.js`，打开两个标签；重点验证读招/防御/必杀手感。
+2. 安装 Unity 6.3 LTS + Fusion 2，按 [docs/08](docs/08-Unity客户端与Steam发布路线.md) 做 U0（相机/输入/训练场）。
 3. 关闭 B6、DR-001 items 1–13、赛季产能后，再把 `docs/00`–`docs/07` 从 `draft` 更新为 `reviewed`。
