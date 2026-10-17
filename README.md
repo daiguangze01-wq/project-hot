@@ -26,6 +26,8 @@
 | [skills/multi-agent-delivery/SKILL.md](skills/multi-agent-delivery/SKILL.md) | 多 agent 防重复/防冲突/可交接 skill |
 | [scripts/check-agent-work.ps1](scripts/check-agent-work.ps1) | 任务/写域/handoff/评审强制检查 |
 | [mvp/README.md](mvp/README.md) | **可玩 MVP**：2.5D 键盘竞技场（Node 30Hz + SSE + Canvas） |
+| [mvp/PLAYTEST.md](mvp/PLAYTEST.md) | 10 分钟双开试玩清单 |
+| [validation/input/hardware-qa/README.md](validation/input/hardware-qa/README.md) | B6 3 款键盘人工 QA 包（kit ready） |
 | [mvp/review/REVIEW-FOLLOWUP.md](mvp/review/REVIEW-FOLLOWUP.md) | MVP 独立复评：0 blocker / 0 major |
 | [mvp/screenshots/mvp-demo.png](mvp/screenshots/mvp-demo.png) | MVP 截图 |
 | [validation/REPORT.md](validation/REPORT.md) | M0-lite 技术验证汇总：相机/联网/键盘，conditional go |
@@ -79,7 +81,7 @@
 - [x] DR-002 D1–D6 已批准；docs/00 v0.3.0、ADR-002/004/008 已复访
 - [x] Web 可玩 MVP：`mvp/`（双开多人、全键盘、服务器权威；15/15 测试）
 - [x] MVP 独立评审：[REV-071](mvp/review/REVIEW.md) + [follow-up](mvp/review/REVIEW-FOLLOWUP.md)：0B/0M/4 minor
-- [ ] open blockers：B6 真实键盘 QA（TASK-066）、M0 引擎实测、赛季产能、REV-001 M-1/M-3、DR-001 items 1–13
+- [ ] open blockers：B6 真实键盘 QA（TASK-066，kit ready 等人工）、M0 引擎实测、赛季产能、REV-001 M-1/M-3、DR-001 items 1–13
 - [ ] run log 复盘完成（open blocker 关闭后）
 
 ---

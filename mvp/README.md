@@ -47,6 +47,7 @@
 - **4 个战斗核心**（剑豪/拳师/枪兵/术士）：`?core=blade|fist|spear|staff`，由 `mvp/cores.json` 数据驱动；技能伤害/范围/MP/冷却/武器外观不同，验证「换核心→换招式表」的最小形态。
 - 木桩 5000 HP，2 秒重置；HUD/技能冷却/计分板/连接状态。
 - 截图：`screenshots/mvp-demo.png`（剑豪）、`screenshots/mvp-demo-staff.png`（术士）。
+- 试玩清单：[PLAYTEST.md](PLAYTEST.md)（10 分钟，双开两标签）。
 - 无外部依赖；`node --test` 单测 + CDP 截图脚本。
 
 ## 测试

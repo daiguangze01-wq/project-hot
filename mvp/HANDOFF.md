@@ -16,6 +16,7 @@ CHANGED:
   mvp/scripts/screenshot.js       # CDP screenshot helper
   mvp/screenshots/mvp-demo.png    # 1280x720 demo screenshot
   mvp/README.md                   # run/controls/limits
+  mvp/PLAYTEST.md                 # 10-minute two-tab playtest checklist
   mvp/review/REVIEW.md            # independent REV-071 (pre-fix)
   mvp/review/REVIEW-FOLLOWUP.md   # independent re-check: 0B/0M/4 minors
 

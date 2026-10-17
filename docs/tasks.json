@@ -642,7 +642,7 @@
     {
       "id": "TASK-066",
       "title": "3 款键盘人工 QA（B6）",
-      "status": "planned",
+      "status": "blocked",
       "owner": "qa",
       "reviewer": "lead",
       "write_scope": ["validation/input/hardware-qa/"],
@@ -654,7 +654,7 @@
       "handoff": "validation/input/hardware-qa/HANDOFF.md",
       "review_required": false,
       "review_ref": null,
-      "notes": "B6；需要人类/QA 物理键盘，AI 不能替代"
+      "notes": "B6；human-only。QA kit 已就绪：validation/input/hardware-qa/；等待 3 款键盘报告"
     },
     {
       "id": "TASK-070",
