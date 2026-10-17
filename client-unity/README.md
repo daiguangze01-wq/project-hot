@@ -18,11 +18,13 @@ client-unity/ProjectHot/Builds/U0/ProjectHot.exe
 
 ## 操作（U0）
 
-- WASD / 方向键：移动
+- WASD / 方向键：移动（屏幕方向）
+- Shift：奔跑
 - V：跳跃
 - C / X：轻/重击（打木桩）
-- Space 或 C+X：防御（U0 只有状态显示）
+- Space 或 C+X：防御
 - 无鼠标战斗/镜头；固定正交相机 pitch=50、yaw=45、size=8。
+- 角色当前为 **KayKit Knight（CC0）占位**，已接 10 个动画状态；最终像素风角色由 AI/美术管线替换，见 `docs/art/`。
 
 ## 工程结构
 
@@ -57,5 +59,6 @@ Unity.exe -batchmode -quit -projectPath client-unity\ProjectHot `
 
 - U0 场景与 Windows 构建**已通过 batchmode 构建成功**；Play 画面/手感需要 Human 目视验收。
 - U0 是本地原型：没有服务器权威、没有 Fusion、没有连招/技能/防御判定。
+- 角色/动画为 CC0 占位（KayKit）；美术提示词与资产规格在 `docs/art/`，AI 工具调研在 `docs/_research/ai-pixel-art-tools.md`。
 - 正式 U1 把 `mvp/sim.js` 规则移植到 `Assets/Hot/Sim/`，U2 接入 Fusion 2，U3 接 Steamworks。
 - `Library/`、`Builds/`、`Temp/` 等生成物已在 `.gitignore`。

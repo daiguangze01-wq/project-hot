@@ -87,6 +87,40 @@ namespace Hot.Editor
 
             var motor = player.AddComponent<PlayerMotor>();
 
+            // CC0 KayKit placeholder character + animation states.
+            var knightAsset = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Hot/Art/KayKit/Knight.fbx");
+            if (knightAsset != null)
+            {
+                var knight = (GameObject)PrefabUtility.InstantiatePrefab(knightAsset);
+                knight.name = "KnightPlaceholder";
+                knight.transform.SetParent(player.transform, false);
+                knight.transform.localPosition = Vector3.zero;
+                knight.transform.localRotation = Quaternion.identity;
+                knight.transform.localScale = Vector3.one * 0.68f;
+
+                // Hide the primitive fallback body; keep it as a disabled safety net.
+                body.GetComponent<Renderer>().enabled = false;
+                head.GetComponent<Renderer>().enabled = false;
+                weapon.GetComponent<Renderer>().enabled = false;
+
+                var knightMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/Hot/Art/KayKit/KnightMat.mat");
+                foreach (var r in knight.GetComponentsInChildren<Renderer>())
+                {
+                    bool hide = r.name.Contains("Shield") || r.name.Contains("2H_Sword") ||
+                                r.name.Contains("1H_Sword_Offhand");
+                    r.enabled = !hide;
+                    if (!hide && knightMat != null) r.sharedMaterial = knightMat;
+                }
+
+                var animator = knight.AddComponent<Animator>();
+                animator.applyRootMotion = false;
+                animator.runtimeAnimatorController =
+                    AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>("Assets/Hot/Art/KayKit/KnightAnimator.controller");
+                var driver = knight.AddComponent<CharacterAnimationDriver>();
+                driver.animator = animator;
+                driver.motor = motor;
+            }
+
             // Training dummy.
             var dummyRoot = new GameObject("TrainingDummy");
             dummyRoot.transform.position = new Vector3(0f, 0f, 2.8f);
@@ -132,6 +166,8 @@ namespace Hot.Editor
             light.intensity = 1.1f;
             light.color = new Color(1f, 0.96f, 0.9f);
             lightGo.transform.rotation = Quaternion.Euler(50f, -30f, 0f);
+
+            player.AddComponent<U0Capture>();
 
             // HUD.
             var hud = player.AddComponent<HotHud>();

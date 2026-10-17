@@ -22,6 +22,8 @@
 | [docs/08-Unity客户端与Steam发布路线](docs/08-Unity客户端与Steam发布路线.md) | 正式 Unity 6.3 + Fusion 2 + Steam 路线；Web MVP 仅原型 |
 | [client-unity/README.md](client-unity/README.md) | Unity 6.3 工程/U0 构建说明（可直接打开） |
 | [docs/_research/camera-relative-movement.md](docs/_research/camera-relative-movement.md) | 2.5D 固定相机移动方向调研与修复记录 |
+| [docs/art/README.md](docs/art/README.md) | 美术资源管线、风格圣经、AI 提示词库、动作规格 |
+| [docs/_research/ai-pixel-art-tools.md](docs/_research/ai-pixel-art-tools.md) | 像素 AI 工具/免费资源调研 |
 | [docs/metrics.md](docs/metrics.md) | AI 原生研发指标：handoff/返工/幻觉/成本 |
 | [docs/backlog.md](docs/backlog.md) | 人读任务看板 |
 | [docs/tasks.json](docs/tasks.json) | 机器可读任务/owner/写域/依赖/handoff/评审 |

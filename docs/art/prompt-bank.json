@@ -1,0 +1,91 @@
+{
+  "version": "0.1.0",
+  "updated": "2026-10-18",
+  "style": {
+    "camera": "2.5D isometric action game, fixed 3/4 top-down orthographic camera, pitch 50 degrees, yaw 45 degrees",
+    "render": "low-poly silhouette with crisp pixel-art texture, clean 1px dark outline, no anti-aliasing",
+    "proportions": "1.8m heroic proportions, readable at 78px tall, feet pivot",
+    "palette": "limited 32-color palette: dark navy #0B1020, ground #1B263B, friendly cyan #63D6FF, warm gold #F2C14E, danger red #FF6B6B, skin #F2C6A0, steel #DCE6F2",
+    "background": "transparent background, game-ready asset, consistent scale",
+    "negative": "photorealistic, 3D render, smooth gradient, anti-aliasing, blurry, motion blur, noisy dithering, inconsistent palette, inconsistent proportions, extra limbs, extra fingers, broken weapon, weapon clipping, floating feet, text, logo, watermark, UI frame, perspective distortion, fisheye, copied existing game character, trademark"
+  },
+  "character": {
+    "id": "hot_blade_01",
+    "prompt": "original agile sword fighter, short cyan-black hair, worn navy short coat, leather bracers, slim heroic build, sword on right hand, confident street-duelist stance, front 3/4 view, full body, transparent background, same palette as style",
+    "reference_rules": "generate one canonical character_ref first; reuse it as style/image reference for every animation; identical outfit, weapon, palette, height and foot pivot"
+  },
+  "animations": {
+    "idle": {
+      "frames": 4,
+      "fps": 8,
+      "loop": true,
+      "prompt": "idle breathing loop, slight shoulder rise, sword held low, feet planted, 4 frames, seamless loop"
+    },
+    "walk": {
+      "frames": 8,
+      "fps": 12,
+      "loop": true,
+      "prompt": "walk cycle, 8 frames, screen-left to screen-right, arms counter-swing, sword steady, feet contact and passing poses, seamless loop"
+    },
+    "run": {
+      "frames": 8,
+      "fps": 16,
+      "loop": true,
+      "prompt": "run cycle, 8 frames, forward lean, longer stride, coat tails trailing, sword trailing behind, seamless loop"
+    },
+    "light_attack": {
+      "frames": 5,
+      "fps": 16,
+      "loop": false,
+      "prompt": "fast light slash, 5 frames, 1-frame wind-up, horizontal diagonal cut, small cyan trail, recover to stance"
+    },
+    "heavy_attack": {
+      "frames": 7,
+      "fps": 14,
+      "loop": false,
+      "prompt": "heavy overhead chop, 7 frames, clear wind-up, big step, gold impact spark, longer recovery, readable silhouette"
+    },
+    "run_light_attack": {
+      "frames": 5,
+      "fps": 16,
+      "loop": false,
+      "prompt": "running light slash, 5 frames, body keeps forward momentum, short horizontal cut, feet still in run stride"
+    },
+    "run_heavy_attack": {
+      "frames": 7,
+      "fps": 14,
+      "loop": false,
+      "prompt": "running heavy strike, 7 frames, lunging diagonal cut with forward momentum, coat and sword trail, clear wind-up"
+    },
+    "jump": {
+      "frames": 5,
+      "fps": 12,
+      "loop": false,
+      "prompt": "jump arc, 5 frames: crouch, takeoff, rising, apex, landing; sword kept clear of body; transparent background"
+    },
+    "jump_attack": {
+      "frames": 6,
+      "fps": 14,
+      "loop": false,
+      "prompt": "air attack, 6 frames: jump rise, sword raised, downward diagonal slash at apex, landing recovery; cyan trail"
+    },
+    "guard": {
+      "frames": 3,
+      "fps": 10,
+      "loop": true,
+      "prompt": "guard stance loop, 3 frames, sword held across body, weight back, small breathing motion"
+    }
+  },
+  "sprite_sheet": {
+    "frame_size": "96x96",
+    "layout": "one row per direction, one column per animation; 4 directions (S, E, N, W) first, later 8",
+    "padding": "0px between frames, transparent background",
+    "pivot": "feet center (48, 8) for 96x96",
+    "naming": "hot_blade_01_<dir>_<anim>_<frame>.png"
+  },
+  "texture_atlas": {
+    "size": "256x256",
+    "prompt": "hand-painted pixel texture atlas for low-poly knight, flat albedo, no baked lighting, navy coat, steel armor, cyan cloth accent, 32-color palette, front/side/back regions, no text"
+  },
+  "negative_global": "photorealistic, 3D render, anti-aliasing, blurry, smooth gradient, noisy dithering, extra limbs, extra fingers, broken weapon, floating feet, inconsistent palette, scale mismatch, text, logo, watermark, existing franchise character, trademark"
+}

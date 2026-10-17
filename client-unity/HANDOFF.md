@@ -12,6 +12,19 @@ CHANGED:
   client-unity/ProjectHot/Assets/Hot/Editor/ArenaBootstrap.cs
   client-unity/ProjectHot/Assets/Hot/Editor/BuildU0.cs
   client-unity/ProjectHot/Assets/Hot/Editor/U0Checks.cs
+  client-unity/ProjectHot/Assets/Hot/Editor/KayKitAnimationBuilder.cs
+  client-unity/ProjectHot/Assets/Hot/Editor/InspectKayKit.cs
+  client-unity/ProjectHot/Assets/Hot/Client/CharacterAnimationDriver.cs
+  client-unity/ProjectHot/Assets/Hot/Art/KayKit/Knight.fbx
+  client-unity/ProjectHot/Assets/Hot/Art/KayKit/knight_texture.png
+  client-unity/ProjectHot/Assets/Hot/Art/KayKit/KnightMat.mat
+  client-unity/ProjectHot/Assets/Hot/Art/KayKit/KnightAnimator.controller
+  client-unity/screenshots/u0-knight.png
+  docs/art/README.md
+  docs/art/style-bible.md
+  docs/art/prompt-bank.json
+  docs/art/asset-spec.md
+  docs/_research/ai-pixel-art-tools.md
   client-unity/ProjectHot/Assets/Hot/Data/cores.json
   client-unity/ProjectHot/Assets/Scenes/Arena.unity
   client-unity/ProjectHot/Packages/manifest.json
@@ -24,6 +37,9 @@ DECISIONS:
   - Input System 1.12.0 from the 6.3.12 template fails on 6.3.26 (BuildTarget.ReservedCFE removed); upgraded to 1.20.1.
   - U0 uses a fixed ortho camera rig (pitch50/yaw45/size8), local-only PlayerMotor, training dummy, IMGUI HUD.
   - Movement is camera-relative (screen right/up), not world X/Z. Research: docs/_research/camera-relative-movement.md.
+  - U0 character is KayKit Knight (CC0) with 10 animation states: Idle/Walk/Run/Light/Heavy/RunLight/RunHeavy/Jump/JumpAttack/Guard. It is a placeholder, not final art.
+  - Run = Shift; attacks lock a short state; CharacterAnimationDriver maps to Animator states.
+  - AI prompt bank centralized in docs/art/prompt-bank.json + style-bible.md; AI tool/free-asset research in docs/_research/ai-pixel-art-tools.md.
   - BuildU0 uses Mono Windows x64 for U0; IL2CPP remains for U3 Steam build.
   - Fusion 2 / server authority NOT in U0; local prototype only.
 
@@ -33,7 +49,9 @@ EVIDENCE:
   - `BuildU0.Build`: exit 0; Builds/U0/ProjectHot.exe; build report size 100,416,748 bytes.
   - Player log: D3D12, NVIDIA RTX 5080, Input System initialized; no script exceptions in build log.
   - `Hot.Editor.U0Checks`: PASS D=screen-right/W=screen-up/S=opposite/D-W perpendicular; exit 0.
-  - Not visually verified: automation session could not bring the player window/desktop capture to foreground; needs Human Play/visual QA.
+  - KayKit build: 10 Animator states, 76 clips imported; U0 build exit 0.
+  - Visual capture `client-unity/screenshots/u0-knight.png`: Knight visible, dummy/HUD render; captured via `-capture`/ScreenCapture.
+  - Still needs Human Play/feel QA for animation timing and readability.
 
 RISKS:
   - U0 is a local movement/attack dummy prototype, not the authoritative simulator or Fusion netcode.

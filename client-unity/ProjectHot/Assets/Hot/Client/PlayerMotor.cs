@@ -10,12 +10,15 @@ namespace Hot.Client
     public class PlayerMotor : MonoBehaviour
     {
         public float speed = 5.2f;
+        public float walkSpeed = 2.7f;
         public float jumpVelocity = 5.0f;
         public float gravity = 16f;
         public float attackRange = 2.4f;
         public float attackRadius = 1.2f;
         public float lightDamage = 30f;
         public float heavyDamage = 80f;
+        public float lightAttackLock = 0.45f;
+        public float heavyAttackLock = 0.7f;
 
         [Header("Camera-relative input")]
         [Tooltip("Fixed 2.5D camera. WASD maps to screen right/up, not world X/Z.")]
@@ -24,6 +27,12 @@ namespace Hot.Client
         private float verticalVelocity;
         private float height;
         private bool guarding;
+        private bool moving;
+        private bool running;
+        private bool attacking;
+        private bool attackStartedRunning;
+        private int attackKind;
+        private float attackUntil;
 
         private void Update()
         {
@@ -36,11 +45,15 @@ namespace Hot.Client
             if (kb.sKey.isPressed || kb.downArrowKey.isPressed) input.y -= 1f;
             if (kb.wKey.isPressed || kb.upArrowKey.isPressed) input.y += 1f;
 
+            moving = input.sqrMagnitude > 0.001f;
+            running = moving && (kb.leftShiftKey.isPressed || kb.rightShiftKey.isPressed);
+
             Vector3 dir = CameraRelativeDirection(input, cameraTransform);
-            if (dir.sqrMagnitude > 0.001f)
+            if (moving)
             {
                 dir.Normalize();
-                float moveSpeed = guarding ? speed * 0.3f : speed;
+                float moveSpeed = running ? speed : walkSpeed;
+                if (guarding) moveSpeed *= 0.3f;
                 transform.position += dir * (moveSpeed * Time.deltaTime);
                 transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
             }
@@ -62,8 +75,18 @@ namespace Hot.Client
             // Guard: Space or C+X. Damage reduction is local-only in U0.
             guarding = kb.spaceKey.isPressed || (kb.cKey.isPressed && kb.xKey.isPressed);
 
-            if (kb.cKey.wasPressedThisFrame) Attack(lightDamage);
-            if (kb.xKey.wasPressedThisFrame) Attack(heavyDamage);
+            if (attacking && Time.time >= attackUntil) attacking = false;
+            if (kb.cKey.wasPressedThisFrame) StartAttack(false);
+            if (kb.xKey.wasPressedThisFrame) StartAttack(true);
+        }
+
+        private void StartAttack(bool heavy)
+        {
+            attackKind = heavy ? 1 : 0;
+            attackStartedRunning = running;
+            attacking = true;
+            attackUntil = Time.time + (heavy ? heavyAttackLock : lightAttackLock);
+            Attack(heavy ? heavyDamage : lightDamage);
         }
 
         /// <summary>
@@ -103,6 +126,12 @@ namespace Hot.Client
         }
 
         public bool IsGuarding => guarding;
+        public bool IsMoving => moving;
+        public bool IsRunning => running;
+        public bool IsAttacking => attacking;
+        public bool IsGrounded => height <= 0.001f;
+        public int AttackKind => attackKind;
+        public bool AttackStartedRunning => attackStartedRunning;
         public float Height => height;
     }
 }
