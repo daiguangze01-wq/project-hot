@@ -20,7 +20,11 @@
 | [docs/06-AI原生开发与多Agent协作规范](docs/06-AI原生开发与多Agent协作规范.md) | 角色、生命周期、交接、评审、门禁、AI 风险、指标 |
 | [docs/07-需求与决策追踪矩阵](docs/07-需求与决策追踪矩阵.md) | REQ ↔ 设计 ↔ 任务 ↔ 测试 ↔ 验收 |
 | [docs/metrics.md](docs/metrics.md) | AI 原生研发指标：handoff/返工/幻觉/成本 |
-| [docs/backlog.md](docs/backlog.md) | 任务看板 |
+| [docs/backlog.md](docs/backlog.md) | 人读任务看板 |
+| [docs/tasks.json](docs/tasks.json) | 机器可读任务/owner/写域/依赖/handoff/评审 |
+| [docs/handoffs/INDEX.md](docs/handoffs/INDEX.md) | handoff 索引与豁免清单 |
+| [skills/multi-agent-delivery/SKILL.md](skills/multi-agent-delivery/SKILL.md) | 多 agent 防重复/防冲突/可交接 skill |
+| [scripts/check-agent-work.ps1](scripts/check-agent-work.ps1) | 任务/写域/handoff/评审强制检查 |
 | [docs/_qa/qa-report.md](docs/_qa/qa-report.md) | 全键盘/文档 QA 报告 |
 | [docs/_review/](docs/_review/) | 独立评审报告 |
 | [docs/runs/](docs/runs/) | Agent 运行记录与复盘 |
@@ -32,8 +36,8 @@
 1. `AGENTS.md`
 2. `docs/00-设计基线与术语.md`
 3. 按角色读 `docs/01`–`docs/07`
-4. `docs/backlog.md` 领取任务
-5. 模板：`docs/_templates/`
+4. `docs/tasks.json` + `docs/backlog.md` 领取任务；多 agent 任务先读 `skills/multi-agent-delivery/SKILL.md`
+5. 模板：`docs/_templates/`；写完跑 `scripts/check-agent-work.ps1`
 
 ---
 
@@ -46,6 +50,7 @@
 - **公平付费**：F2P + 外观/战令/创始人包；不卖属性。
 - **技术**：Unity 6.3 LTS + URP；Fusion 2 Server Mode；30Hz + 预测 + 200ms 回放；Nakama/PostgreSQL/Redis/Agones。
 - **AI 原生**：**1 名 Human Architect/Decision-maker + AI agent swarm + 按需外包**；技术侧 token 不设上限；不再以 12–18 FTE 为技术基线；AI 执行为主 + 独立 agent 评审 + 高风险 Human 门。
+- **多 Agent 保障**：`docs/tasks.json` 单写任务/写域；一个文件一个 writer；done 必须有 handoff/评审；`scripts/check-agent-work.ps1` 强制检查重复 ID、写域冲突、依赖、handoff、review。
 
 ---
 
@@ -63,6 +68,7 @@
 - [x] docs/metrics / backlog / QA 报告
 - [x] 独立评审 REV-001–004（2/6/7/2 blockers；结构问题已修，报告在 `docs/_review/`）
 - [x] Human 确认 AI-native 执行/成本模型（1 Human + AI agents + 外包；token 不设上限）
+- [x] 多 Agent 保障落地：`docs/tasks.json`、handoff 索引、skill、强制检查器（当前 31 任务检查通过）
 - [ ] open blockers：完美格挡时序（M0）、赛季产能（M0）、REV-001 M-1/M-3、DR-001 items 1–13
 - [ ] run log 复盘完成（open blocker 关闭后）
 

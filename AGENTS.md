@@ -17,9 +17,10 @@
 
 1. `AGENTS.md`（本文件）
 2. `docs/00-设计基线与术语.md`
-3. `docs/backlog.md` + 你的 `TASK-###` brief
-4. 与你任务相关的 ADR / 文档章节
-5. 该任务列出的来源
+3. `docs/tasks.json` + `docs/backlog.md` + 你的 `TASK-###` brief
+4. 多 agent 任务：`skills/multi-agent-delivery/SKILL.md`
+5. 与你任务相关的 ADR / 文档章节
+6. 该任务列出的来源
 
 不要一上来读整个仓库。链接而非粘贴；只读完成任务所需的最小上下文。
 
@@ -248,13 +249,19 @@ docs/
   05-关键决策记录（ADR）.md
   06-AI原生开发与多Agent协作规范.md
   07-需求与决策追踪矩阵.md
-  backlog.md                  # 任务看板
+  backlog.md                  # 人读任务看板
+  tasks.json                  # 机器可读任务/写域/依赖/handoff
+  handoffs/                   # handoff 索引
   decisions/                  # ADR 正文
   _templates/                 # task brief / handoff / review / run log / adr
   _research/                  # 研究原始材料（过程）
   _drafts/                    # 撰稿草稿（过程）
   _review/                    # 评审报告（过程）
   runs/                       # agent 运行记录
+scripts/
+  check-agent-work.ps1        # 任务/写域/handoff/评审强制检查
+skills/
+  multi-agent-delivery/       # 多 agent 防重复/防冲突/可交接 skill
 ```
 
 ---

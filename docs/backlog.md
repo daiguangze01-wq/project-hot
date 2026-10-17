@@ -44,6 +44,7 @@ last_reviewed: 2026-10-17
 | TASK-044 | AI 研发指标 | Orchestrator | TASK-003 | `docs/metrics.md` | 定义/口径/目标/反刷分 | done |
 | TASK-045 | QA/评审模板 | Orchestrator | TASK-003 | `_qa/qa-checklist.md`、`_review/reviewer-brief.md`、`_templates/decision-request.md` | 可直接使用 | done |
 | TASK-046 | Baseline 0.1.2 决策请求 | Orchestrator | TASK-003 | `docs/decisions/DR-001-baseline-0.1.2.md` | Human 批准/修改 | pending Human |
+| TASK-047 | 多 Agent 工作保障 | Orchestrator | TASK-003 | `docs/tasks.json`、`scripts/check-agent-work.ps1`、`skills/multi-agent-delivery/SKILL.md`、`docs/handoffs/INDEX.md` | 检查器通过 | done |
 
 ## 2. 原型阶段（后续）
 

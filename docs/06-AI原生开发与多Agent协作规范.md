@@ -268,6 +268,19 @@ NEXT: 下一个 agent 需要做什么
 - 写 `RUN-###`；复盘：哪些任务该拆更小、哪些上下文多余、哪些门没拦住。
 - 更新 `docs/06` 与模板。
 
+### 5.9 多 Agent 防重复/防冲突/可追溯/可交接保障
+
+> 目标：任何 agent 开工前能回答“这是不是我的任务、我能不能写这些文件、谁评审、handoff 去哪”；任何 agent 离场后，下一个 agent 能只靠仓库恢复上下文。
+
+- **机器可读看板**：`docs/tasks.json` 是任务/写域/依赖/验收/handoff/review 的唯一结构化来源；`docs/backlog.md` 是人读视图。Orchestrator 单写；agent 不改状态，只发 claim 请求。
+- **Claim 协议**：开工前读 `docs/tasks.json`；确认 `owner`、`status`、`write_scope`；若另一个 `in_progress`/`review` 任务写域重叠，停止并升级。无 TASK 号不写文件。
+- **防重复**：新增任务先查 `tasks.json`、`backlog.md`、`docs/07`；同一产物只能一个 owner；同一 bug 不开两个任务；重复即合并/拆分。
+- **防冲突**：一个文件同一时间一个 writer；跨文件任务先拆；分支/worktree per task；作者不合并；baseline/ADR/AGENTS 走 DR/ADR + Human。
+- **可追溯**：每个任务至少有 `TASK → REQ → TEST → RUN → REV → handoff` 链；run log 记录 agent 角色、模型、prompt 版本、工具、输入、输出、成本。
+- **可交接**：`done` 且 `handoff_required=true` 必须有 handoff 文件；支持任务按 §10.3 豁免；索引 `docs/handoffs/INDEX.md`；handoff 必须含 CHANGED/DECISIONS/EVIDENCE/RISKS/NEXT。
+- **强制校验**：合并/QA 前跑 `scripts/check-agent-work.ps1`；它检查重复 ID、依赖、done 任务的 handoff/review、活跃任务写域重叠。失败即 block。
+- **Skill**：`skills/multi-agent-delivery/SKILL.md` 给出 agent 可直接执行的 claim/write/handoff 流程。
+
 ---
 
 ## 6. 交接、评审与冲突
