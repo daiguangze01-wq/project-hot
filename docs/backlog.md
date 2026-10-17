@@ -64,7 +64,7 @@ last_reviewed: 2026-10-17
 | TASK-066 | 3 款键盘人工 QA（B6） | QA + Human | TASK-062 | `validation/input/hardware-qa/` | 3 款×100 次 ≥99% | blocked-human（kit ready） |
 | TASK-070 | Web 可玩 MVP | Lead | TASK-020/021 | `mvp/` | 可双开试玩；15/15 测试；截图 | done |
 | TASK-071 | MVP 独立评审 | mvp-reviewer | TASK-070 | `mvp/review/` | 0B/0M；4 minor | done |
-| TASK-080 | Unity 6.3 客户端 U0 | Lead | TASK-070 | `client-unity/` | Unity 工程/相机/输入/训练场 | blocked（Editor 已装；等 License/Fusion） |
+| TASK-080 | Unity 6.3 客户端 U0 | Lead | TASK-070 | `client-unity/` | Unity 工程/相机/输入/训练场 | in_progress（场景+构建成功；待目视） |
 
 ## 3. 任务 Brief 索引
 

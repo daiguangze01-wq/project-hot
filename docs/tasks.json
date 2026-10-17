@@ -693,7 +693,7 @@
     {
       "id": "TASK-080",
       "title": "Unity 6.3 客户端 U0（相机/输入/训练场）",
-      "status": "blocked",
+      "status": "in_progress",
       "owner": "lead",
       "reviewer": "reviewer-a",
       "write_scope": ["client-unity/"],
@@ -701,11 +701,11 @@
       "req": ["REQ-VIS-001", "REQ-CTL-001", "REQ-CBT-001"],
       "acceptance": "Unity 6.3 URP 工程；size8/pitch50/yaw45；1.8m≈78px；6/10m 可见；全键盘；训练场+木桩",
       "risk": "high",
-      "handoff_required": false,
-      "handoff": null,
+      "handoff_required": true,
+      "handoff": "client-unity/HANDOFF.md",
       "review_required": false,
       "review_ref": null,
-      "notes": "Unity 6.3.26f1 + Hub + Windows IL2CPP 已装；等待 Unity 账号/Personal License 与 Fusion 2"
+      "notes": "U0 scene+build 已生成；待 Human 目视/手感验收；Fusion 2 未接"
     }
   ]
 }

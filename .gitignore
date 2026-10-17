@@ -7,3 +7,18 @@ mvp/.chrome-profile/
 mvp/.chrome-cdp-profile/
 mvp/.chrome-profile-cdp/
 mvp/review/.tmp-*
+
+# Unity generated / local build output
+client-unity/_tmpl/
+client-unity/ProjectHot/[Ll]ibrary/
+client-unity/ProjectHot/[Tt]emp/
+client-unity/ProjectHot/[Oo]bj/
+client-unity/ProjectHot/[Bb]uild/
+client-unity/ProjectHot/[Bb]uilds/
+client-unity/ProjectHot/[Ll]ogs/
+client-unity/ProjectHot/[Uu]serSettings/
+client-unity/ProjectHot/.vs/
+client-unity/ProjectHot/*.csproj
+client-unity/ProjectHot/*.sln
+client-unity/*.png
+client-unity/*.log
