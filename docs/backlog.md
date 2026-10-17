@@ -62,6 +62,8 @@ last_reviewed: 2026-10-17
 | TASK-064 | 技术验证汇总 | Lead | TASK-060–063 | `validation/REPORT.md` | conditional go to M0 | done |
 | TASK-065 | DR-002 验证后基线修正 | Lead + Human | TASK-060–063 | `docs/decisions/DR-002-validation-baseline-fixes.md` | D1–D6 approved | done |
 | TASK-066 | 3 款键盘人工 QA（B6） | QA + Human | TASK-062 | `validation/input/hardware-qa/` | 3 款×100 次 ≥99% | planned |
+| TASK-070 | Web 可玩 MVP | Lead | TASK-020/021 | `mvp/` | 可双开试玩；15/15 测试；截图 | done |
+| TASK-071 | MVP 独立评审 | mvp-reviewer | TASK-070 | `mvp/review/` | 0B/0M；4 minor | done |
 
 ## 3. 任务 Brief 索引
 

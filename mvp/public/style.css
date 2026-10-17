@@ -1,0 +1,162 @@
+:root {
+  --ink: #e8eef9;
+  --muted: #8794ad;
+  --panel: rgba(10, 14, 22, 0.78);
+  --line: rgba(120, 160, 220, 0.22);
+  --hp: #ff5c7a;
+  --mp: #5da8ff;
+  --guard: #f2c14e;
+  --ult: #b18cff;
+  --accent: #63d6ff;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #070a10;
+  color: var(--ink);
+  font-family: Consolas, "Cascadia Mono", "Courier New", monospace;
+  overflow: hidden;
+}
+#stage {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(1200px 700px at 50% 35%, #172033 0%, #0a0e16 55%, #05070b 100%);
+}
+#game {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+#hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.02);
+  backdrop-filter: blur(3px);
+  padding: 10px 12px;
+  border-radius: 3px;
+}
+#playerCard {
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  width: 320px;
+}
+#scoreCard {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  width: 230px;
+  min-height: 120px;
+}
+#help {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  width: 520px;
+  font-size: 11px;
+  line-height: 1.55;
+  color: #aab8d2;
+}
+.panelTitle {
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: .12em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.nameRow { margin-bottom: 7px; }
+#pname { font-size: 16px; font-weight: 700; letter-spacing: .04em; }
+#pstate { font-size: 10px; color: var(--muted); }
+.barRow {
+  display: grid;
+  grid-template-columns: 42px 1fr 42px;
+  gap: 6px;
+  align-items: center;
+  margin: 4px 0;
+  font-size: 10px;
+}
+.lbl { color: var(--muted); letter-spacing: .08em; }
+.num { color: #c7d2e6; text-align: right; font-size: 10px; }
+.bar {
+  height: 7px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.08);
+  overflow: hidden;
+}
+.bar i { display: block; height: 100%; width: 0%; transition: width .08s linear; }
+.bar.hp i { background: linear-gradient(90deg, #ff3d63, #ff7d91); }
+.bar.mp i { background: linear-gradient(90deg, #2f7bff, #74c1ff); }
+.bar.guard i { background: linear-gradient(90deg, #c9962a, #ffe08a); }
+.bar.ult i { background: linear-gradient(90deg, #7a4dff, #c4a5ff); }
+#skills {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.skill {
+  position: relative;
+  min-width: 52px;
+  padding: 4px 5px;
+  border: 1px solid rgba(120,160,220,.22);
+  background: rgba(255,255,255,.035);
+  font-size: 9px;
+  color: #b9c7df;
+  text-align: center;
+}
+.skill b { display: block; color: #e8eef9; font-size: 10px; margin-bottom: 1px; }
+.skill.cool { opacity: .42; }
+.skill .cd {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 12px; font-weight: 700;
+  background: rgba(0,0,0,.45);
+}
+#scoreList { font-size: 11px; line-height: 1.7; }
+.scoreItem { display: flex; justify-content: space-between; gap: 8px; }
+.scoreItem .dot { width: 7px; height: 7px; display: inline-block; margin-right: 5px; border-radius: 50%; }
+#dummyLine { margin-top: 8px; padding-top: 7px; border-top: 1px solid var(--line); font-size: 10px; color: var(--muted); }
+#help .keys { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 12px; }
+#help b { color: #e8eef9; font-weight: 600; }
+#toast {
+  position: absolute;
+  left: 50%;
+  top: 23%;
+  transform: translateX(-50%);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-shadow: 0 2px 0 #000, 0 0 18px rgba(99,214,255,.35);
+  opacity: 0;
+  transition: opacity .12s linear;
+}
+#conn {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  font-size: 10px;
+  color: var(--muted);
+}
+@media (max-width: 900px) {
+  #playerCard { width: 260px; }
+  #help { width: 360px; }
+  #scoreCard { width: 190px; }
+}

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Hot — 2.5D 键盘竞技场 MVP</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="stage">
+    <canvas id="game" width="1280" height="720" aria-label="Project Hot 2.5D arena"></canvas>
+
+    <div id="hud">
+      <section id="playerCard" class="panel">
+        <div class="row nameRow">
+          <span id="pname">Player</span>
+          <span id="pstate">connecting…</span>
+        </div>
+        <div class="barRow"><span class="lbl">HP</span><div class="bar hp"><i id="hpFill"></i></div><span id="hpText" class="num">500</span></div>
+        <div class="barRow"><span class="lbl">MP</span><div class="bar mp"><i id="mpFill"></i></div><span id="mpText" class="num">100</span></div>
+        <div class="barRow"><span class="lbl">GUARD</span><div class="bar guard"><i id="guardFill"></i></div><span id="guardText" class="num">300</span></div>
+        <div class="barRow"><span class="lbl">ULT</span><div class="bar ult"><i id="ultFill"></i></div><span id="ultText" class="num">0</span></div>
+        <div id="skills"></div>
+      </section>
+
+      <section id="scoreCard" class="panel">
+        <div class="panelTitle">竞技场 / ARENA</div>
+        <div id="scoreList"></div>
+        <div id="dummyLine">木桩：<span id="dummyHp">5000</span> / 5000</div>
+      </section>
+
+      <section id="help" class="panel">
+        <div class="panelTitle">全键盘 / KEYBOARD ONLY</div>
+        <div class="keys">
+          <span><b>WASD / 方向</b> 移动</span>
+          <span><b>C</b> 轻击 · <b>X</b> 重击 · <b>V</b> 跳跃</span>
+          <span><b>Z+C</b> 技能1 · <b>Z+X</b> 技能2</span>
+          <span><b>Z+方向+C</b> 技能3 · <b>Z+方向+X</b> 技能4</span>
+          <span><b>Z+X+C</b> 必杀 · <b>Space / C+X</b> 防御</span>
+        </div>
+      </section>
+
+      <div id="toast"></div>
+      <div id="conn">SSE · 30Hz server</div>
+    </div>
+  </div>
+
+  <script src="/game.js"></script>
+</body>
+</html>

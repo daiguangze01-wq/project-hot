@@ -2,7 +2,7 @@
 
 > 2.5D 俯视角、全键盘 ZXCV、装备驱动的像素动作 MMO。原创 IP；PC/Steam 优先。
 
-当前阶段：**文档与规范阶段**。不写游戏代码、不做可玩 Demo、不生产最终美术资产。
+当前阶段：**文档/规范 + Web MVP 原型阶段**。`mvp/` 已可玩（2.5D 键盘竞技场）；Unity/Fusion 生产实现与最终美术资产尚未开始。
 
 ---
 
@@ -25,6 +25,9 @@
 | [docs/handoffs/INDEX.md](docs/handoffs/INDEX.md) | handoff 索引与豁免清单 |
 | [skills/multi-agent-delivery/SKILL.md](skills/multi-agent-delivery/SKILL.md) | 多 agent 防重复/防冲突/可交接 skill |
 | [scripts/check-agent-work.ps1](scripts/check-agent-work.ps1) | 任务/写域/handoff/评审强制检查 |
+| [mvp/README.md](mvp/README.md) | **可玩 MVP**：2.5D 键盘竞技场（Node 30Hz + SSE + Canvas） |
+| [mvp/review/REVIEW-FOLLOWUP.md](mvp/review/REVIEW-FOLLOWUP.md) | MVP 独立复评：0 blocker / 0 major |
+| [mvp/screenshots/mvp-demo.png](mvp/screenshots/mvp-demo.png) | MVP 截图 |
 | [validation/REPORT.md](validation/REPORT.md) | M0-lite 技术验证汇总：相机/联网/键盘，conditional go |
 | [validation/review/REVIEW.md](validation/review/REVIEW.md) | 技术验证独立复核（6B/5M/9m） |
 | [docs/decisions/DR-002](docs/decisions/DR-002-validation-baseline-fixes.md) | 验证后基线修正 D1–D6（approved 2026-10-18） |
@@ -74,6 +77,8 @@
 - [x] 多 Agent 保障落地：`docs/tasks.json`、handoff 索引、skill、强制检查器（当前 37 任务检查通过）
 - [x] 技术验证 M0-lite：相机 pass（模型级）、联网 conditional、键盘 conditional；**不是 validation passed**
 - [x] DR-002 D1–D6 已批准；docs/00 v0.3.0、ADR-002/004/008 已复访
+- [x] Web 可玩 MVP：`mvp/`（双开多人、全键盘、服务器权威；15/15 测试）
+- [x] MVP 独立评审：[REV-071](mvp/review/REVIEW.md) + [follow-up](mvp/review/REVIEW-FOLLOWUP.md)：0B/0M/4 minor
 - [ ] open blockers：B6 真实键盘 QA（TASK-066）、M0 引擎实测、赛季产能、REV-001 M-1/M-3、DR-001 items 1–13
 - [ ] run log 复盘完成（open blocker 关闭后）
 
@@ -81,6 +86,6 @@
 
 ## 下一步
 
-1. M0 引擎验证：URP 相机/78px/6·10m；Fusion 2 格挡矩阵（C1/C2 负对照）；3 款键盘人工 QA（TASK-066）。
-2. M0 原型：战斗、联网、美术风格测试、后端骨架。
+1. 试玩 MVP：`cd mvp; node server.js`，打开两个标签；重点验证读招/防御/必杀手感。
+2. 记录试玩反馈；进 M0 引擎（URP 相机、Fusion 2 格挡矩阵、3 款键盘）。
 3. 关闭 B6、DR-001 items 1–13、赛季产能后，再把 `docs/00`–`docs/07` 从 `draft` 更新为 `reviewed`。

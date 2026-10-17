@@ -655,6 +655,40 @@
       "review_required": false,
       "review_ref": null,
       "notes": "B6；需要人类/QA 物理键盘，AI 不能替代"
+    },
+    {
+      "id": "TASK-070",
+      "title": "Web 可玩 MVP（2.5D 键盘竞技场）",
+      "status": "done",
+      "owner": "lead",
+      "reviewer": "mvp-reviewer",
+      "write_scope": ["mvp/sim.js", "mvp/server.js", "mvp/public/", "mvp/test/", "mvp/README.md", "mvp/package.json", "mvp/scripts/"],
+      "depends_on": ["TASK-020", "TASK-021"],
+      "req": ["REQ-VIS-001", "REQ-CBT-001", "REQ-CBT-002", "REQ-CTL-001", "REQ-TECH-002"],
+      "acceptance": "node --test 通过；SSE 房间可加入；服务器权威战斗/防御/必杀；可玩截图；全键盘无鼠标",
+      "risk": "high",
+      "handoff_required": true,
+      "handoff": "mvp/HANDOFF.md",
+      "review_required": true,
+      "review_ref": "mvp/review/REVIEW.md",
+      "notes": "Web/Canvas MVP，不是 Unity/Fusion 生产实现"
+    },
+    {
+      "id": "TASK-071",
+      "title": "MVP 独立评审",
+      "status": "done",
+      "owner": "mvp-reviewer",
+      "reviewer": "lead",
+      "write_scope": ["mvp/review/"],
+      "depends_on": ["TASK-070"],
+      "req": ["REQ-QA-001", "REQ-TECH-002"],
+      "acceptance": "独立跑测试/服务器/截图；blocker 清零或列出；不修改源文件",
+      "risk": "high",
+      "handoff_required": false,
+      "handoff": null,
+      "review_required": false,
+      "review_ref": null,
+      "notes": "reviewer 只写 mvp/review/"
     }
   ]
 }
