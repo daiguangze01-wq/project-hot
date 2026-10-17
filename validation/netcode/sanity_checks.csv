@@ -1,0 +1,11 @@
+check,description,metric,expected,observed,passed,note
+S1_offline_perfect_timing,RTT 0 / loss 0 / jitter 0 / sigma 0 (perfect timing control) must yield near-100 %.,perfect_guard_success_rate,>= 0.999,1.0000,1,
+S2_high_rtt_no_lagcomp,RTT 200 / W=100 / no lag-comp (strict realtime) must be poor.,perfect_guard_success_rate,<= 0.02,0.0000,1,
+S3_arrival_time_judging,Arrival-time judging instead of input timestamps at RTT 150 must collapse (<= 0.05).,perfect_guard_success_rate,<= 0.05,0.0084,1,
+S4_defender_favoring_gain,Defender-favoring ON must gain >= 0.20 success at RTT 80 (retro + timestamp compensation).,success(ON) - success(OFF),>= 0.20,0.9997,1,
+S5_cap_200_helps_rtt150,Cap 200 must gain >= 0.20 success over cap 150 at RTT 150.,success(cap200) - success(cap150),>= 0.20,0.6393,1,
+S6_tick60_lower_false_positive,60 Hz tick false-positive rate <= 30 Hz tick at RTT 80/W=100.,fp(60Hz) - fp(30Hz),<= 0.0,"fp30=0.0583, fp60=0.0494",1,
+S7_loss_without_redundancy,2 % loss with buffer 0 must cost roughly 2 % success.,success(loss0) - success(loss2),0.01 .. 0.03,0.0203,1,
+S8_rtt_monotonicity,Success must not increase with RTT (0 -> 100 -> 200 ms).,s(0) >= s(100) >= s(200),monotone,0.9998 >= 0.9969 >= 0.1819,1,
+S9_redundancy_recovers_loss,Buffer 2 (redundant copies) must recover most of the 2 % loss penalty.,success(B2) - success(B0) at loss 2 %,>= 0.015,0.0230,1,
+S10_tick_quantization_ratio,p95 timing error at 30 Hz must be clearly larger than at 60 Hz.,p95(30Hz) / p95(60Hz),>= 1.5,2.00,1,

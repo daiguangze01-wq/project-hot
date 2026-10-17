@@ -1,0 +1,38 @@
+id,layout,guard_policy,guard_window_ms,case,timeline,expected,actual,result,notes
+C01,classic,literal,40,Z tap 100ms → 软锁,0 Z↓; 100 Z↑,SOFT_LOCK,SOFT_LOCK,PASS,docs/03 §4.1：tap ≤150ms。
+C02,classic,literal,40,Z tap 150ms（边界，≤150 成立）,0 Z↓; 150 Z↑,SOFT_LOCK,SOFT_LOCK,PASS,150ms = 9f，闭区间边界。
+C03,classic,literal,40,Z hold 166.7ms（10f）→ 无动作,0 Z↓; 166.7 Z↑,NONE,NONE,PASS,>150ms 视为按住修饰，不产生软锁。
+C04,classic,literal,40,Z+C（间隔 100ms，Z 按住）→ 特殊技 1,0 Z↓; 100 C↓,SPECIAL_1,SPECIAL_1,PASS,
+C05,classic,literal,40,Z+X（间隔 100ms，Z 按住）→ 特殊技 2,0 Z↓; 100 X↓,SPECIAL_2,SPECIAL_2,PASS,
+C06,classic,literal,40,C+X 间隔 30ms → 防御,0 C↓; 30 X↓,GUARD,GUARD,PASS,
+C07,classic,literal,40,X+C 间隔 30ms → 防御（顺序无关）,0 X↓; 30 C↓,GUARD,GUARD,PASS,
+C08,classic,literal,40,C+X 间隔 40ms（±40ms 边界）→ 防御,0 C↓; 40 X↓,GUARD,GUARD,PASS,docs/03 §4.1 优先级表 ±40ms，闭区间。
+C09,classic,literal,40,C+X 间隔 41.7ms（超 ±40ms）→ 两次普攻,0 C↓; 41.7 X↓,LIGHT_ATTACK>HEAVY_ATTACK,LIGHT_ATTACK>HEAVY_ATTACK,EDGE,边界外：C 先按普通轻击、X 判重击；若采用 docs/03 §4.3 的 ±50ms 则为 GUARD。
+C10,classic,literal,40,Z+方向+C，方向领先 C 40ms（新鲜）→ 特殊技 3,0 Z↓; 100 Up↓; 140 C↓,SPECIAL_3,SPECIAL_3,PASS,
+C11,classic,literal,40,Z+方向+X，方向领先 X 30ms（新鲜）→ 特殊技 4,0 Z↓; 100 Up↓; 130 X↓,SPECIAL_4,SPECIAL_4,PASS,
+C12,classic,literal,40,Z+方向+C，方向已按住 100ms（>3f）→ 基础特殊技 1,0 Z↓; 100 Up↓; 200 C↓,SPECIAL_1,SPECIAL_1,PASS,方向 >3f = 移动中，回退基础版。
+C13,classic,literal,40,Z+方向+C，方向领先正好 50ms（3f 边界）→ 特殊技 3,0 Z↓; 100 Up↓; 150 C↓,SPECIAL_3,SPECIAL_3,PASS,3f = 50.0ms，闭区间。
+C14,classic,literal,40,Z+方向+C，方向领先 66.7ms（4f）→ 基础特殊技 1,0 Z↓; 100 Up↓; 166.7 C↓,SPECIAL_1,SPECIAL_1,PASS,60Hz 采样下，50–66.7ms 之间不存在整帧间隔。
+C15,classic,literal,40,Z+X+C，X→C 间隔 60ms（>3f 缓冲）→ 必杀前先提交特殊技 2,0 Z↓; 100 X↓; 160 C↓,SPECIAL_2>ULTIMATE,SPECIAL_2>ULTIMATE,EDGE,中间动作已提交；引擎需状态机取消或更长意图缓冲才能干净必杀。
+C16,classic,literal,40,Z+X+C，X→C 间隔 20ms → 防御优先（规范字面）,0 Z↓; 100 X↓; 120 C↓,GUARD,GUARD,EDGE,文档优先级 C+X 防御 > 必杀：Z 按住时 X/C 间隔≤40ms 会被防御抢判（规范张力）。
+C17,classic,literal,40,Z+X+C，X→C 间隔 50ms（3f 缓冲内完成）→ 只用必杀,0 Z↓; 100 X↓; 150 C↓,ULTIMATE,ULTIMATE,EDGE,"干净必杀仅在 X→C ∈ (40ms, 50ms] 的窄带内成立（依赖缓冲模型）。"
+C18,classic,literal,40,顺序必杀 Z→X→C（X 抬起后 3f 内按 C，总 90ms）→ 软锁+必杀,0 Z↓; 30 Z↑; 50 X↓; 60 X↑; 90 C↓,SOFT_LOCK>ULTIMATE,SOFT_LOCK>ULTIMATE,EDGE,2KRO 顺序回退可行条件：X 抬起后 ≤3f 内按 C；Z tap 会先产生软锁（无害）。
+C19,classic,literal,40,顺序必杀 Z→X→C 但 C 迟到（总 180ms）→ 普攻先提交,0 Z↓; 30 Z↑; 50 X↓; 60 X↑; 180 C↓,SOFT_LOCK>HEAVY_ATTACK>ULTIMATE,SOFT_LOCK>HEAVY_ATTACK>ULTIMATE,EDGE,超过 3f 缓冲后中间普通攻击已提交；实际引擎需定义取消/抑制。
+C20,classic,literal,40,顺序特殊技 3：Z→方向→C（总 80ms）→ 软锁+特殊技 3,0 Z↓; 30 Z↑; 60 Up↓; 80 C↓,SOFT_LOCK>SPECIAL_3,SOFT_LOCK>SPECIAL_3,EDGE,2KRO 特殊技 3/4 顺序回退；软锁与特殊技可能双动作。
+C21,classic,literal,40,顺序特殊技 3 超过 250ms → 普通轻击,0 Z↓; 30 Z↑; 250 Up↓; 280 C↓,SOFT_LOCK>LIGHT_ATTACK,SOFT_LOCK>LIGHT_ATTACK,PASS,Z→C 总跨度 280ms >250ms，不判顺序特殊技。
+C22,classic,literal,40,经典布局：方向+C（无 Z）→ 普通轻击（不是技能）,0 Up↓; 30 C↓,LIGHT_ATTACK,LIGHT_ATTACK,PASS,方向+C 是「现代技能 3」；经典布局只是移动轻击。
+C23,classic,literal,40,经典布局：方向+X+C → 仍判防御,0 Up↓; 50 X↓; 70 C↓,GUARD,GUARD,PASS,同样的键在现代布局是技能 4；经典布局由 X+C 防御抢占。
+C24,classic,z_suppresses_guard,40,候选修正：Z 按住时防御让位 → Z+X+C 判必杀,0 Z↓; 100 X↓; 120 C↓,ULTIMATE,ULTIMATE,EDGE,建议方案：Z 按住时 C+X 防御让位（需改 docs/00 §4.1 优先级，Human 门）。
+C25,classic,literal,50,C+X 间隔 41.7ms，若采用 ±50ms 窗口 → 防御,0 C↓; 41.7 X↓,GUARD,GUARD,EDGE,docs/03 §4.3 写 ±50ms，与 §4.1 的 ±40ms 冲突；本模型默认 40ms。
+C26,classic,literal,40,Z tap 软锁后再按 C → 软锁+普通轻击（顺序特殊 1 不成立）,0 Z↓; 100 Z↑; 150 C↓,SOFT_LOCK>LIGHT_ATTACK,SOFT_LOCK>LIGHT_ATTACK,PASS,顺序输入仅承诺特殊 3/4 与必杀；Z→C 松手顺序不判特殊 1。
+C27,classic,literal,40,方向+Z+X+C（4 键同时，X→C 间隔 50ms）→ 必杀,0 Up↓; 50 Z↓; 100 X↓; 150 C↓,ULTIMATE,ULTIMATE,PASS,NKRO/6KRO 可 4 键同按；2KRO 不可能（须顺序输入）。
+C28,classic,literal,40,Space 替代防御（经典布局）：Space 按住 + C → 防御,0 Space↓; 50 C↓,GUARD,GUARD,PASS,docs/00 §4.1：C+X 防御的 Space 替代；2KRO 移动中防御的关键回退。
+M01,modern,literal,40,现代：Z 单键 → 轻击,0 Z↓; 100 Z↑,LIGHT_ATTACK,LIGHT_ATTACK,PASS,
+M02,modern,literal,40,现代：方向领先 C 30ms → 技能 3,0 Up↓; 30 C↓,SKILL_3,SKILL_3,PASS,
+M03,modern,literal,40,现代：方向已按住 100ms → 技能 1（基础版）,0 Up↓; 100 C↓,SKILL_1,SKILL_1,PASS,方向 >3f = 移动中，回退基础技能。
+M04,modern,literal,40,现代：X+C（X 先，间隔 30ms）→ 技能 2,0 X↓; 30 C↓,SKILL_2,SKILL_2,PASS,
+M05,modern,literal,40,现代：方向+X+C（X 先，C 距方向 45ms）→ 技能 4,0 Up↓; 20 X↓; 45 C↓,SKILL_4,SKILL_4,PASS,
+M06,modern,literal,40,现代：C 单键 → 技能 1,0 C↓,SKILL_1,SKILL_1,PASS,
+M07,modern,literal,40,现代：Space 按住防御时按 C → 防御，不攻击,0 Space↓; 50 C↓,GUARD,GUARD,PASS,
+M08,modern,literal,40,现代：C 先 X 后（非文档顺序）→ 技能 1 + 重击,0 C↓; 20 X↓,SKILL_1>HEAVY_ATTACK,SKILL_1>HEAVY_ATTACK,EDGE,现代 X+C 顺序敏感：C 先于 X 不代表技能 2；实现需明确顺序或加缓冲。
+M09,modern,literal,40,现代：Z+X+C 近同时（X→C 20ms）→ 必杀（无 C+X 防御冲突）,0 Z↓; 20 X↓; 40 C↓,ULTIMATE,ULTIMATE,PASS,现代布局防御是 Space，因此必杀没有经典布局的防御抢判问题。

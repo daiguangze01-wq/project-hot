@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TASK-062 键盘 rollover / 组合人工测试</title>
+<style>
+  :root {
+    --bg: #10141c;
+    --panel: #171d28;
+    --panel-2: #1d2533;
+    --line: #2b3446;
+    --text: #e6ecf5;
+    --muted: #96a3b8;
+    --accent: #5ec8ff;
+    --ok: #47d18a;
+    --bad: #ff6b6b;
+    --warn: #ffc857;
+    --key: #26354b;
+    --key-on: #1d6fa5;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+    line-height: 1.55;
+    padding: 0 0 60px;
+  }
+  header {
+    background: linear-gradient(180deg, #182234 0%, #10141c 100%);
+    border-bottom: 1px solid var(--line);
+    padding: 22px 28px 18px;
+  }
+  header h1 { margin: 0 0 6px; font-size: 22px; letter-spacing: .3px; }
+  header .sub { color: var(--muted); font-size: 13px; }
+  main { max-width: 1180px; margin: 0 auto; padding: 18px 20px 0; }
+  section {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 16px 0;
+  }
+  section h2 {
+    font-size: 15px;
+    margin: 0 0 12px;
+    color: var(--accent);
+    letter-spacing: .4px;
+  }
+  section h2 .tag {
+    display: inline-block;
+    font-size: 11px;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 1px 8px;
+    margin-left: 8px;
+    vertical-align: 2px;
+  }
+  ol, ul { margin: 8px 0; padding-left: 22px; }
+  li { margin: 5px 0; }
+  code, .mono { font-family: Consolas, "Cascadia Mono", "Courier New", monospace; }
+  .note {
+    border-left: 3px solid var(--warn);
+    background: rgba(255, 200, 87, .07);
+    padding: 10px 12px;
+    border-radius: 4px;
+    color: #e9d9b0;
+    font-size: 13px;
+  }
+  .note strong { color: var(--warn); }
+  .live-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 12px;
+  }
+  .stat {
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 12px;
+    min-height: 74px;
+  }
+  .stat .label { color: var(--muted); font-size: 12px; margin-bottom: 4px; }
+  .stat .value { font-size: 20px; font-weight: 600; }
+  .stat .value.small { font-size: 15px; font-weight: 500; }
+  .keys { display: flex; flex-wrap: wrap; gap: 6px; min-height: 34px; }
+  .badge {
+    display: inline-block;
+    min-width: 34px;
+    text-align: center;
+    background: var(--key);
+    border: 1px solid #3a4a63;
+    border-bottom-width: 3px;
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-family: Consolas, monospace;
+    font-size: 14px;
+  }
+  .badge.on {
+    background: var(--key-on);
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(94, 200, 255, .35);
+  }
+  button {
+    background: #24344a;
+    color: var(--text);
+    border: 1px solid #3a4a63;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  button:hover { background: #2e4360; }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button.primary { background: #1d6fa5; border-color: #3d9fd8; }
+  button.primary:hover { background: #2584c2; }
+  button.danger { background: #5a2430; border-color: #8f3a4a; }
+  .banner {
+    display: none;
+    background: rgba(94, 200, 255, .1);
+    border: 1px dashed var(--accent);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+  .banner.show { display: block; }
+  .banner b { color: var(--accent); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { border-bottom: 1px solid var(--line); padding: 7px 8px; text-align: left; vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; white-space: nowrap; }
+  tr.active td { background: rgba(94, 200, 255, .08); }
+  td.actions { white-space: nowrap; }
+  .status { font-weight: 600; }
+  .status.pass { color: var(--ok); }
+  .status.fail { color: var(--bad); }
+  .status.pending { color: var(--warn); }
+  .status.none { color: var(--muted); }
+  .small { color: var(--muted); font-size: 12px; }
+  .row { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; }
+  .field { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+  .field input, .field select {
+    background: #101720;
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 6px 9px;
+    font-size: 13px;
+    font-family: inherit;
+    min-width: 190px;
+  }
+  textarea {
+    width: 100%;
+    min-height: 190px;
+    background: #0d1219;
+    color: #cfe3f5;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    resize: vertical;
+  }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+  details summary { cursor: pointer; color: var(--accent); font-size: 14px; }
+  .ok { color: var(--ok); }
+  .bad { color: var(--bad); }
+  .warn { color: var(--warn); }
+  footer { max-width: 1180px; margin: 24px auto 0; padding: 0 20px; color: var(--muted); font-size: 12px; }
+  @media (max-width: 620px) {
+    main, footer { padding-left: 10px; padding-right: 10px; }
+    header { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>TASK-062 键盘 rollover / 组合人工测试</h1>
+  <div class="sub">
+    单文件页面，无需服务器 / 无需联网。用于在真实键盘上验证 Z/X/C/方向 组合能否被系统与浏览器同时识别。
+    本页只测试「OS/浏览器实际收到的按键」，<b>不能区分硬件 ghosting 与软件过滤，也不能替代硬件矩阵测试</b>。
+  </div>
+</header>
+
+<main>
+
+<section id="instructions">
+  <h2>使用说明（请先读完）</h2>
+  <ol>
+    <li>用 Chrome / Edge / Firefox 双击打开本文件（<span class="mono">file://</span>），不需要服务器。</li>
+    <li>至少测试 <b>2–3 把不同键盘</b>：一把全键无冲（NKRO）、一把标称 6KRO 的游戏键盘、一把办公薄膜/笔记本键盘（常见为 2KRO 级别）。每把键盘测试前点「重置全部」或重新打开页面。</li>
+    <li>关闭 Windows「粘滞键 / 筛选键 / 切换键」，输入法切到英文，不要用远程桌面 / 虚拟机 / 云电脑；<b>必须用真实键盘物理按键</b>，不要用 AutoHotkey、脚本或 DevTools 合成事件。</li>
+    <li>在「组合同时按住测试」里点某行「开始」，然后<b>同时按住</b>该组合要求的键（方向组合先按住方向），页面会自动判定并显示观察到的最大同时按键数；按不出来时点「结束」，该行记为不通过。</li>
+    <li>在「顺序输入回退测试」里点「开始」，按提示<b>先按后放</b>完成顺序输入；页面显示总时长，≤250ms 为通过。该测试模拟低 rollover 键盘的软件回退输入。</li>
+    <li>顶部「实时状态」可自由按压任意键，观察按下键列表与同时键数；点「重置最大值」清零会话最大值。</li>
+    <li>最后填写键盘信息 →「生成报告」→「下载报告」，把每把键盘的报告交回 TASK-062 汇总。</li>
+  </ol>
+  <div class="note">
+    <strong>重要：</strong>本页只反映 OS/浏览器把哪些按键交给了网页。它<b>无法区分</b>硬件 ghosting/防冲、键盘固件过滤、OS 粘滞键/筛选键、远程桌面或浏览器快捷键吞键；
+    也<b>不能代替</b>引擎输入层实测。页面用 DevTools/自动化合成的事件没有硬件证据意义。
+    判定规则页只用于「显示最近组合」，不代表游戏引擎的最终判定。
+  </div>
+  <div class="note" style="border-left-color: var(--accent); background: rgba(94,200,255,.07); color: #cfe3f5;">
+    <strong>键位假设：</strong>QWERTY 物理键位（Z/X/C/V），方向键支持 ↑↓←→ 与 WASD（WASD 会显示为方向）。Shift 视为修饰键，不计入「非修饰键同时按数」。
+  </div>
+</section>
+
+<section id="live">
+  <h2>实时状态</h2>
+  <div class="live-grid">
+    <div class="stat">
+      <div class="label">当前按下的键</div>
+      <div class="keys" id="pressedKeys"><span class="small">（等待按键）</span></div>
+    </div>
+    <div class="stat">
+      <div class="label">当前同时按下的非修饰键数</div>
+      <div class="value" id="currentCount">0</div>
+    </div>
+    <div class="stat">
+      <div class="label">本次会话最大同时非修饰键数</div>
+      <div class="value" id="sessionMax">0</div>
+    </div>
+    <div class="stat">
+      <div class="label">最近组合（页面显示用，非引擎判定）</div>
+      <div class="value small" id="lastCombo">—</div>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button id="btnResetMax" type="button">重置最大值</button>
+    <button id="btnResetAll" class="danger" type="button">重置全部（换键盘时用）</button>
+    <span class="small" id="layoutHint">判定布局：经典（C+X 防御 / Z 修饰） · <a href="#" id="toggleLayout" style="color:var(--accent)">切换为现代布局</a></span>
+  </div>
+  <div class="small" style="margin-top:8px;">最近按键序列：<span id="recentSeq" class="mono">—</span></div>
+</section>
+
+<section id="combo-tests">
+  <h2>组合同时按住测试 <span class="tag">对齐 combo_matrix.csv K01–K15</span></h2>
+  <div class="banner" id="testBanner"></div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th><th>组合</th><th>需要同时按住的键</th><th>期望同时非修饰键</th>
+        <th>观测最大同时键数</th><th>状态</th><th>操作</th>
+      </tr>
+    </thead>
+    <tbody id="comboTbody"></tbody>
+  </table>
+  <p class="small">
+    说明：单键行只需按下该键；Shift 行为修饰键（期望非修饰键数 0）。若键盘无法同时上报组合中的全部键，页面会显示更小的观测值并判定不通过。
+    「方向」行按住 ↑↓←→ 或 WASD 中任意一个即可。
+  </p>
+</section>
+
+<section id="seq-tests">
+  <h2>顺序输入回退测试 <span class="tag">低 rollover 键盘回退路径</span></h2>
+  <div class="banner" id="seqBanner"></div>
+  <table>
+    <thead>
+      <tr><th>ID</th><th>顺序输入</th><th>要求</th><th>观测总时长</th><th>状态</th><th>操作</th></tr>
+    </thead>
+    <tbody id="seqTbody"></tbody>
+  </table>
+  <p class="small">顺序输入 = 先按后放（每个键按下后可以松开），总时长 ≤250ms。匹配时忽略中间无关按键。</p>
+</section>
+
+<section id="info-report">
+  <h2>键盘信息与测试报告</h2>
+  <div class="row">
+    <label class="field">键盘品牌/型号
+      <input id="kbName" type="text" placeholder="例如：Filco Majestouch 2 / ThinkPad 内置 / 双飞燕薄膜">
+    </label>
+    <label class="field">键盘类别
+      <select id="kbClass">
+        <option value="NKRO">全键无冲 NKRO</option>
+        <option value="6KRO">标称 6KRO</option>
+        <option value="2KRO">2KRO / 办公薄膜 / 笔记本</option>
+        <option value="unknown">不确定</option>
+      </select>
+    </label>
+    <label class="field">连接方式
+      <select id="kbConn">
+        <option value="USB 有线">USB 有线</option>
+        <option value="PS/2">PS/2</option>
+        <option value="蓝牙">蓝牙</option>
+        <option value="USB 无线 / 2.4G">USB 无线 / 2.4G</option>
+        <option value="内置（笔记本）">内置（笔记本）</option>
+      </select>
+    </label>
+    <label class="field">测试者
+      <input id="tester" type="text" placeholder="可选">
+    </label>
+  </div>
+  <div class="btn-row">
+    <button id="btnBuildReport" class="primary" type="button">生成报告</button>
+    <button id="btnDownload" type="button">下载报告 .txt</button>
+    <button id="btnCopy" type="button">复制报告</button>
+  </div>
+  <textarea id="reportArea" spellcheck="false" placeholder="点「生成报告」后在此显示；可下载或复制后交回 TASK-062 汇总。"></textarea>
+</section>
+
+<section id="expected">
+  <details>
+    <summary>预期结果参考（来自 validation/input/combo_matrix.csv 的计数模型）</summary>
+    <table style="margin-top:10px;">
+      <thead>
+        <tr><th>组合</th><th>2KRO（≤2 键）</th><th>6KRO（≤6 键）</th><th>NKRO（不限）</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>单键 Z / X / C / V / Space</td><td class="ok">可</td><td class="ok">可</td><td class="ok">可</td></tr>
+        <tr><td>C+X / Z+C / Z+X</td><td class="ok">可（2 键）</td><td class="ok">可</td><td class="ok">可</td></tr>
+        <tr><td>方向+C（正交方向）</td><td class="ok">可（2 键）</td><td class="ok">可</td><td class="ok">可</td></tr>
+        <tr><td>方向+C（斜向方向）</td><td class="bad">不可（3 键）</td><td class="ok">可</td><td class="ok">可</td></tr>
+        <tr><td>Z+X+C</td><td class="bad">不可（3 键，需顺序输入）</td><td class="ok">可</td><td class="ok">可</td></tr>
+        <tr><td>方向+Z+C / 方向+Z+X / 方向+X+C</td><td class="bad">不可（3 键及以上）</td><td class="ok">可</td><td class="ok">可</td></tr>
+        <tr><td>方向+Z+X+C</td><td class="bad">不可（4 键）</td><td class="ok">可（斜向 5 键，余量 1）</td><td class="ok">可</td></tr>
+      </tbody>
+    </table>
+    <p class="small">
+      注意：真实 2KRO 键盘的 ghosting/防冲依键位矩阵而定，个别键位偶尔能按出 3 键组合，但<b>不能视为稳定可用</b>；
+      6KRO 亦存在厂商「仅部分键区无冲」的标称差异。请以本页在目标硬件上的实测为准。
+    </p>
+  </details>
+</section>
+
+</main>
+
+<footer>
+  TASK-062 键盘 rollover/组合技术验证 · manual_test.html · 模型/人工证据，不是引擎或玩家实测。
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  // ------------------------------------------------------------------ 常量
+
+  var CODE_MAP = {
+    KeyZ: 'Z', KeyX: 'X', KeyC: 'C', KeyV: 'V',
+    ArrowUp: 'Up', ArrowDown: 'Down', ArrowLeft: 'Left', ArrowRight: 'Right',
+    KeyW: 'Up', KeyS: 'Down', KeyA: 'Left', KeyD: 'Right',
+    Space: 'Space', ShiftLeft: 'Shift', ShiftRight: 'Shift'
+  };
+  var KEY_MAP = {
+    'z': 'Z', 'x': 'X', 'c': 'C', 'v': 'V',
+    'w': 'Up', 's': 'Down', 'a': 'Left', 'd': 'Right',
+    ' ': 'Space', 'spacebar': 'Space', 'shift': 'Shift',
+    'arrowup': 'Up', 'arrowdown': 'Down', 'arrowleft': 'Left', 'arrowright': 'Right'
+  };
+  var DISPLAY = {
+    Z: 'Z', X: 'X', C: 'C', V: 'V', Space: 'Space', Shift: 'Shift',
+    Up: '↑', Down: '↓', Left: '←', Right: '→'
+  };
+  var DIRS = { Up: true, Down: true, Left: true, Right: true };
+  var ORDER = ['Up', 'Down', 'Left', 'Right', 'Z', 'X', 'C', 'V', 'Space', 'Shift'];
+
+  var GUIDE_MS = 40;          // C+X 防御窗口（页面显示用）
+  var DIR_FRESH_MS = 50;      // 方向新鲜窗口 3f
+  var Z_TAP_MS = 150;         // Z tap 上限
+  var SEQ_WINDOW_MS = 250;    // 顺序输入窗口
+
+  var COMBOS = [
+    { id: 'K01', label: 'Z（单键）', required: ['Z'], expect: 1, hint: '按下 Z（轻按=软锁，按住=特殊技修饰）' },
+    { id: 'K02', label: 'X（单键）', required: ['X'], expect: 1, hint: '按下 X（重击）' },
+    { id: 'K03', label: 'C（单键）', required: ['C'], expect: 1, hint: '按下 C（轻击 / 现代技能1）' },
+    { id: 'K04', label: 'V（单键）', required: ['V'], expect: 1, hint: '按下 V（跳跃）' },
+    { id: 'K05', label: 'Space（单键）', required: ['Space'], expect: 1, hint: '按住 Space（防御替代）' },
+    { id: 'K06', label: 'Shift（单键）', required: ['Shift'], expect: 0, hint: '按住 Shift（修饰键，不计非修饰键）' },
+    { id: 'K07', label: 'C+X（防御）', required: ['C', 'X'], expect: 2, hint: '同时按住 C 和 X（间隔尽量 <40ms）' },
+    { id: 'K08', label: 'Z+C（特殊技1）', required: ['Z', 'C'], expect: 2, hint: '按住 Z 再按 C' },
+    { id: 'K09', label: 'Z+X（特殊技2）', required: ['Z', 'X'], expect: 2, hint: '按住 Z 再按 X' },
+    { id: 'K10', label: 'Z+X+C（必杀）', required: ['Z', 'X', 'C'], expect: 3, hint: '同时按住 Z、X、C（低 rollover 键盘会丢键）' },
+    { id: 'K11', label: '方向+C（现代技能3）', required: ['DIR', 'C'], expect: 2, hint: '按住方向键，再按 C' },
+    { id: 'K12', label: '方向+Z+C（特殊技3）', required: ['DIR', 'Z', 'C'], expect: 3, hint: '按住 Z、方向，再按 C' },
+    { id: 'K13', label: '方向+Z+X（特殊技4）', required: ['DIR', 'Z', 'X'], expect: 3, hint: '按住 Z、方向，再按 X' },
+    { id: 'K14', label: '方向+Z+X+C（启动自检）', required: ['DIR', 'Z', 'X', 'C'], expect: 4, hint: '4 键极限组合（非战斗指令）；2KRO 预期失败' },
+    { id: 'K15', label: '方向+X+C（现代技能4）', required: ['DIR', 'X', 'C'], expect: 3, hint: '按住方向、X，再按 C（X 先 C 后）' }
+  ];
+
+  var SEQS = [
+    { id: 'S1', label: 'Z→X→C（必杀顺序）', seq: ['Z', 'X', 'C'], hint: 'Z 按下松开 → X 按下松开 → C 按下；总时长 ≤250ms' },
+    { id: 'S2', label: 'Z→方向→C（特殊技3顺序）', seq: ['Z', 'DIR', 'C'], hint: 'Z 按下松开 → 方向按住 → C 按下；总时长 ≤250ms' },
+    { id: 'S3', label: 'Z→方向→X（特殊技4顺序）', seq: ['Z', 'DIR', 'X'], hint: 'Z 按下松开 → 方向按住 → X 按下；总时长 ≤250ms' }
+  ];
+
+  // ------------------------------------------------------------------ 状态
+
+  var physical = {};       // label -> { code: true }
+  var pressed = {};        // label -> true
+  var lastDown = {};       // label -> performance.now()
+  var recent = [];         // { label, t }
+  var sessionMax = 0;
+  var lastComboText = '—';
+  var zUsed = false;
+  var layoutMode = 'classic';
+  var activeTest = null;   // { def, observedMax, startedAt }
+  var results = {};        // id -> { status, observedMax, note }
+  var activeSeq = null;    // { def, startedAt }
+  var seqResults = {};     // id -> { status, span, note }
+
+  // ------------------------------------------------------------------ 工具
+
+  function $(id) { return document.getElementById(id); }
+
+  function labelFor(e) {
+    if (e.code && CODE_MAP[e.code]) return CODE_MAP[e.code];
+    var key = e.key;
+    if (key === 'Shift') return 'Shift';
+    if (typeof key === 'string') {
+      var lower = key.toLowerCase();
+      if (KEY_MAP[lower]) return KEY_MAP[lower];
+    }
+    return null;
+  }
+
+  function isPressed(label) { return !!pressed[label]; }
+
+  function anyDirection() {
+    return isPressed('Up') || isPressed('Down') || isPressed('Left') || isPressed('Right');
+  }
+
+  function pressedLabels() {
+    return ORDER.filter(isPressed);
+  }
+
+  function countNonModifier() {
+    var n = 0;
+    var list = pressedLabels();
+    for (var i = 0; i < list.length; i++) {
+      if (list[i] !== 'Shift') n++;
+    }
+    return n;
+  }
+
+  function displayName(label) {
+    return DISPLAY[label] || label;
+  }
+
+  function freshDirection(t) {
+    var keys = ['Up', 'Down', 'Left', 'Right'];
+    for (var i = 0; i < keys.length; i++) {
+      var k = keys[i];
+      if (isPressed(k) && (t - (lastDown[k] || -9999)) <= DIR_FRESH_MS) return k;
+    }
+    return null;
+  }
+
+  function pruneRecent(t) {
+    while (recent.length > 0 && t - recent[0].t > 3000) recent.shift();
+  }
+
+  // ------------------------------------------------------------------ 事件
+
+  function onKeyDown(e) {
+    var label = labelFor(e);
+    if (!label) return;
+    if (label === 'Space' || DIRS[label]) e.preventDefault();
+    if (e.repeat) return;
+    var code = e.code || ('key:' + e.key);
+    if (!physical[label]) physical[label] = {};
+    if (physical[label][code]) return;      // 同一物理键重复按下
+    physical[label][code] = true;
+    pressed[label] = true;
+
+    var t = performance.now();
+    lastDown[label] = t;
+    recent.push({ label: label, t: t });
+    pruneRecent(t);
+
+    onStateChanged(label, t);
+  }
+
+  function onKeyUp(e) {
+    var label = labelFor(e);
+    if (!label) return;
+    if (label === 'Space' || DIRS[label]) e.preventDefault();
+    var code = e.code || ('key:' + e.key);
+    if (physical[label] && physical[label][code]) {
+      delete physical[label][code];
+      if (Object.keys(physical[label]).length === 0) {
+        delete physical[label];
+        pressed[label] = false;
+      }
+    } else {
+      // 未知 code 的兜底：直接松开该逻辑键
+      delete physical[label];
+      pressed[label] = false;
+    }
+
+    if (label === 'Z' && layoutMode === 'classic') {
+      var dur = performance.now() - (lastDown['Z'] || performance.now());
+      if (dur <= Z_TAP_MS && !zUsed) {
+        lastComboText = 'SOFT_LOCK 软锁（Z tap ' + Math.round(dur) + 'ms）';
+      } else if (dur > Z_TAP_MS) {
+        lastComboText = 'Z 按住 ' + Math.round(dur) + 'ms（修饰键释放）';
+      }
+    }
+    renderLive();
+    renderRecent();
+  }
+
+  function onBlur() {
+    physical = {};
+    pressed = {};
+    renderLive();
+  }
+
+  function onStateChanged(label, t) {
+    var n = countNonModifier();
+    if (n > sessionMax) sessionMax = n;
+    if (activeTest) {
+      if (n > activeTest.observedMax) activeTest.observedMax = n;
+    }
+    renderLive();
+    renderRecent();
+    observeComboTest();
+    observeSequenceTest(t);
+    detectLastCombo(label, t);
+  }
+
+  // ------------------------------------------------------------------ 最近组合检测（仅显示用）
+
+  function detectLastCombo(label, t) {
+    if (label === 'Space') {
+      lastComboText = 'GUARD 防御（Space 防御替代）';
+      return;
+    }
+    if (layoutMode === 'classic') {
+      if (label === 'Z') {
+        zUsed = false;
+        lastComboText = 'Z 按下（tap=软锁 / hold=修饰键）';
+        return;
+      }
+      if (label === 'C' || label === 'X') {
+        var other = label === 'C' ? 'X' : 'C';
+        var combo = '';
+        if (isPressed(other) && (t - (lastDown[other] || -9999)) <= GUIDE_MS) {
+          combo = 'GUARD 防御（C+X）';
+        } else if (isPressed('Z') && isPressed('X') && isPressed('C')) {
+          combo = 'ULTIMATE 必杀（Z+X+C）';
+        } else if (freshDirection(t) && isPressed('Z')) {
+          combo = label === 'C' ? 'SPECIAL_3 特殊技3（Z+方向+C）' : 'SPECIAL_4 特殊技4（Z+方向+X）';
+        } else if (isPressed('Z')) {
+          combo = label === 'C' ? 'SPECIAL_1 特殊技1（Z+C）' : 'SPECIAL_2 特殊技2（Z+X）';
+        } else {
+          combo = label === 'C' ? 'LIGHT_ATTACK 轻击' : 'HEAVY_ATTACK 重击';
+        }
+        if (combo.indexOf('GUARD') === 0 && isPressed('Z')) zUsed = true;
+        if (combo.indexOf('SPECIAL') === 0 || combo.indexOf('ULTIMATE') === 0) zUsed = true;
+        lastComboText = combo;
+        renderLive();
+        return;
+      }
+    } else {
+      if (label === 'Z') {
+        lastComboText = 'LIGHT_ATTACK 轻击（现代 Z）';
+        renderLive();
+        return;
+      }
+      if (label === 'X' || label === 'C') {
+        var combo2 = '';
+        var fresh = freshDirection(t);
+        if (label === 'X') {
+          combo2 = (isPressed('Z') && isPressed('X') && isPressed('C'))
+            ? 'ULTIMATE 必杀（Z+X+C）' : 'HEAVY_ATTACK 重击（现代 X）';
+        } else {
+          if (isPressed('Z') && isPressed('X') && isPressed('C')) {
+            combo2 = 'ULTIMATE 必杀（Z+X+C）';
+          } else if (isPressed('X')) {
+            combo2 = fresh ? 'SKILL_4 技能4（方向+X+C）' : 'SKILL_2 技能2（X+C）';
+          } else {
+            combo2 = fresh ? 'SKILL_3 技能3（方向+C）' : 'SKILL_1 技能1（C）';
+          }
+        }
+        if (combo2.indexOf('SKILL') === 0 || combo2.indexOf('ULTIMATE') === 0) zUsed = true;
+        lastComboText = combo2;
+        renderLive();
+        return;
+      }
+    }
+    renderLive();
+  }
+
+  // ------------------------------------------------------------------ 渲染
+
+  function renderLive() {
+    var box = $('pressedKeys');
+    var list = pressedLabels();
+    box.innerHTML = '';
+    if (list.length === 0) {
+      var span = document.createElement('span');
+      span.className = 'small';
+      span.textContent = '（等待按键）';
+      box.appendChild(span);
+    } else {
+      for (var i = 0; i < list.length; i++) {
+        var b = document.createElement('span');
+        b.className = 'badge on';
+        b.textContent = displayName(list[i]);
+        box.appendChild(b);
+      }
+    }
+    $('currentCount').textContent = String(countNonModifier());
+    $('sessionMax').textContent = String(sessionMax);
+    $('lastCombo').textContent = lastComboText;
+    $('layoutHint').innerHTML = '判定布局：' + (layoutMode === 'classic' ? '经典（C+X 防御 / Z 修饰）' : '现代（Z 轻击 / X+C 技能2 / Space 防御）')
+      + ' · <a href="#" id="toggleLayout" style="color:var(--accent)">切换</a>';
+    bindToggleLayout();
+  }
+
+  function renderRecent() {
+    if (recent.length === 0) {
+      $('recentSeq').textContent = '—';
+      return;
+    }
+    var parts = [];
+    var last = recent[recent.length - 1].t;
+    for (var i = Math.max(0, recent.length - 8); i < recent.length; i++) {
+      var ev = recent[i];
+      parts.push(displayName(ev.label) + '↓ ' + Math.round(ev.t - last) + 'ms');
+    }
+    $('recentSeq').textContent = parts.join(' · ');
+  }
+
+  function requiredText(def) {
+    var parts = def.required.map(function (k) {
+      return k === 'DIR' ? '方向（↑↓←→/WASD 任一）' : displayName(k);
+    });
+    return parts.join(' + ');
+  }
+
+  function renderComboTable() {
+    var tbody = $('comboTbody');
+    tbody.innerHTML = '';
+    COMBOS.forEach(function (def) {
+      var tr = document.createElement('tr');
+      if (activeTest && activeTest.def.id === def.id) tr.className = 'active';
+
+      var tdId = document.createElement('td');
+      tdId.className = 'mono';
+      tdId.textContent = def.id;
+      tr.appendChild(tdId);
+
+      var tdLabel = document.createElement('td');
+      tdLabel.textContent = def.label;
+      tr.appendChild(tdLabel);
+
+      var tdReq = document.createElement('td');
+      tdReq.className = 'small';
+      tdReq.textContent = requiredText(def);
+      tr.appendChild(tdReq);
+
+      var tdExpect = document.createElement('td');
+      tdExpect.className = 'mono';
+      tdExpect.textContent = '≥ ' + def.expect;
+      tr.appendChild(tdExpect);
+
+      var tdObs = document.createElement('td');
+      tdObs.className = 'mono';
+      var r = results[def.id];
+      tdObs.textContent = r ? String(r.observedMax) : '—';
+      tr.appendChild(tdObs);
+
+      var tdStatus = document.createElement('td');
+      var status = r ? r.status : 'none';
+      tdStatus.className = 'status ' + (status === 'pass' ? 'pass' : status === 'fail' ? 'fail' : status === 'pending' ? 'pending' : 'none');
+      tdStatus.textContent = r ? (r.status === 'pass' ? '通过' : r.status === 'fail' ? '不通过' : '未测试') : '未测试';
+      if (r && r.note) tdStatus.title = r.note;
+      tr.appendChild(tdStatus);
+
+      var tdAct = document.createElement('td');
+      tdAct.className = 'actions';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      var isActive = activeTest && activeTest.def.id === def.id;
+      btn.textContent = isActive ? '结束' : '开始';
+      btn.className = isActive ? 'primary' : '';
+      btn.addEventListener('click', function () {
+        if (activeTest && activeTest.def.id === def.id) {
+          stopComboTest(false);
+        } else {
+          startComboTest(def);
+        }
+      });
+      tdAct.appendChild(btn);
+      tr.appendChild(tdAct);
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderSeqTable() {
+    var tbody = $('seqTbody');
+    tbody.innerHTML = '';
+    SEQS.forEach(function (def) {
+      var tr = document.createElement('tr');
+      if (activeSeq && activeSeq.def.id === def.id) tr.className = 'active';
+
+      var tdId = document.createElement('td');
+      tdId.className = 'mono';
+      tdId.textContent = def.id;
+      tr.appendChild(tdId);
+
+      var tdLabel = document.createElement('td');
+      tdLabel.textContent = def.label;
+      tr.appendChild(tdLabel);
+
+      var tdHint = document.createElement('td');
+      tdHint.className = 'small';
+      tdHint.textContent = def.hint;
+      tr.appendChild(tdHint);
+
+      var r = seqResults[def.id];
+      var tdSpan = document.createElement('td');
+      tdSpan.className = 'mono';
+      tdSpan.textContent = r ? (r.span === null ? '—' : r.span + 'ms') : '—';
+      tr.appendChild(tdSpan);
+
+      var tdStatus = document.createElement('td');
+      var status = r ? r.status : 'none';
+      tdStatus.className = 'status ' + (status === 'pass' ? 'pass' : status === 'fail' ? 'fail' : 'none');
+      tdStatus.textContent = r ? (r.status === 'pass' ? '通过' : '不通过') : '未测试';
+      if (r && r.note) tdStatus.title = r.note;
+      tr.appendChild(tdStatus);
+
+      var tdAct = document.createElement('td');
+      tdAct.className = 'actions';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      var isActive = activeSeq && activeSeq.def.id === def.id;
+      btn.textContent = isActive ? '结束' : '开始';
+      btn.className = isActive ? 'primary' : '';
+      btn.addEventListener('click', function () {
+        if (activeSeq && activeSeq.def.id === def.id) {
+          stopSeqTest();
+        } else {
+          startSeqTest(def);
+        }
+      });
+      tdAct.appendChild(btn);
+      tr.appendChild(tdAct);
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderBanners() {
+    var cb = $('testBanner');
+    if (activeTest) {
+      cb.className = 'banner show';
+      cb.innerHTML = '当前测试 <b>' + activeTest.def.id + ' ' + activeTest.def.label + '</b>：请同时按住 <b>'
+        + requiredText(activeTest.def) + '</b>。' + activeTest.def.hint
+        + ' <span class="small">（观测最大同时键数：<span id="liveObs">' + activeTest.observedMax + '</span>）</span>';
+    } else {
+      cb.className = 'banner';
+      cb.textContent = '';
+    }
+    var sb = $('seqBanner');
+    if (activeSeq) {
+      sb.className = 'banner show';
+      sb.innerHTML = '当前顺序测试 <b>' + activeSeq.def.id + ' ' + activeSeq.def.label + '</b>：' + activeSeq.def.hint;
+    } else {
+      sb.className = 'banner';
+      sb.textContent = '';
+    }
+  }
+
+  function renderAll() {
+    renderLive();
+    renderRecent();
+    renderComboTable();
+    renderSeqTable();
+    renderBanners();
+  }
+
+  // ------------------------------------------------------------------ 组合测试
+
+  function comboRequiredSatisfied(def) {
+    for (var i = 0; i < def.required.length; i++) {
+      var k = def.required[i];
+      if (k === 'DIR') {
+        if (!anyDirection()) return false;
+      } else if (!isPressed(k)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function startComboTest(def) {
+    if (activeTest) {
+      activeTest = null;
+    }
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+    activeTest = { def: def, observedMax: countNonModifier(), startedAt: performance.now() };
+    renderComboTable();
+    renderBanners();
+    observeComboTest();
+  }
+
+  function stopComboTest(passedAlready) {
+    if (!activeTest) return;
+    if (passedAlready) return;
+    var def = activeTest.def;
+    results[def.id] = {
+      status: 'fail',
+      observedMax: activeTest.observedMax,
+      note: '未观察到全部按键同时按下（观测最大 ' + activeTest.observedMax + ' 键）'
+    };
+    activeTest = null;
+    renderComboTable();
+    renderBanners();
+  }
+
+  function observeComboTest() {
+    if (!activeTest) return;
+    var n = countNonModifier();
+    if (n > activeTest.observedMax) activeTest.observedMax = n;
+    var liveObs = $('liveObs');
+    if (liveObs) liveObs.textContent = String(activeTest.observedMax);
+    if (comboRequiredSatisfied(activeTest.def)) {
+      var def = activeTest.def;
+      results[def.id] = {
+        status: 'pass',
+        observedMax: activeTest.observedMax,
+        note: 'observed max simultaneous non-modifier keys = ' + activeTest.observedMax
+      };
+      activeTest = null;
+      renderComboTable();
+      renderBanners();
+    }
+  }
+
+  // ------------------------------------------------------------------ 顺序输入测试
+
+  function startSeqTest(def) {
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+    activeSeq = { def: def, startedAt: performance.now() };
+    renderSeqTable();
+    renderBanners();
+  }
+
+  function stopSeqTest() {
+    if (!activeSeq) return;
+    var def = activeSeq.def;
+    if (!seqResults[def.id]) {
+      seqResults[def.id] = { status: 'fail', span: null, note: '未完成顺序输入' };
+    }
+    activeSeq = null;
+    renderSeqTable();
+    renderBanners();
+  }
+
+  function matchSequence(def, t) {
+    var seq = def.seq;
+    var idx = seq.length - 1;
+    var matched = [];
+    for (var i = recent.length - 1; i >= 0 && idx >= 0; i--) {
+      var ev = recent[i];
+      if (ev.t > t + 1) continue;
+      if (activeSeq && ev.t < activeSeq.startedAt - 250) break;
+      var want = seq[idx];
+      var ok = want === 'DIR' ? !!DIRS[ev.label] : ev.label === want;
+      if (ok) {
+        matched.unshift(ev);
+        idx--;
+      }
+    }
+    if (idx >= 0) return null;
+    return { span: matched[matched.length - 1].t - matched[0].t, events: matched };
+  }
+
+  function observeSequenceTest(t) {
+    if (!activeSeq) return;
+    var def = activeSeq.def;
+    var match = matchSequence(def, t);
+    if (!match) return;
+    var span = Math.round(match.span);
+    if (match.span <= SEQ_WINDOW_MS + 1e-9) {
+      seqResults[def.id] = { status: 'pass', span: span, note: '总时长 ' + span + 'ms ≤ 250ms' };
+      activeSeq = null;
+      renderSeqTable();
+      renderBanners();
+    } else {
+      seqResults[def.id] = { status: 'fail', span: span, note: '总时长 ' + span + 'ms > 250ms' };
+      activeSeq = null;
+      renderSeqTable();
+      renderBanners();
+    }
+  }
+
+  // ------------------------------------------------------------------ 报告
+
+  function pad2(n) { return n < 10 ? '0' + n : String(n); }
+
+  function buildReport() {
+    var now = new Date();
+    var lines = [];
+    lines.push('TASK-062 键盘 rollover / 组合人工测试报告');
+    lines.push('时间: ' + now.getFullYear() + '-' + pad2(now.getMonth() + 1) + '-' + pad2(now.getDate())
+      + ' ' + pad2(now.getHours()) + ':' + pad2(now.getMinutes()) + ':' + pad2(now.getSeconds()));
+    lines.push('键盘品牌/型号: ' + ($('kbName').value || '(未填)'));
+    lines.push('键盘类别: ' + $('kbClass').value);
+    lines.push('连接方式: ' + $('kbConn').value);
+    lines.push('测试者: ' + ($('tester').value || '(未填)'));
+    lines.push('浏览器: ' + navigator.userAgent);
+    lines.push('页面判定布局(仅显示用): ' + layoutMode);
+    lines.push('本次会话最大同时非修饰键数: ' + sessionMax);
+    lines.push('');
+    lines.push('== 组合同时按住测试（对齐 combo_matrix.csv K01–K15）==');
+    COMBOS.forEach(function (def) {
+      var r = results[def.id];
+      var st = !r ? '未测试' : (r.status === 'pass' ? '通过' : '不通过');
+      var obs = r ? String(r.observedMax) : '—';
+      lines.push(def.id + ' ' + def.label + ' | 需要: ' + requiredText(def)
+        + ' | 期望≥' + def.expect + ' | 观测最大=' + obs + ' | ' + st
+        + (r && r.note ? ' | ' + r.note : ''));
+    });
+    lines.push('');
+    lines.push('== 顺序输入回退测试（≤250ms）==');
+    SEQS.forEach(function (def) {
+      var r = seqResults[def.id];
+      var st = !r ? '未测试' : (r.status === 'pass' ? '通过' : '不通过');
+      var span = r && r.span !== null ? r.span + 'ms' : '—';
+      lines.push(def.id + ' ' + def.label + ' | 观测总时长=' + span + ' | ' + st
+        + (r && r.note ? ' | ' + r.note : ''));
+    });
+    lines.push('');
+    lines.push('说明: 本页只反映 OS/浏览器收到的按键；不能区分硬件 ghosting/固件过滤/OS 过滤，');
+    lines.push('不能替代硬件矩阵测试或引擎输入层实测。合成事件（DevTools/脚本）没有硬件证据意义。');
+    lines.push('结论建议: 将每行「观测最大」与 combo_matrix.csv 的预期对比；');
+    lines.push('2KRO 键盘上 3 键以上组合出现丢键属预期，应改用顺序输入或改键（Space 防御等）。');
+    lines.push('');
+    lines.push('复现: validation/input/manual_test.html · TASK-062 · 页面版本 1.0');
+    return lines.join('\n');
+  }
+
+  function timestampForFile() {
+    var d = new Date();
+    return d.getFullYear() + pad2(d.getMonth() + 1) + pad2(d.getDate()) + '-'
+      + pad2(d.getHours()) + pad2(d.getMinutes()) + pad2(d.getSeconds());
+  }
+
+  function downloadReport() {
+    var text = $('reportArea').value;
+    if (!text) {
+      text = buildReport();
+      $('reportArea').value = text;
+    }
+    var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    var cls = $('kbClass').value;
+    a.href = url;
+    a.download = 'TASK-062-keyboard-' + cls + '-' + timestampForFile() + '.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 5000);
+  }
+
+  function copyReport() {
+    var area = $('reportArea');
+    if (!area.value) area.value = buildReport();
+    area.focus();
+    area.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+    if (ok) {
+      alert('报告已复制到剪贴板。');
+    } else if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(area.value).then(function () {
+        alert('报告已复制到剪贴板。');
+      }, function () {
+        alert('复制失败，请手动全选复制文本框内容。');
+      });
+    } else {
+      alert('复制失败，请手动全选复制文本框内容。');
+    }
+  }
+
+  // ------------------------------------------------------------------ 重置 / 布局
+
+  function resetMax() {
+    sessionMax = countNonModifier();
+    renderLive();
+  }
+
+  function resetAll() {
+    physical = {};
+    pressed = {};
+    recent = [];
+    lastDown = {};
+    sessionMax = 0;
+    lastComboText = '—';
+    zUsed = false;
+    activeTest = null;
+    activeSeq = null;
+    results = {};
+    seqResults = {};
+    $('reportArea').value = '';
+    renderAll();
+  }
+
+  function toggleLayout() {
+    layoutMode = layoutMode === 'classic' ? 'modern' : 'classic';
+    lastComboText = '—';
+    renderLive();
+  }
+
+  function bindToggleLayout() {
+    var link = $('toggleLayout');
+    if (link) {
+      link.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        toggleLayout();
+      });
+    }
+  }
+
+  // ------------------------------------------------------------------ 初始化
+
+  function init() {
+    // 预生成状态行
+    COMBOS.forEach(function (def) { if (!results[def.id]) results[def.id] = null; });
+    SEQS.forEach(function (def) { if (!seqResults[def.id]) seqResults[def.id] = null; });
+
+    document.addEventListener('keydown', onKeyDown, { capture: true });
+    document.addEventListener('keyup', onKeyUp, { capture: true });
+    window.addEventListener('blur', onBlur);
+
+    $('btnResetMax').addEventListener('click', resetMax);
+    $('btnResetAll').addEventListener('click', resetAll);
+    $('btnBuildReport').addEventListener('click', function () {
+      $('reportArea').value = buildReport();
+    });
+    $('btnDownload').addEventListener('click', downloadReport);
+    $('btnCopy').addEventListener('click', copyReport);
+
+    bindToggleLayout();
+    renderAll();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

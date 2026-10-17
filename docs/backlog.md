@@ -55,6 +55,12 @@ last_reviewed: 2026-10-17
 | TASK-052 | M0 美术风格测试 | Art Lead | TASK-015 | 1 角色+1 环境+3 装备+1 Boss | 10/20/30m 可读性通过 | future |
 | TASK-053 | M0 后端骨架 | Backend Implementer | TASK-021 | 登录/角色/背包 | 端到端可持久化 | future |
 | TASK-054 | 垂直切片评审 | Orchestrator + Human | TASK-050–053 | 决策包 | 是否进入 Alpha | future |
+| TASK-060 | 2.5D 相机/可读性验证 | camera-validator | TASK-021 | `validation/camera/` | 模型级 pass | done |
+| TASK-061 | 完美格挡/延迟补偿验证 | netcode-validator | TASK-021 | `validation/netcode/` | conditional；M1 fixed | done |
+| TASK-062 | 键盘 rollover/组合验证 | input-validator | TASK-021 | `validation/input/` | conditional；M3 fixed；硬件 QA 待 | done |
+| TASK-063 | 技术验证独立复核 | validation-reviewer | TASK-060–062 | `validation/review/` | 6B/5M/9m | done |
+| TASK-064 | 技术验证汇总 | Lead | TASK-060–063 | `validation/REPORT.md` | conditional go to M0 | done |
+| TASK-065 | DR-002 验证后基线修正 | Lead + Human | TASK-060–063 | `docs/decisions/DR-002-validation-baseline-fixes.md` | D1–D6 决策 | pending Human |
 
 ## 3. 任务 Brief 索引
 

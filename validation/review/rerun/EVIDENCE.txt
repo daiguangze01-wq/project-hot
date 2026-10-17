@@ -1,0 +1,51 @@
+TASK-063 independent re-run evidence (reviewer-owned)
+generated: 2026-10-18 00:23:44 +08:00
+
+ENV: Python 3.12.14 / numpy 2.3.5 / pandas 3.0.1 / Pillow 12.3.0
+PY: C:\Users\dai\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\python\python.exe
+
+=== COMMANDS (process exit code observed 0) ===
+camera : python validation\camera\run.py --out-dir validation\review\rerun\camera
+netcode: python validation\netcode\run.py --outdir validation\review\rerun\netcode
+input  : copy validation\input\run.py -> validation\review\rerun\input\run.py; python <copy>
+verify : python validation\review\verify_numbers.py   (462 checks, 0 failures)
+
+=== SHA256: DELIVERED vs INDEPENDENT RERUN ===
+camera\metrics.csv               delivered=156A168D9547F0B46FE6F9D7D771965723A3D3A3214E0F1C730239B296F5F992 rerun=156A168D9547F0B46FE6F9D7D771965723A3D3A3214E0F1C730239B296F5F992 match=True
+camera\render_size7.png          delivered=BA172C2C70DAFEBEA317256EFAE064AA7E835D7B4175F42EA7EC11FF51DC69F3 rerun=BA172C2C70DAFEBEA317256EFAE064AA7E835D7B4175F42EA7EC11FF51DC69F3 match=True
+camera\render_size8.png          delivered=B2D88C285A805D54E203AD8EAC3E19366A6AD5527535A260FAF516CDB4101D08 rerun=B2D88C285A805D54E203AD8EAC3E19366A6AD5527535A260FAF516CDB4101D08 match=True
+camera\render_size9.png          delivered=920F834B5C5ECAECB602C0AFFFB092707B0871AFFD242D11C8D677F4DD21671D rerun=920F834B5C5ECAECB602C0AFFFB092707B0871AFFD242D11C8D677F4DD21671D match=True
+netcode\results.csv              delivered=92C90D0995065514137D1A29F9F12E512B2319E008752E9C5C33C2392CF0E743 rerun=92C90D0995065514137D1A29F9F12E512B2319E008752E9C5C33C2392CF0E743 match=True
+netcode\sensitivity.csv          delivered=116B7D19E32D22E117979B41607A6463FE874CDC898D9399FAC9D681D6D56E49 rerun=116B7D19E32D22E117979B41607A6463FE874CDC898D9399FAC9D681D6D56E49 match=True
+netcode\sanity_checks.csv        delivered=A662B535684DA1DA905B27A7BF3AFE6A36180185458DAC2C16C36179B4465119 rerun=A662B535684DA1DA905B27A7BF3AFE6A36180185458DAC2C16C36179B4465119 match=True
+netcode\guard_success.svg        delivered=616102BAAA6037303EAE4A881D4B426688D81CCA0DF5C46A8108940367B85B6F rerun=616102BAAA6037303EAE4A881D4B426688D81CCA0DF5C46A8108940367B85B6F match=True
+input\combo_matrix.csv           delivered=6913A97748290A03BC2FC754CB92B8B012AE33393FAF4AEA3ABB5FC9533F75FB rerun=6913A97748290A03BC2FC754CB92B8B012AE33393FAF4AEA3ABB5FC9533F75FB match=True
+input\context_matrix.csv         delivered=67FAB58EA8DB9795529BE5890F279AF392797353BD31A503154B571624352F60 rerun=67FAB58EA8DB9795529BE5890F279AF392797353BD31A503154B571624352F60 match=True
+input\timing_cases.csv           delivered=86C7F96D6A54CFDE53E20EE22F8844F90052DF33C00962585EAFD30FAC25395E rerun=86C7F96D6A54CFDE53E20EE22F8844F90052DF33C00962585EAFD30FAC25395E match=True
+
+summary_tables.md: differs in 1 line only (runtime seconds line; content identical otherwise)
+input timing_cases: 37 cases; PASS=27 EDGE=10 FAIL=0; fuzz 500 seeded sequences: deterministic_fail=0 unknown_action=0 non_monotonic=0
+netcode sanity_checks.csv: 10/10 PASS
+
+=== manual_test.html page selftest (headless Chrome, reviewer rerun) ===
+SELFTEST_JSON:{"ok":true,"checks":28,"failures":[]}
+
+=== REPORT-vs-ARTIFACT sensitivity discrepancies (see REVIEW.md §4.2) ===
+arrival-time 30Hz RTT50  report 89.0  artifact 88.66  delta -0.34pp
+arrival-time 30Hz RTT80  report 54.8  artifact 54.94  delta +0.14pp
+arrival-time 30Hz RTT100 report 27.1  artifact 27.30  delta +0.20pp
+arrival-time 60Hz RTT80  report 20.1  artifact 20.99  delta +0.89pp
+arrival-time 60Hz RTT100 report 5.3   artifact 6.06   delta +0.76pp
+window200/cap150 RTT80   report 94.7  artifact 95.41  delta +0.71pp
+window200/cap150 RTT100  report 82.0  artifact 82.45  delta +0.45pp
+window200/cap150 RTT150  report 17.9  artifact 17.81  delta -0.09pp
+chord40 30Hz/100ms FP     report 18.5-21.1  artifact 19.7-22.2  (Q1 cites 17-21%)
+
+=== camera: REPORT +/-1px tolerance count ===
+REPORT says 6/9; artifact count = 7/9 (adds size8/p55 and size9/p50)
+
+=== input: adversarial sequential-ultimate resolver tests ===
+C18 delivered: SOFT_LOCK>ULTIMATE
+X-up+50ms C (report recipe): SOFT_LOCK>HEAVY_ATTACK>ULTIMATE  (not clean)
+X still held at C press: SOFT_LOCK>GUARD (literal C+X guard steals)
+C at X-down+50ms exactly: SOFT_LOCK>ULTIMATE

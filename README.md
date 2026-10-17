@@ -25,6 +25,9 @@
 | [docs/handoffs/INDEX.md](docs/handoffs/INDEX.md) | handoff 索引与豁免清单 |
 | [skills/multi-agent-delivery/SKILL.md](skills/multi-agent-delivery/SKILL.md) | 多 agent 防重复/防冲突/可交接 skill |
 | [scripts/check-agent-work.ps1](scripts/check-agent-work.ps1) | 任务/写域/handoff/评审强制检查 |
+| [validation/REPORT.md](validation/REPORT.md) | M0-lite 技术验证汇总：相机/联网/键盘，conditional go |
+| [validation/review/REVIEW.md](validation/review/REVIEW.md) | 技术验证独立复核（6B/5M/9m） |
+| [docs/decisions/DR-002](docs/decisions/DR-002-validation-baseline-fixes.md) | 验证后基线修正 D1–D6（pending Human） |
 | [docs/_qa/qa-report.md](docs/_qa/qa-report.md) | 全键盘/文档 QA 报告 |
 | [docs/_review/](docs/_review/) | 独立评审报告 |
 | [docs/runs/](docs/runs/) | Agent 运行记录与复盘 |
@@ -68,15 +71,16 @@
 - [x] docs/metrics / backlog / QA 报告
 - [x] 独立评审 REV-001–004（2/6/7/2 blockers；结构问题已修，报告在 `docs/_review/`）
 - [x] Human 确认 AI-native 执行/成本模型（1 Human + AI agents + 外包；token 不设上限）
-- [x] 多 Agent 保障落地：`docs/tasks.json`、handoff 索引、skill、强制检查器（当前 31 任务检查通过）
-- [ ] open blockers：完美格挡时序（M0）、赛季产能（M0）、REV-001 M-1/M-3、DR-001 items 1–13
+- [x] 多 Agent 保障落地：`docs/tasks.json`、handoff 索引、skill、强制检查器（当前 37 任务检查通过）
+- [x] 技术验证 M0-lite：相机 pass（模型级）、联网 conditional、键盘 conditional；**不是 validation passed**
+- [ ] open blockers：REVIEW B1–B6 / DR-002 D1–D6、M0 引擎/键盘实测、赛季产能、REV-001 M-1/M-3、DR-001 items 1–13
 - [ ] run log 复盘完成（open blocker 关闭后）
 
 ---
 
 ## 下一步
 
-1. 关闭独立评审 blocker；把 `docs/00`–`docs/07` 状态从 `draft` 更新为 `reviewed`。
-2. 完成 run log/复盘，回写 `docs/06` 流程。
+1. Human 批准/修改 DR-002 D1–D6；批准后更新 `docs/00/02/03/04/07`，复访 ADR-002/004/008。
+2. M0 引擎验证：URP 相机/78px/6·10·14m；Fusion 2 格挡矩阵（C1/C2 负对照）；3 款键盘人工 QA。
 3. M0 原型：战斗、联网、美术风格测试、后端骨架。
-4. M0 前先做：2.5D 相机/占屏实测、C+X/rollover 多键盘测试、100ms/2% 丢包联网原型、美术风格测试、预算/成本 Human 门。
+4. 关闭 REVIEW B1–B6、DR-001 items 1–13、赛季产能后，再把 `docs/00`–`docs/07` 从 `draft` 更新为 `reviewed`。

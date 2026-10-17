@@ -1,0 +1,25 @@
+context,context_id,keyboard_model,keyboard_limit,simultaneous_non_modifier_keys,within_limit,risk,required_fallback,diagonal_non_modifier_keys,within_limit_diagonal,notes
+Direction+C+X（移动中防御）,X01,NKRO,unlimited,3,TRUE,none,none,4,TRUE,移动中防御是人类最高频的 3 键叠加场景之一。
+Direction+C+X（移动中防御）,X01,6KRO,6,3,TRUE,low,none,4,TRUE,移动中防御是人类最高频的 3 键叠加场景之一。
+Direction+C+X（移动中防御）,X01,2KRO,2,3,FALSE,high,2KRO：停步防御或改按 Space（Space+正交方向=2 键）；斜向仍超限,4,FALSE,移动中防御是人类最高频的 3 键叠加场景之一。
+Direction+Z+C（移动中特殊技 3）,X02,NKRO,unlimited,3,TRUE,none,none,4,TRUE,与主矩阵 K12 同键数，这里是「移动中」语义。
+Direction+Z+C（移动中特殊技 3）,X02,6KRO,6,3,TRUE,low,none,4,TRUE,与主矩阵 K12 同键数，这里是「移动中」语义。
+Direction+Z+C（移动中特殊技 3）,X02,2KRO,2,3,FALSE,high,2KRO：顺序输入 Z→方向→C（≤250ms）；或停步,4,FALSE,与主矩阵 K12 同键数，这里是「移动中」语义。
+Direction+Z+X（移动中特殊技 4）,X03,NKRO,unlimited,3,TRUE,none,none,4,TRUE,与主矩阵 K13 同键数，这里是「移动中」语义。
+Direction+Z+X（移动中特殊技 4）,X03,6KRO,6,3,TRUE,low,none,4,TRUE,与主矩阵 K13 同键数，这里是「移动中」语义。
+Direction+Z+X（移动中特殊技 4）,X03,2KRO,2,3,FALSE,high,2KRO：顺序输入 Z→方向→X（≤250ms）；或停步,4,FALSE,与主矩阵 K13 同键数，这里是「移动中」语义。
+V+C（跳跃轻击）,X04,NKRO,unlimited,2,TRUE,none,none,2,TRUE,2 键，2KRO 可。
+V+C（跳跃轻击）,X04,6KRO,6,2,TRUE,none,none,2,TRUE,2 键，2KRO 可。
+V+C（跳跃轻击）,X04,2KRO,2,2,TRUE,low,none,2,TRUE,2 键，2KRO 可。
+V+Direction+C（跳跃+方向+轻击）,X05,NKRO,unlimited,3,TRUE,none,none,4,TRUE,跳跃键 V 是非修饰键，计入 rollover。
+V+Direction+C（跳跃+方向+轻击）,X05,6KRO,6,3,TRUE,low,none,4,TRUE,跳跃键 V 是非修饰键，计入 rollover。
+V+Direction+C（跳跃+方向+轻击）,X05,2KRO,2,3,FALSE,high,2KRO：先跳后按方向+C（V 按下后可松开）或改键,4,FALSE,跳跃键 V 是非修饰键，计入 rollover。
+Direction(斜向)+Z+X+C,X06,NKRO,unlimited,5,TRUE,none,none,5,TRUE,斜向 = 2 个方向键。6KRO 仅剩 1 键余量。
+Direction(斜向)+Z+X+C,X06,6KRO,6,5,TRUE,low,none,5,TRUE,斜向 = 2 个方向键。6KRO 仅剩 1 键余量。
+Direction(斜向)+Z+X+C,X06,2KRO,2,5,FALSE,high,2KRO：不可同按（5 键）→ 顺序输入/改键；6KRO 下 5 键仅剩 1 键余量,5,FALSE,斜向 = 2 个方向键。6KRO 仅剩 1 键余量。
+V+Direction(斜向)+Z+X+C,X07,NKRO,unlimited,6,TRUE,none,none,6,TRUE,6 键 = 6KRO 上限，无余量；仅 NKRO 可保证。
+V+Direction(斜向)+Z+X+C,X07,6KRO,6,6,TRUE,medium,none,6,TRUE,6 键 = 6KRO 上限，无余量；仅 NKRO 可保证。
+V+Direction(斜向)+Z+X+C,X07,2KRO,2,6,FALSE,high,2KRO：不可能；6KRO 下恰好用满 6 键，任何额外按键都会丢,6,FALSE,6 键 = 6KRO 上限，无余量；仅 NKRO 可保证。
+Shift+C+X（冲刺+防御）,X08,NKRO,unlimited,2,TRUE,none,none,2,TRUE,Shift 为修饰键，按模型不计入非修饰键上限（假设）。
+Shift+C+X（冲刺+防御）,X08,6KRO,6,2,TRUE,none,none,2,TRUE,Shift 为修饰键，按模型不计入非修饰键上限（假设）。
+Shift+C+X（冲刺+防御）,X08,2KRO,2,2,TRUE,low,none,2,TRUE,Shift 为修饰键，按模型不计入非修饰键上限（假设）。

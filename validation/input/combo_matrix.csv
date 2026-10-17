@@ -1,0 +1,46 @@
+combo,combo_id,layout_scope,keyboard_model,keyboard_limit,simultaneous_non_modifier_keys,within_limit,risk,required_fallback,diagonal_non_modifier_keys,within_limit_diagonal,verdict,notes
+Z,K01,classic / modern,NKRO,unlimited,1,TRUE,none,none,1,TRUE,ok,
+Z,K01,classic / modern,6KRO,6,1,TRUE,none,none,1,TRUE,ok,
+Z,K01,classic / modern,2KRO,2,1,TRUE,low,none,1,TRUE,ok,2 键可同时按住；矩阵 ghosting/修饰键行未建模
+X,K02,classic / modern,NKRO,unlimited,1,TRUE,none,none,1,TRUE,ok,
+X,K02,classic / modern,6KRO,6,1,TRUE,none,none,1,TRUE,ok,
+X,K02,classic / modern,2KRO,2,1,TRUE,low,none,1,TRUE,ok,2 键可同时按住；矩阵 ghosting/修饰键行未建模
+C,K03,classic / modern,NKRO,unlimited,1,TRUE,none,none,1,TRUE,ok,
+C,K03,classic / modern,6KRO,6,1,TRUE,none,none,1,TRUE,ok,
+C,K03,classic / modern,2KRO,2,1,TRUE,low,none,1,TRUE,ok,2 键可同时按住；矩阵 ghosting/修饰键行未建模
+V,K04,classic / modern,NKRO,unlimited,1,TRUE,none,none,1,TRUE,ok,
+V,K04,classic / modern,6KRO,6,1,TRUE,none,none,1,TRUE,ok,
+V,K04,classic / modern,2KRO,2,1,TRUE,low,none,1,TRUE,ok,2 键可同时按住；矩阵 ghosting/修饰键行未建模
+Space,K05,classic / modern,NKRO,unlimited,1,TRUE,none,none,1,TRUE,ok,
+Space,K05,classic / modern,6KRO,6,1,TRUE,none,none,1,TRUE,ok,
+Space,K05,classic / modern,2KRO,2,1,TRUE,low,none,1,TRUE,ok,2 键可同时按住；矩阵 ghosting/修饰键行未建模
+Shift,K06,classic / modern,NKRO,unlimited,0,TRUE,none,none,0,TRUE,ok,
+Shift,K06,classic / modern,6KRO,6,0,TRUE,none,none,0,TRUE,ok,
+Shift,K06,classic / modern,2KRO,2,0,TRUE,low,none,0,TRUE,ok,2 键可同时按住；矩阵 ghosting/修饰键行未建模
+C+X,K07,classic,NKRO,unlimited,2,TRUE,none,none,2,TRUE,ok,
+C+X,K07,classic,6KRO,6,2,TRUE,none,none（Space 为文档既定替代；移动中防御见 context_matrix.csv X01）,2,TRUE,ok_space_optional,
+C+X,K07,classic,2KRO,2,2,TRUE,low,none（Space 为文档既定替代；移动中防御 = 方向+C+X = 3 键，2KRO 下必须改按 Space）,2,TRUE,ok_space_optional,2 键可同时按住；矩阵 ghosting/修饰键行未建模
+Z+C,K08,classic,NKRO,unlimited,2,TRUE,none,none,2,TRUE,ok,
+Z+C,K08,classic,6KRO,6,2,TRUE,none,none,2,TRUE,ok,
+Z+C,K08,classic,2KRO,2,2,TRUE,low,none,2,TRUE,ok,2 键可同时按住；矩阵 ghosting/修饰键行未建模
+Z+X,K09,classic,NKRO,unlimited,2,TRUE,none,none,2,TRUE,ok,
+Z+X,K09,classic,6KRO,6,2,TRUE,none,none,2,TRUE,ok,
+Z+X,K09,classic,2KRO,2,2,TRUE,low,none,2,TRUE,ok,2 键可同时按住；矩阵 ghosting/修饰键行未建模
+Z+X+C,K10,classic / modern,NKRO,unlimited,3,TRUE,none,none,3,TRUE,ok,文档优先级 C+X 防御 > Z+X+C 必杀；X/C 间隔 ≤40ms 时可能被防御抢判
+Z+X+C,K10,classic / modern,6KRO,6,3,TRUE,low,none,3,TRUE,ok,6KRO 标称值依赖厂商/键区，≥3 键组合建议用 manual_test.html 实测；文档优先级 C+X 防御 > Z+X+C 必杀；X/C 间隔 ≤40ms 时可能被防御抢判
+Z+X+C,K10,classic / modern,2KRO,2,3,FALSE,high,顺序输入 Z→X→C（≤250ms，先按后放，任意时刻≤2 键）；自检失败时提示改键,3,FALSE,sequential_required,文档优先级 C+X 防御 > Z+X+C 必杀；X/C 间隔 ≤40ms 时可能被防御抢判；顺序回退须先按后放，且 X 抬起后 3f 内按 C，否则普攻先提交（见 timing_cases C18/C19）
+Direction+C,K11,modern（经典布局下为移动轻击，不是技能）,NKRO,unlimited,2,TRUE,none,none,3,TRUE,ok,斜向方向需 2 个方向键，额外 +1 键
+Direction+C,K11,modern（经典布局下为移动轻击，不是技能）,6KRO,6,2,TRUE,none,none,3,TRUE,ok,斜向方向需 2 个方向键，额外 +1 键
+Direction+C,K11,modern（经典布局下为移动轻击，不是技能）,2KRO,2,2,TRUE,low,仅正交方向可用（斜向 = 3 键，超 2KRO 上限）；或改键,3,FALSE,ok_cardinal_only,2 键可同时按住；矩阵 ghosting/修饰键行未建模；斜向方向需 2 个方向键，额外 +1 键
+Direction+Z+C,K12,classic,NKRO,unlimited,3,TRUE,none,none,4,TRUE,ok,斜向方向需 2 个方向键，额外 +1 键
+Direction+Z+C,K12,classic,6KRO,6,3,TRUE,low,none,4,TRUE,ok,6KRO 标称值依赖厂商/键区，≥3 键组合建议用 manual_test.html 实测；斜向方向需 2 个方向键，额外 +1 键
+Direction+Z+C,K12,classic,2KRO,2,3,FALSE,high,顺序输入 Z→方向→C（≤250ms，先按后放）；或改键,4,FALSE,sequential_required,斜向方向需 2 个方向键，额外 +1 键
+Direction+Z+X,K13,classic,NKRO,unlimited,3,TRUE,none,none,4,TRUE,ok,斜向方向需 2 个方向键，额外 +1 键
+Direction+Z+X,K13,classic,6KRO,6,3,TRUE,low,none,4,TRUE,ok,6KRO 标称值依赖厂商/键区，≥3 键组合建议用 manual_test.html 实测；斜向方向需 2 个方向键，额外 +1 键
+Direction+Z+X,K13,classic,2KRO,2,3,FALSE,high,顺序输入 Z→方向→X（≤250ms，先按后放）；或改键,4,FALSE,sequential_required,斜向方向需 2 个方向键，额外 +1 键
+Direction+Z+X+C,K14,启动自检（非战斗指令）,NKRO,unlimited,4,TRUE,none,none,5,TRUE,not_a_command,斜向方向需 2 个方向键，额外 +1 键；仅启动自检；4/5 键用于暴露低 rollover 键盘丢键
+Direction+Z+X+C,K14,启动自检（非战斗指令）,6KRO,6,4,TRUE,low,none,5,TRUE,not_a_command,6KRO 标称值依赖厂商/键区，≥3 键组合建议用 manual_test.html 实测；斜向方向需 2 个方向键，额外 +1 键；仅启动自检；4/5 键用于暴露低 rollover 键盘丢键
+Direction+Z+X+C,K14,启动自检（非战斗指令）,2KRO,2,4,FALSE,high,非战斗指令（仅启动自检）；自检失败 → 提示顺序输入/改键/降级键盘档位,5,FALSE,not_a_command,斜向方向需 2 个方向键，额外 +1 键；仅启动自检；4/5 键用于暴露低 rollover 键盘丢键
+Direction+X+C,K15,modern（经典布局下等价于 X+C 防御）,NKRO,unlimited,3,TRUE,none,none,4,TRUE,ok,斜向方向需 2 个方向键，额外 +1 键；顺序回退与 3f 新鲜方向窗口冲突
+Direction+X+C,K15,modern（经典布局下等价于 X+C 防御）,6KRO,6,3,TRUE,low,none,4,TRUE,ok,6KRO 标称值依赖厂商/键区，≥3 键组合建议用 manual_test.html 实测；斜向方向需 2 个方向键，额外 +1 键；顺序回退与 3f 新鲜方向窗口冲突
+Direction+X+C,K15,modern（经典布局下等价于 X+C 防御）,2KRO,2,3,FALSE,high,顺序输入 X→C 且方向在 C 前 ≤3f；该顺序与 3f 窗口冲突 → 建议改键/专用键位,4,FALSE,sequential_or_remap,斜向方向需 2 个方向键，额外 +1 键；顺序回退与 3f 新鲜方向窗口冲突
