@@ -21,7 +21,22 @@ Web MVP 的价值是快速验证：
 - 没有 Unity 的构建、打包、Steam Deck/Proton 验证；
 - Web 版本的 30Hz/输入时序不能替代 M0 引擎验证。
 
-## 2. 推荐引擎与版本
+## 2. 费用与许可（2026-10 核对）
+
+| 项 | 结论 | 依据 |
+|---|---|---|
+| Unity 能否上 Steam | **能**。Unity 构建 Windows x64，Steamworks 只接收可执行构建；引擎不限 | Steamworks 文档；Unity 构建 |
+| Unity Personal | **免费**，且可用于商业游戏/Steam 销售；但仅当过去 12 个月 **Total Finances（总收入 + 融资）< $200,000** | [Unity 许可选择](https://support.unity.com/hc/en-us/articles/28114350573460-Which-Unity-Editor-license-should-I-use-purchase)、[Unity Personal 商用](https://support.unity.com/hc/en-us/articles/205253119-Can-I-make-a-commercial-game-with-Unity-Free-Personal-Edition) |
+| Unity Pro | **超过 $200K 必须升级 Pro**（按订阅付费）；注意是营收 **+ 融资**，不是利润 | 同上 |
+| Runtime Fee | **没有**（2024 已取消） | [Unity 取消 Runtime Fee](https://unity.com/blog/unity-is-canceling-the-runtime-fee) |
+| Splash | Unity 6 Personal **可关闭/自定义** Made with Unity 启动画面 | [Unity 支持](https://support.unity.com/hc/en-us/articles/212165803-How-do-I-remove-the-Splash-Screen-from-my-build) |
+| Steam Direct | **$100/款应用**；达到 $1,000 adjusted gross revenue 后可返还 | [Steam Direct Fee](https://partner.steamgames.com/doc/gettingstarted/appfee) |
+| Steam 分成 | 标准 **30%**；达到阈值后 25%/20%（以 Steamworks 当前条款为准） | Steamworks |
+| Unity 6.3 LTS | 已发布，按 Hub 最新 6000.3.x LTS 安装 | [Unity 6.3 LTS](https://unity.com/blog/unity-6-3-lts-is-now-available) |
+
+> 关键提醒：**$200K 是“收入 + 融资”总额**。如果拿了一轮超过 $200K 的投资，即使还没收入，也要升级 Unity Pro。个人/小团队无融资、收入低于 $200K 时，Unity Personal 免费且可商用。
+
+## 2.1 推荐引擎与版本
 
 | 项 | 选择 | 说明 |
 |---|---|---|
