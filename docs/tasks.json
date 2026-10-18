@@ -705,7 +705,7 @@
       "handoff": "client-unity/HANDOFF.md",
       "review_required": false,
       "review_ref": null,
-      "notes": "U0 scene+build 已生成；待 Human 目视/手感验收；Fusion 2 未接"
+      "notes": "U0 done；Human 手感/相机/双击跑/C+X 已验收；Fusion 2 未接"
     },
     {
       "id": "TASK-081",
@@ -750,7 +750,7 @@
       "handoff": "client-unity/HANDOFF-SIM.md",
       "review_required": false,
       "review_ref": null,
-      "notes": "纯核心/检查完成；尚未接 Unity 表现层/Fusion"
+      "notes": "核心 19 PASS；U1b bridge 已接；待全技能试玩/Fusion"
     }
   ]
 }
