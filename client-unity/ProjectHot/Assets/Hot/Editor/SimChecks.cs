@@ -73,6 +73,12 @@ namespace Hot.Editor
             sim.TryAction(a, ActionId.Light, Vec2.Zero);
             sim.Tick(0.13f);
             Check("perfect guard", b.Hp == 500f, b.Hp.ToString("F1"));
+
+            var chord = new CombatSim();
+            var cp = chord.AddPlayer("Chord", CoreId.Blade);
+            chord.TryAction(cp, ActionId.Light, Vec2.Zero);
+            bool guardCancel = chord.TryGuard(cp);
+            Check("C+X cancels startup", guardCancel && cp.Action == null && cp.Guarding, "guard");
         }
 
         private static void Cores()

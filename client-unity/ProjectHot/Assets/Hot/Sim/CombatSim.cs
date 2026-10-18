@@ -98,6 +98,23 @@ namespace Hot.Sim
             return true;
         }
 
+        /// <summary>
+        /// Guard chord support: allow C+X to cancel a still-starting attack and
+        /// enter guard. Once the active frame has begun, it is too late.
+        /// </summary>
+        public bool TryGuard(PlayerState p)
+        {
+            if (p == null || !p.Alive) return false;
+            if (p.Action != null)
+            {
+                if (p.Action.Elapsed >= p.Action.Move.Startup) return false;
+                p.Action = null;
+            }
+            p.Guarding = true;
+            p.GuardStart = Time;
+            return true;
+        }
+
         public bool TryAction(PlayerState p, ActionId id, Vector2 inputDirection)
         {
             if (!p.Alive || p.Action != null) return false;

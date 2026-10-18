@@ -23,6 +23,9 @@ namespace Hot.Client
         private float accumulator;
         private string status = "";
         private ActionId lastTried = ActionId.Light;
+        private const float GuardChordWindow = 0.18f;
+        private float cPressAt = -10f;
+        private float xPressAt = -10f;
 
         public string CoreName => CoreDef.All[player != null ? player.Core : core].Name;
         public float Hp => player != null ? player.Hp : 0;
@@ -45,22 +48,37 @@ namespace Hot.Client
             SyncSimToPresentation();
             UpdateCoreSelection(kb);
 
+            if (kb.cKey.wasPressedThisFrame) cPressAt = Time.unscaledTime;
+            if (kb.xKey.wasPressedThisFrame) xPressAt = Time.unscaledTime;
+
             bool cHeld = kb.cKey.isPressed;
             bool xHeld = kb.xKey.isPressed;
             bool zHeld = kb.zKey.isPressed;
             bool bothAttack = cHeld && xHeld;
+            // Forgiving C+X guard: accept a chord within 180ms, including the
+            // case where the first attack already started its startup frames.
+            bool chord = bothAttack && !zHeld && Mathf.Abs(cPressAt - xPressAt) <= GuardChordWindow;
             bool guardHeld = kb.spaceKey.isPressed || bothAttack;
+            if (chord)
+            {
+                bool accepted = sim.TryGuard(player);
+                if (accepted)
+                {
+                    motor.CancelExternalAttack();
+                    status = "C+X guard";
+                }
+            }
             motor.SetExternalGuard(guardHeld);
 
             var actions = new List<ActionId>();
-            if (kb.cKey.wasPressedThisFrame && !bothAttack)
+            if (!chord && kb.cKey.wasPressedThisFrame && !bothAttack)
             {
                 if (zHeld && xHeld) actions.Add(ActionId.Ultimate);
                 else if (zHeld && HasDirection(kb)) actions.Add(ActionId.Skill3);
                 else if (zHeld) actions.Add(ActionId.Skill1);
                 else actions.Add(ActionId.Light);
             }
-            if (kb.xKey.wasPressedThisFrame && !bothAttack)
+            if (!chord && kb.xKey.wasPressedThisFrame && !bothAttack)
             {
                 if (zHeld && cHeld) actions.Add(ActionId.Ultimate);
                 else if (zHeld && HasDirection(kb)) actions.Add(ActionId.Skill4);
@@ -148,7 +166,7 @@ namespace Hot.Client
                             "  MP=" + Mp.ToString("0") + "  GUARD=" + Guard.ToString("0") +
                             "  ULT=" + Ult.ToString("0"), style);
             GUILayout.Label("C light / X heavy / Z+C skill1 / Z+X skill2 / Z+dir+C skill3 / Z+dir+X skill4 / Z+X+C ult", style);
-            GUILayout.Label("Space guard · 6 core · V jump · SIM owns damage/cooldown; U0 motor owns movement", style);
+            GUILayout.Label("Space / C+X (180ms chord) guard · 6 core · V jump · SIM owns damage/cooldown", style);
             if (!string.IsNullOrEmpty(status)) GUILayout.Label(status, style);
             GUILayout.EndArea();
         }

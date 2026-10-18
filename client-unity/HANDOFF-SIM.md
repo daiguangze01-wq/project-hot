@@ -23,10 +23,11 @@ DECISIONS:
     PlayerMotor owns locomotion/animation only (externalCombat=true).
   - Camera-relative movement stays in PlayerMotor; sim position is copied each frame.
   - U1b input: C/X, Z+C/Z+X/Z+dir+C/Z+dir+X, Z+X+C; Space guard; 6 cycles core.
+  - C+X guard has **180ms chord tolerance** and cancels only a still-starting attack; Z held keeps ultimate priority.
   - Local U0 dummy view mirrors sim HP/alive.
 
 EVIDENCE:
-  - Hot.Editor.SimChecks: 18 PASS
+  - Hot.Editor.SimChecks: 19 PASS (incl. C+X startup cancel)
     movement, light damage 30, attack gating, guard 20%, perfect guard 0,
     blade/fist skill1 70/60, spear ranged, staff AoE/melee, ult resource/cost/damage,
     death + respawn.

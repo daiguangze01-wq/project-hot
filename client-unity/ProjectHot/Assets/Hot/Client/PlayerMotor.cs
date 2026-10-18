@@ -128,6 +128,13 @@ namespace Hot.Client
 
         public void SetExternalGuard(bool value) => externalGuard = value;
 
+        public void CancelExternalAttack()
+        {
+            if (!externalCombat) return;
+            attacking = false;
+            attackUntil = 0f;
+        }
+
         /// <summary>Sim-driven attack presentation; damage/cooldown are owned by Hot.Sim.</summary>
         public void PlayExternalAttack(bool heavy, float duration)
         {
