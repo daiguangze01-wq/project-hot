@@ -21,6 +21,10 @@ namespace Hot.Client
         public float heavyAttackLock = 0.7f;
         public float doubleTapWindow = 0.28f;
 
+        [Header("Equipment-bound combat")]
+        [Tooltip("Attack rate/damage come from the equipped weapon profile. Null = unarmed fallback.")]
+        public WeaponProfile weaponProfile;
+
         [Header("Camera-relative input")]
         [Tooltip("Fixed 2.5D camera. WASD maps to screen right/up, not world X/Z.")]
         public Transform cameraTransform;
@@ -117,11 +121,16 @@ namespace Hot.Client
 
         private void StartAttack(bool heavy)
         {
+            // Critical: a rapid tap during the active/recovery window must not
+            // deal damage again while the same attack animation is still playing.
+            if (attacking) return;
+
             attackKind = heavy ? 1 : 0;
             attackStartedRunning = running;
             attacking = true;
-            attackUntil = Time.time + (heavy ? heavyAttackLock : lightAttackLock);
-            Attack(heavy ? heavyDamage : lightDamage);
+            AttackCount++;
+            attackUntil = Time.time + (heavy ? HeavyCooldown : LightCooldown);
+            Attack(heavy ? HeavyDamage : LightDamage, heavy ? HeavyRange : LightRange, heavy ? HeavyRadius : LightRadius);
         }
 
         /// <summary>
@@ -145,10 +154,10 @@ namespace Hot.Client
             return dir.sqrMagnitude > 1f ? dir.normalized : dir;
         }
 
-        private void Attack(float damage)
+        private void Attack(float damage, float range, float radius)
         {
-            Vector3 center = transform.position + transform.forward * attackRange + Vector3.up * 0.9f;
-            var hits = Physics.OverlapSphere(center, attackRadius);
+            Vector3 center = transform.position + transform.forward * range + Vector3.up * 0.9f;
+            var hits = Physics.OverlapSphere(center, radius);
             foreach (var hit in hits)
             {
                 var dummy = hit.GetComponentInParent<TargetDummy>();
@@ -168,5 +177,18 @@ namespace Hot.Client
         public int AttackKind => attackKind;
         public bool AttackStartedRunning => attackStartedRunning;
         public float Height => height;
+
+        public int AttackCount { get; private set; }
+        public string WeaponName => weaponProfile != null ? weaponProfile.displayName : "空手";
+        public float LightCooldown => weaponProfile != null ? weaponProfile.lightCooldown : lightAttackLock;
+        public float HeavyCooldown => weaponProfile != null ? weaponProfile.heavyCooldown : heavyAttackLock;
+        public float AttackRemaining => Mathf.Max(0f, attackUntil - Time.time);
+
+        private float LightDamage => weaponProfile != null ? weaponProfile.lightDamage : lightDamage;
+        private float HeavyDamage => weaponProfile != null ? weaponProfile.heavyDamage : heavyDamage;
+        private float LightRange => weaponProfile != null ? weaponProfile.lightRange : attackRange;
+        private float HeavyRange => weaponProfile != null ? weaponProfile.heavyRange : attackRange;
+        private float LightRadius => weaponProfile != null ? weaponProfile.lightRadius : attackRadius;
+        private float HeavyRadius => weaponProfile != null ? weaponProfile.heavyRadius : attackRadius;
     }
 }

@@ -22,6 +22,9 @@ namespace Hot.Client
             if (player != null)
             {
                 GUILayout.Label("HP 500 / MP 100 / GUARD 300 / ULT 0", style);
+                GUILayout.Label("Weapon: " + player.WeaponName + " · light " +
+                                player.LightCooldown.ToString("0.00") + "s / heavy " +
+                                player.HeavyCooldown.ToString("0.00") + "s", style);
                 GUILayout.Label("Player height: " + player.Height.ToString("0.00") + "m", style);
                 GUILayout.Label("Guard: " + (player.IsGuarding ? "ON" : "off"), style);
             }

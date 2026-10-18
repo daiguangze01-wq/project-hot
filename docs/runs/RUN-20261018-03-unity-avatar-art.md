@@ -34,11 +34,22 @@
 - 更新：`docs/00` v0.4.0（§5.1/§12/修订记录）、`docs/02` v0.2.1（§5.1.1）、`docs/03` v0.2.1（§3.4.1）、`docs/04`（纸娃娃注记）、`docs/05`（ADR-013 索引）、`docs/07`（REQ-ART-004/TEST-043/TASK-080/081）、`docs/08`、`docs/09`、`docs/art/*`、`art/generation/*`、`AGENTS.md`、`README.md`、`docs/backlog.md`、`docs/tasks.json`。
 - 旧 `request-hot-blade-01` 标记 superseded；`prompt-bank.json` 保留为风格参考，生产改用 `modular-avatar-prompts.json`。
 
+## 4.1 Bug fix：C 连点重复伤害
+
+- 症状：快速按 C，动画只展示一次，但伤害结算多次。
+- 根因：`StartAttack` 在攻击锁内仍执行 damage；`CharacterAnimationDriver` 的 state 字符串未变化，不会重播动画。
+- 修复：
+  - `StartAttack` 开头 `if (attacking) return;`；active/recovery 内输入不再结算。
+  - 攻击间隔/伤害/范围来自 `WeaponProfile`（空手 0.32s、1H 0.45s、2H 0.58s），不再全局常量。
+  - 数字键 5 循环战斗武器 profile，HUD 显示当前武器/冷却。
+- 证据：`CombatChecks` PASS（两次 StartAttack 只计 1 次；空手/1H/2H 冷却递增）。
+
 ## 5. 证据
 
 - `Hot.Editor.AvatarChecks`: PASS（UGC 128×128；4 槽；切换 head/weapon/offhand）。
+- `Hot.Editor.CombatChecks`: PASS（unarmed 0.32s / 1H 0.45s / 2H 0.58s；两次 StartAttack 只计 1 次）。
 - U0 build: `Builds/U0/ProjectHot.exe` exit 0。
-- 截图：`client-unity/screenshots/u0-knight.png`、`client-unity/screenshots/u0-avatar-slots.png`。
+- 截图：`client-unity/screenshots/u0-knight.png`、`u0-avatar-slots.png`、`u0-combat-profile.png`。
 - PixelLab 输出（48×48、8 向 idle）只作风格参考；不是模块化资产。
 
 ## 6. 下一步

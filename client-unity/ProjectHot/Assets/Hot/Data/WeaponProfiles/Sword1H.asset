@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19569510431bf2341a6e5a877ad7afc6, type: 3}
+  m_Name: Sword1H
+  m_EditorClassIdentifier: Assembly-CSharp::Hot.Client.WeaponProfile
+  weaponId: sword_1h
+  displayName: "\u5355\u624B\u5251"
+  isUnarmed: 0
+  lightDamage: 30
+  lightCooldown: 0.45
+  lightRange: 2.4
+  lightRadius: 1.25
+  heavyDamage: 75
+  heavyCooldown: 0.72
+  heavyRange: 2.7
+  heavyRadius: 1.35

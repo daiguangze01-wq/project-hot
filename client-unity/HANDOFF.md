@@ -54,9 +54,13 @@ EVIDENCE:
   - Human playtest: "大部分功能都没问题"; camera-relative movement and double-tap run accepted; animation timing/readability still needs iterative polish.
   - `client-unity/screenshots/u0-avatar-slots.png`: modular slot HUD + UGC test overlay.
   - `Hot.Editor.AvatarChecks`: PASS UGC 128x128 + 4 slots + head/weapon/offhand switching.
+  - `Hot.Editor.CombatChecks`: PASS unarmed=0.32s / 1H=0.45s / 2H=0.58s; double StartAttack gated to 1 damage.
+  - Bug fix: rapid C taps during active/recovery no longer deal repeated damage with one animation; attack cadence is equipment-bound (`WeaponProfile`).
 
 RISKS:
   - U0 is a local movement/attack dummy prototype, not the authoritative simulator or Fusion netcode.
+  - U0 combat cadence uses local WeaponProfile; server-side cooldown validation comes in U2.
+  - Visual weapon slot and combat weapon profile are still separate; key 5 cycles combat profile for test.
   - Input System upgraded package; need verify keyboard-only 2KRO/6KRO in-engine later (B6).
   - URP 17.0.1 from template; may upgrade with 6.3 packages.
   - No Fusion 2 SDK, no Steamworks, no IL2CPP/Steam build yet.

@@ -88,6 +88,21 @@ namespace Hot.Editor
 
             var motor = player.AddComponent<PlayerMotor>();
 
+            // Equipment-bound attack profiles. U0 starts unarmed; 5 cycles for test.
+            var unarmed = GetOrCreateWeaponProfile(
+                "Assets/Hot/Data/WeaponProfiles/Unarmed.asset", "unarmed", "空手",
+                18f, 0.32f, 2.0f, 1.15f, 45f, 0.55f, 2.2f, 1.2f);
+            var sword1h = GetOrCreateWeaponProfile(
+                "Assets/Hot/Data/WeaponProfiles/Sword1H.asset", "sword_1h", "单手剑",
+                30f, 0.45f, 2.4f, 1.25f, 75f, 0.72f, 2.7f, 1.35f);
+            var sword2h = GetOrCreateWeaponProfile(
+                "Assets/Hot/Data/WeaponProfiles/Sword2H.asset", "sword_2h", "双手剑",
+                38f, 0.58f, 2.8f, 1.35f, 95f, 0.90f, 3.1f, 1.45f);
+            motor.weaponProfile = unarmed;
+            var loadout = player.AddComponent<CombatLoadoutTester>();
+            loadout.motor = motor;
+            loadout.profiles = new List<WeaponProfile> { unarmed, sword1h, sword2h };
+
             // CC0 KayKit placeholder character + animation states.
             var knightAsset = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Hot/Art/KayKit/Knight.fbx");
             if (knightAsset != null)
@@ -239,6 +254,33 @@ namespace Hot.Editor
             AssetDatabase.Refresh();
 
             Debug.Log("U0 Arena created: " + ScenePath);
+        }
+
+        private static WeaponProfile GetOrCreateWeaponProfile(
+            string path, string id, string display,
+            float lightDamage, float lightCooldown, float lightRange, float lightRadius,
+            float heavyDamage, float heavyCooldown, float heavyRange, float heavyRadius)
+        {
+            System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(path));
+            var profile = AssetDatabase.LoadAssetAtPath<WeaponProfile>(path);
+            if (profile == null)
+            {
+                profile = ScriptableObject.CreateInstance<WeaponProfile>();
+                AssetDatabase.CreateAsset(profile, path);
+            }
+            profile.weaponId = id;
+            profile.displayName = display;
+            profile.isUnarmed = id == "unarmed";
+            profile.lightDamage = lightDamage;
+            profile.lightCooldown = lightCooldown;
+            profile.lightRange = lightRange;
+            profile.lightRadius = lightRadius;
+            profile.heavyDamage = heavyDamage;
+            profile.heavyCooldown = heavyCooldown;
+            profile.heavyRange = heavyRange;
+            profile.heavyRadius = heavyRadius;
+            EditorUtility.SetDirty(profile);
+            return profile;
         }
 
         private static void AddGridLine(Vector3 position, Vector3 scale, Material mat)
