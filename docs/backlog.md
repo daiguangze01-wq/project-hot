@@ -66,7 +66,7 @@ last_reviewed: 2026-10-17
 | TASK-071 | MVP 独立评审 | mvp-reviewer | TASK-070 | `mvp/review/` | 0B/0M；4 minor | done |
 | TASK-080 | Unity 6.3 客户端 U0 | Lead | TASK-070 | `client-unity/` | Unity 工程/相机/输入/训练场 | done（人工手感通过；Fusion 未接） |
 | TASK-081 | 模块化基础角色 + 装备槽原型 | Lead | TASK-080 | `client-unity/`、`docs/art/`、`art/generation/` | 基础身体 + hair/top/weapon 3 槽 + 共享动作 + 1 槽 UGC | in_progress（4 槽+UGC 测试；缺真实 base/hair/top） |
-| TASK-082 | U1 Hot.Sim 纯 C# 战斗核心 | Lead | TASK-080 | `client-unity/Assets/Hot/Sim/` | 30Hz/4 核心/防御/必杀/SimChecks | in_progress（核心 PASS；未接表现层） |
+| TASK-082 | U1 Hot.Sim 纯 C# 战斗核心 | Lead | TASK-080 | `client-unity/Assets/Hot/Sim/` | 30Hz/4 核心/防御/必杀/SimChecks | in_progress（核心 PASS；bridge 已接，待试玩/Fusion） |
 
 ## 3. 任务 Brief 索引
 

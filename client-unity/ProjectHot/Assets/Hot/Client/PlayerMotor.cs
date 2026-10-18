@@ -24,6 +24,8 @@ namespace Hot.Client
         [Header("Equipment-bound combat")]
         [Tooltip("Attack rate/damage come from the equipped weapon profile. Null = unarmed fallback.")]
         public WeaponProfile weaponProfile;
+        public bool externalCombat;
+        private bool externalGuard;
 
         [Header("Camera-relative input")]
         [Tooltip("Fixed 2.5D camera. WASD maps to screen right/up, not world X/Z.")]
@@ -111,12 +113,28 @@ namespace Hot.Client
             if (height < 0f) { height = 0f; verticalVelocity = 0f; }
             transform.position = new Vector3(p.x, height, p.z);
 
-            // Guard: Space or C+X. Damage reduction is local-only in U0.
-            guarding = kb.spaceKey.isPressed || (kb.cKey.isPressed && kb.xKey.isPressed);
+            // Guard: Space or C+X. When the sim bridge owns combat, it supplies guard.
+            guarding = externalCombat
+                ? externalGuard
+                : (kb.spaceKey.isPressed || (kb.cKey.isPressed && kb.xKey.isPressed));
 
             if (attacking && Time.time >= attackUntil) attacking = false;
-            if (kb.cKey.wasPressedThisFrame) StartAttack(false);
-            if (kb.xKey.wasPressedThisFrame) StartAttack(true);
+            if (!externalCombat)
+            {
+                if (kb.cKey.wasPressedThisFrame) StartAttack(false);
+                if (kb.xKey.wasPressedThisFrame) StartAttack(true);
+            }
+        }
+
+        public void SetExternalGuard(bool value) => externalGuard = value;
+
+        /// <summary>Sim-driven attack presentation; damage/cooldown are owned by Hot.Sim.</summary>
+        public void PlayExternalAttack(bool heavy, float duration)
+        {
+            attackKind = heavy ? 1 : 0;
+            attackStartedRunning = running;
+            attacking = true;
+            attackUntil = Time.time + Mathf.Max(0.05f, duration);
         }
 
         private void StartAttack(bool heavy)

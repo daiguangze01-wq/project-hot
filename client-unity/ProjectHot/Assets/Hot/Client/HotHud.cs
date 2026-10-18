@@ -6,6 +6,7 @@ namespace Hot.Client
     {
         public PlayerMotor player;
         public TargetDummy dummy;
+        public CombatSimBridge simBridge;
 
         private void OnGUI()
         {
@@ -13,6 +14,8 @@ namespace Hot.Client
                 player = FindFirstObjectByType<PlayerMotor>();
             if (dummy == null)
                 dummy = FindFirstObjectByType<TargetDummy>();
+            if (simBridge == null)
+                simBridge = FindFirstObjectByType<CombatSimBridge>();
 
             var style = new GUIStyle(GUI.skin.label) { fontSize = 14 };
             GUILayout.BeginArea(new Rect(18, 18, 330, 210), GUI.skin.box);
@@ -21,10 +24,19 @@ namespace Hot.Client
             GUILayout.Space(6);
             if (player != null)
             {
-                GUILayout.Label("HP 500 / MP 100 / GUARD 300 / ULT 0", style);
-                GUILayout.Label("Weapon: " + player.WeaponName + " · light " +
-                                player.LightCooldown.ToString("0.00") + "s / heavy " +
-                                player.HeavyCooldown.ToString("0.00") + "s", style);
+                if (simBridge != null)
+                {
+                    GUILayout.Label("HP " + simBridge.Hp.ToString("0") + " / MP " + simBridge.Mp.ToString("0") +
+                                    " / GUARD " + simBridge.Guard.ToString("0") + " / ULT " + simBridge.Ult.ToString("0"), style);
+                    GUILayout.Label("Core: " + simBridge.CoreName + " (Hot.Sim)", style);
+                }
+                else
+                {
+                    GUILayout.Label("HP 500 / MP 100 / GUARD 300 / ULT 0", style);
+                    GUILayout.Label("Weapon: " + player.WeaponName + " · light " +
+                                    player.LightCooldown.ToString("0.00") + "s / heavy " +
+                                    player.HeavyCooldown.ToString("0.00") + "s", style);
+                }
                 GUILayout.Label("Player height: " + player.Height.ToString("0.00") + "m", style);
                 GUILayout.Label("Guard: " + (player.IsGuarding ? "ON" : "off"), style);
             }

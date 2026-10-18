@@ -8,23 +8,33 @@ CHANGED:
   client-unity/ProjectHot/Assets/Hot/Sim/SimTypes.cs
   client-unity/ProjectHot/Assets/Hot/Sim/CombatSim.cs
   client-unity/ProjectHot/Assets/Hot/Editor/SimChecks.cs
+  client-unity/ProjectHot/Assets/Hot/Client/CombatSimBridge.cs
+  client-unity/ProjectHot/Assets/Hot/Client/PlayerMotor.cs (externalCombat/guard hooks)
+  client-unity/ProjectHot/Assets/Hot/Client/TargetDummy.cs (sim sync)
+  client-unity/ProjectHot/Assets/Hot/Client/HotHud.cs (sim resources)
+  client-unity/screenshots/u0-sim-bridge.png
 
 DECISIONS:
   - Hot.Sim is pure C# + System.Numerics, no UnityEngine; server/client can share it.
   - 30Hz tick; X/Y ground combat; 4 cores (Blade/Fist/Spear/Staff) with move-table modifiers.
   - One action at a time; damage at startup; cooldown/MP/ult validated in TryAction.
   - Guard/perfect guard (0.16s) and guard break implemented; light combo damage +8 per hit.
-  - Local Unity bridge is NOT wired yet; PlayerMotor still uses its own U0 attack logic.
+  - U1b `CombatSimBridge` now owns attacks/guard/damage/cooldowns/MP/ult;
+    PlayerMotor owns locomotion/animation only (externalCombat=true).
+  - Camera-relative movement stays in PlayerMotor; sim position is copied each frame.
+  - U1b input: C/X, Z+C/Z+X/Z+dir+C/Z+dir+X, Z+X+C; Space guard; 6 cycles core.
+  - Local U0 dummy view mirrors sim HP/alive.
 
 EVIDENCE:
   - Hot.Editor.SimChecks: 18 PASS
     movement, light damage 30, attack gating, guard 20%, perfect guard 0,
     blade/fist skill1 70/60, spear ranged, staff AoE/melee, ult resource/cost/damage,
     death + respawn.
-  - No Unity build needed for this core (pure C# checks under Editor).
+  - Unity build exit 0 after bridge; screenshot `u0-sim-bridge.png` shows core/HP/MP/guard/ult HUD.
+  - Core checks remain 18 PASS.
 
 RISKS:
-  - Not integrated with Unity transform/animator/HUD/dummy; next task must replace U0 damage path.
+  - PlayerMotor still owns locomotion/animation; sim does not own movement yet, so movement prediction/authority is split for U1b.
   - Hit detection is 1 target dummy + other players; no wall/height/vertical hits.
   - Knockback/guard formulas are simplified vs final docs; server validation not wired.
   - No network serialization; Fusion 2 integration later.

@@ -8,6 +8,7 @@ namespace Hot.Client
         public float hp = 5000f;
         public float respawnDelay = 2f;
         public Renderer bodyRenderer;
+        public bool externalControl;
 
         private float respawnAt = -1f;
         private Color baseColor = Color.white;
@@ -22,6 +23,7 @@ namespace Hot.Client
 
         public void TakeDamage(float amount)
         {
+            if (externalControl) return;
             if (hp <= 0f) return;
             hp = Mathf.Max(0f, hp - amount);
             StartCoroutine(Flash());
@@ -30,6 +32,13 @@ namespace Hot.Client
                 respawnAt = Time.time + respawnDelay;
                 transform.localScale = new Vector3(1f, 0.25f, 1f);
             }
+        }
+
+        public void SyncFromSim(float simHp, bool alive)
+        {
+            externalControl = true;
+            hp = simHp;
+            transform.localScale = alive ? Vector3.one : new Vector3(1f, 0.25f, 1f);
         }
 
         private System.Collections.IEnumerator Flash()
@@ -45,6 +54,7 @@ namespace Hot.Client
 
         private void Update()
         {
+            if (externalControl) return;
             if (hp <= 0f && respawnAt > 0f && Time.time >= respawnAt)
             {
                 hp = maxHp;

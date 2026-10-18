@@ -99,9 +99,6 @@ namespace Hot.Editor
                 "Assets/Hot/Data/WeaponProfiles/Sword2H.asset", "sword_2h", "双手剑",
                 38f, 0.58f, 2.8f, 1.35f, 95f, 0.90f, 3.1f, 1.45f);
             motor.weaponProfile = unarmed;
-            var loadout = player.AddComponent<CombatLoadoutTester>();
-            loadout.motor = motor;
-            loadout.profiles = new List<WeaponProfile> { unarmed, sword1h, sword2h };
 
             // CC0 KayKit placeholder character + animation states.
             var knightAsset = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Hot/Art/KayKit/Knight.fbx");
@@ -230,10 +227,16 @@ namespace Hot.Editor
 
             player.AddComponent<U0Capture>();
 
+            // U1b: Hot.Sim owns attacks/guard/damage; PlayerMotor owns locomotion/animation.
+            var bridge = player.AddComponent<CombatSimBridge>();
+            bridge.motor = motor;
+            bridge.dummyView = dummy;
+
             // HUD.
             var hud = player.AddComponent<HotHud>();
             hud.player = motor;
             hud.dummy = dummy;
+            hud.simBridge = bridge;
 
             // A few pillars for scale/readability.
             for (int i = 0; i < 4; i++)
