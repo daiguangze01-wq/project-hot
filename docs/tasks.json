@@ -713,7 +713,15 @@
       "status": "in_progress",
       "owner": "lead",
       "reviewer": "reviewer-a",
-      "write_scope": ["client-unity/", "docs/art/", "art/generation/"],
+      "write_scope": [
+        "client-unity/ProjectHot/Assets/Hot/Client/",
+        "client-unity/ProjectHot/Assets/Hot/Art/",
+        "client-unity/ProjectHot/Assets/StreamingAssets/",
+        "client-unity/ProjectHot/Assets/Scenes/",
+        "client-unity/HANDOFF-AVATAR.md",
+        "docs/art/",
+        "art/generation/"
+      ],
       "depends_on": ["TASK-080"],
       "req": ["REQ-VIS-002", "REQ-ART-001", "REQ-ART-002"],
       "acceptance": "1 个共享基础身体/骨架；hair/top/weapon 至少 3 槽可切换；共享 10 动作；1 槽 UGC 纹理测试；换装不破坏动画",
@@ -723,6 +731,26 @@
       "review_required": false,
       "review_ref": null,
       "notes": "ADR-013；U0 已接 4 槽 + 本地 UGC 测试；缺真实 base_body/hair/top"
+    },
+    {
+      "id": "TASK-082",
+      "title": "U1 Hot.Sim 纯 C# 战斗核心",
+      "status": "in_progress",
+      "owner": "lead",
+      "reviewer": "reviewer-a",
+      "write_scope": [
+        "client-unity/ProjectHot/Assets/Hot/Sim/",
+        "client-unity/ProjectHot/Assets/Hot/Editor/SimChecks.cs"
+      ],
+      "depends_on": ["TASK-080"],
+      "req": ["REQ-CBT-001", "REQ-TECH-001"],
+      "acceptance": "30Hz 纯 C# sim；4 核心；轻/重/4 技能/必杀；防御/完美格挡/破防；伤害/冷却/MP/死亡重生；SimChecks PASS",
+      "risk": "high",
+      "handoff_required": true,
+      "handoff": "client-unity/HANDOFF-SIM.md",
+      "review_required": false,
+      "review_ref": null,
+      "notes": "纯核心/检查完成；尚未接 Unity 表现层/Fusion"
     }
   ]
 }

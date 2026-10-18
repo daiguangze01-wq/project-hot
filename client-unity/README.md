@@ -32,6 +32,7 @@ client-unity/ProjectHot/Builds/U0/ProjectHot.exe
 Assets/
   Hot/
     Client/          # 相机/输入/移动/木桩/HUD（U0）
+    Sim/             # 纯 C# 战斗核心 Hot.Sim（U1a，未接表现层）
     Editor/          # Arena 场景生成、U0 Windows 构建
     Data/cores.json  # 4 核心数据（从 MVP 复制，U1 接入）
   Scenes/

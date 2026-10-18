@@ -91,7 +91,8 @@
 - [x] MVP 独立评审：[REV-071](mvp/review/REVIEW.md) + [follow-up](mvp/review/REVIEW-FOLLOWUP.md)：0B/0M/4 minor
 - [x] Unity U0：`Arena` 场景 + Windows 构建 + KayKit 占位角色/10 动作 + 相机相对移动/双击跑（人工手感通过）
 - [ ] Unity 模块化纸娃娃（TASK-081：4 槽 + 本地 UGC 测试已通过；缺真实 base_body/hair/top；ADR-013）
-- [ ] Fusion 2 联网 / Steam 构建（U2/U3）
+- [x] U1a Hot.Sim 纯 C# 战斗核心：30Hz/4 核心/防御/必杀；`SimChecks` 18 PASS
+- [ ] U1b Unity 表现层接线 / U2 Fusion 2 / U3 Steam 构建
 - [ ] open blockers：B6 真实键盘 QA（TASK-066，kit ready 等人工）、M0 引擎实测、赛季产能、REV-001 M-1/M-3、DR-001 items 1–13
 - [ ] run log 复盘完成（open blocker 关闭后）
 
