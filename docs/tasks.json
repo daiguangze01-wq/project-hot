@@ -710,7 +710,7 @@
     {
       "id": "TASK-081",
       "title": "模块化基础角色 + 装备槽原型（3D 纸娃娃）",
-      "status": "in_progress",
+      "status": "blocked",
       "owner": "lead",
       "reviewer": "reviewer-a",
       "write_scope": [
@@ -730,7 +730,7 @@
       "handoff": "client-unity/HANDOFF-AVATAR.md",
       "review_required": false,
       "review_ref": null,
-      "notes": "ADR-013；U0 已接 4 槽 + 本地 UGC 测试；缺真实 base_body/hair/top"
+      "notes": "ADR-013；U0 已接 4 槽 + 本地 UGC 测试；因 ADR-014 2D 样张暂停，3D 路径保留"
     },
     {
       "id": "TASK-082",
@@ -751,6 +751,29 @@
       "review_required": false,
       "review_ref": null,
       "notes": "核心 19 PASS；U1b bridge 已接；待全技能试玩/Fusion"
+    },
+    {
+      "id": "TASK-083",
+      "title": "2D 纸娃娃样张（base/hair/top/weapon 4 向）",
+      "status": "in_progress",
+      "owner": "lead",
+      "reviewer": "reviewer-a",
+      "write_scope": [
+        "client-unity/ProjectHot/Assets/Hot/Paperdoll/",
+        "client-unity/ProjectHot/Assets/Hot/Art/Paperdoll/",
+        "client-unity/HANDOFF-PAPERDOLL.md",
+        "docs/10-2D纸娃娃样张计划.md",
+        "art/generated/inbox/modular_avatar_01/"
+      ],
+      "depends_on": ["TASK-080"],
+      "req": ["REQ-VIS-002", "REQ-ART-003", "REQ-ART-004"],
+      "acceptance": "1 base + hair/top/weapon 分层；4 向 idle/walk；层排序/pivot；78px 可读；换装/UGC 样张",
+      "risk": "high",
+      "handoff_required": true,
+      "handoff": "client-unity/HANDOFF-PAPERDOLL.md",
+      "review_required": false,
+      "review_ref": null,
+      "notes": "ADR-014；PixelLab API 已验证；hair 仍需去脸/清理，场景未建"
     }
   ]
 }

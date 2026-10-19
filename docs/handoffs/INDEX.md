@@ -17,6 +17,7 @@
 | TASK-080 | [client-unity/HANDOFF.md](../../client-unity/HANDOFF.md) | Unity U0 |
 | TASK-081 | [client-unity/HANDOFF-AVATAR.md](../../client-unity/HANDOFF-AVATAR.md) | 纸娃娃/装备槽原型 |
 | TASK-082 | [client-unity/HANDOFF-SIM.md](../../client-unity/HANDOFF-SIM.md) | Hot.Sim + U1b |
+| TASK-083 | [client-unity/HANDOFF-PAPERDOLL.md](../../client-unity/HANDOFF-PAPERDOLL.md) | 2D 纸娃娃样张 |
 | 整体 | [HANDOFF-20261018.md](HANDOFF-20261018.md) | 当前项目交接总览 |
 
 ## 支持任务豁免

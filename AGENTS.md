@@ -9,7 +9,7 @@
 
 **保留《热血英豪》的「装备 = 招式 + 全键盘 ZXCV 读招」，把视角改成 2.5D 斜俯视，用 3D 低多边形 + 像素贴图呈现，做成 PC 优先、服务器权威、公平付费的动作 MMO。**
 
-当前阶段：**Unity 客户端原型 + 模块化美术管线**（`mvp/` Web 原型已可玩；Unity U0 已构建；ADR-013 模块化纸娃娃/装备槽进入原型；Fusion 2 与最终美术尚未开始）。
+当前阶段：**Unity U1 原型 + 2D 纸娃娃样张评估**（`mvp/` Web 原型已可玩；Unity U0/U1b 已构建；ADR-014 2D 纸娃娃样张进行中，ADR-013 3D 模块化暂停但保留；Fusion 2/Steam 尚未开始）。
 
 ---
 
@@ -281,8 +281,8 @@ skills/
 
 ## 18. 当前优先事项
 
-1. 做 **TASK-081 模块化纸娃娃原型**（统一基础身体 + 装备槽 + UGC 纹理；ADR-013/docs/09）。
-2. 按 [request-modular-avatar-01](art/generation/request-modular-avatar-01.md) 生成 base_body + 单件装备，不生成整只角色。
-3. Unity U1：`Hot.Sim` 规则移植 + 4 核心；U2：Fusion 2 双人房；U3：Steam 构建。
+1. 做 **TASK-083 2D 纸娃娃样张**（ADR-014；base/hair/top/weapon 4 向；独立 PaperdollSample 场景）。
+2. 样张通过后写新 ADR 取代 ADR-010；不通过则回 TASK-081 3D 模块化（ADR-013）。
+3. U1b 全技能试玩收尾；U2 Fusion 2 双人房；U3 Steam 构建。
 4. 关闭 B6、DR-001 items 1–13、赛季产能后，把 `docs/00`–`docs/07` 从 `draft` 更新为 `reviewed`。
 5. 所有新工作按 TASK / 写域 / handoff / 独立评审执行；禁止自审自批。

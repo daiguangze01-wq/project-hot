@@ -2,7 +2,7 @@
 
 > 2.5D 俯视角、全键盘 ZXCV、装备驱动的像素动作 MMO。原创 IP；PC/Steam 优先。
 
-当前阶段：**Unity 客户端原型 + 模块化美术管线**。`mvp/` Web 原型已可玩；Unity U0（Arena/相机/键盘/KayKit 占位动画）已构建并通过人工手感测试；模块化纸娃娃（统一基础身体 + 装备槽 + UGC 纹理）进入设计/原型（ADR-013/TASK-081）；Fusion 2 与最终美术资产尚未开始。
+当前阶段：**Unity U1 原型 + 2D 纸娃娃样张评估**。Web MVP 可玩；Unity U0/U1b 可玩（相机/输入/移动/Hot.Sim/防御）；3D 模块化纸娃娃（ADR-013/TASK-081）因 2D 样张（ADR-014/TASK-083）暂停；PixelLab API 已可用，2D 层资产在生成/清理；Fusion 2/Steam 尚未开始。
 
 ---
 
@@ -16,11 +16,12 @@
 | [docs/02-产品设计文档](docs/02-产品设计文档.md) | PRD：相机、全键盘、战斗、装备、MMO、商业化、路线图 |
 | [docs/03-技术设计文档](docs/03-技术设计文档.md) | TDD：Unity、输入、2.5D 联网、后端、数据、部署、成本、测试 |
 | [docs/04-3D像素美术风格指南](docs/04-3D像素美术风格指南.md) | 斜俯视剪影、参数、管线、预算、风格测试 |
-| [docs/05-关键决策记录（ADR）](docs/05-关键决策记录（ADR）.md) | 13 条架构决策索引（含 ADR-013 纸娃娃） |
+| [docs/05-关键决策记录（ADR）](docs/05-关键决策记录（ADR）.md) | 14 条架构决策索引（含 ADR-013/014 纸娃娃） |
 | [docs/06-AI原生开发与多Agent协作规范](docs/06-AI原生开发与多Agent协作规范.md) | 角色、生命周期、交接、评审、门禁、AI 风险、指标 |
 | [docs/07-需求与决策追踪矩阵](docs/07-需求与决策追踪矩阵.md) | REQ ↔ 设计 ↔ 任务 ↔ 测试 ↔ 验收 |
 | [docs/08-Unity客户端与Steam发布路线](docs/08-Unity客户端与Steam发布路线.md) | 正式 Unity 6.3 + Fusion 2 + Steam 路线；Web MVP 仅原型 |
 | [docs/09-角色与模块化装备系统](docs/09-角色与模块化装备系统.md) | 纸娃娃/基础模型/装备槽/共享动画/UGC 纹理架构 |
+| [docs/10-2D纸娃娃样张计划](docs/10-2D纸娃娃样张计划.md) | 2D 纸娃娃样张范围、复用/重做影响、验收门 |
 | [client-unity/README.md](client-unity/README.md) | Unity 6.3 工程/U0 构建说明（可直接打开） |
 | [docs/_research/camera-relative-movement.md](docs/_research/camera-relative-movement.md) | 2.5D 固定相机移动方向调研与修复记录 |
 | [docs/art/README.md](docs/art/README.md) | 美术资源管线、风格圣经、AI 提示词库、动作规格 |
@@ -78,7 +79,7 @@
 - [x] docs/02 PRD
 - [x] docs/03 TDD
 - [x] docs/04 美术
-- [x] docs/05 ADR（13 条，含 ADR-013 纸娃娃）
+- [x] docs/05 ADR（14 条，含 ADR-013/014 纸娃娃）
 - [x] docs/06 协作规范
 - [x] docs/07 追踪矩阵
 - [x] docs/metrics / backlog / QA 报告
@@ -90,8 +91,9 @@
 - [x] Web 可玩 MVP：`mvp/`（双开多人、全键盘、服务器权威；15/15 测试）
 - [x] MVP 独立评审：[REV-071](mvp/review/REVIEW.md) + [follow-up](mvp/review/REVIEW-FOLLOWUP.md)：0B/0M/4 minor
 - [x] Unity U0：`Arena` 场景 + Windows 构建 + KayKit 占位角色/10 动作 + 相机相对移动/双击跑（人工手感通过）
-- [ ] Unity 模块化纸娃娃（TASK-081：4 槽 + 本地 UGC 测试已通过；缺真实 base_body/hair/top；ADR-013）
-- [x] U1a Hot.Sim 纯 C# 战斗核心：30Hz/4 核心/防御/必杀；`SimChecks` 18 PASS
+- [ ] Unity 3D 模块化纸娃娃（TASK-081，blocked：ADR-014 2D 样张评估中；保留 3D 路径）
+- [ ] 2D 纸娃娃样张（TASK-083：PixelLab 已通；hair 待清理、场景未建；ADR-014）
+- [x] U1a Hot.Sim 纯 C# 战斗核心：30Hz/4 核心/防御/必杀；`SimChecks` 19 PASS
 - [x] U1b Unity 表现层接线：`CombatSimBridge` 驱动伤害/资源/HUD/木桩；PlayerMotor 只留移动/动画
 - [ ] U2 Fusion 2 / U3 Steam 构建
 - [ ] open blockers：B6 真实键盘 QA（TASK-066，kit ready 等人工）、M0 引擎实测、赛季产能、REV-001 M-1/M-3、DR-001 items 1–13
@@ -101,6 +103,6 @@
 
 ## 下一步
 
-1. 做 **TASK-081 模块化纸娃娃原型**：基础身体 + hair/top/weapon 3 槽 + 共享 10 动作 + 1 槽 UGC 纹理；见 [docs/09](docs/09-角色与模块化装备系统.md)。
-2. 用 [request-modular-avatar-01](art/generation/request-modular-avatar-01.md) 生成 **base_body + 单件装备**，不再生成整只角色。
+1. 做 **TASK-083 2D 纸娃娃样张**：清理 hair、生成 4 向 base/hair/top/weapon，建独立 PaperdollSample 场景；见 [docs/10](docs/10-2D纸娃娃样张计划.md)。
+2. 样张评审后决定 **2D 切换 vs 回 3D 模块化**；切换需新 ADR 取代 ADR-010，3D 路径回 TASK-081。
 3. Fusion 2 双人房/Steam 构建；关闭 B6、DR-001 items 1–13、赛季产能后，把 `docs/00`–`docs/07` 从 `draft` 更新为 `reviewed`。
